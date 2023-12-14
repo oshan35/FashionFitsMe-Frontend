@@ -1,12 +1,16 @@
 /* Footer.css */
+@import '../../../node_modules/typeface-manrope/manrope.css';
+
 
 .footer {
-    background-color:black;
-    height: 30%;                         /* should be changed*/
+    background-color:rgba(58, 58, 58, 1);
+    /* height: 441px;                     should be changed later   */
     width:100%;
     color: white;
-    padding:50px  50px;
+    padding:20px  50px 70px  130px;
     box-sizing: border-box;
+    display: flex;
+    flex-direction:column;
     
   }
   
@@ -14,15 +18,25 @@
     display: flex;
     flex-direction: row;
     align-items: center;
-    padding: 50px;
+    padding: 10px;
     flex-wrap: wrap; 
-    justify-content: space-around; 
+    justify-content: space-around;
+    height:80%; 
    
   }
   
   .top-row {
     display: flex;
     flex-direction: row;
+  }
+
+  .bottom-row{
+    display: flex;
+    flex-direction: column;
+    background-color: rgb(159, 45, 45);
+    height:20%; 
+   
+
   }
   
   .column {
@@ -34,7 +48,7 @@
   h3 {
     color: #fff;
     text-align: left;
-    font-family:"General Sans"; 
+    font-family: 'Manrope', sans-serif;
     
   }
   
@@ -57,7 +71,7 @@
     color: #ccc; 
     text-decoration: none;
     text-align: left;
-    font-family:"General Sans"; 
+    font-family: 'Manrope', sans-serif;
     font-size:"190px"
   }
   
@@ -67,21 +81,21 @@
   }
   
   
-@media screen and (max-width: 268px) {
-  .footer {
-      padding: 20px; 
-  }
+  @media screen and (max-width: 768px) {
+    .footer {
+        padding: 20px;
+    }
 
-  .content {
-      padding: 10px; 
-  }
+    .content {
+        padding: 10px;
+    }
 
-  .column {
-      flex: 0 0 100%; 
-      margin-bottom: 10px; 
-  }
+    .column {
+        flex: 0 0 100%;
+        margin-bottom: 10px;
+    }
 
-  ul li {
-      margin-bottom: 5px;
-  }
+    ul li {
+        margin-bottom: 5px;
+    }
 }

@@ -1,7 +1,9 @@
 import React from 'react';
 import { Layout } from 'antd';
 import './Footer.css';
-
+import FacebookImage from '../../asserts/Facebook.png';
+import InstagramImage from '../../asserts/Instagram.png';
+import TwitterImage from '../../asserts/TwitterX.png';
 const { Footer: AntFooter } = Layout;
 
 const Footer = () => {
@@ -29,7 +31,7 @@ const Footer = () => {
             <li><a href="/page2">Men's</a></li>
             <li><a href="/page2">Women's</a></li>
             <li><a href="/page2">Shop Latest</a></li>
-            {/* Add more list items as needed */}
+           
           </ul>
         </div>
         <div className="column">
@@ -66,6 +68,11 @@ const Footer = () => {
           </ul>
         </div>
        
+      </div>
+      <div className="bottom-part">
+      <img src={FacebookImage} width="64px" height="64px" />      
+      <img src={InstagramImage} width="64px" height="64px" />   
+      <img src={TwitterImage} width="64px" height="64px" />   
       </div>
     </AntFooter>
   );
