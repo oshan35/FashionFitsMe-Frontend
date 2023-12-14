@@ -1,0 +1,86 @@
+/* Footer.css */
+
+.footer {
+    background-color:black;
+    height: 30%;                         /* should be changed*/
+    width:100%;
+    color: white;
+    padding:50px  50px;
+    box-sizing: border-box;
+    
+  }
+  
+  .content {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    padding: 50px;
+    flex-wrap: wrap; 
+    justify-content: space-around; 
+    border-top: 1px solid #ccc;}
+  
+  .top-row {
+    display: flex;
+    flex-direction: row;
+  }
+  
+  .column {
+    flex: 1;
+    padding: 0 15px; 
+    text-align: left;
+  }
+  
+  h3 {
+    color: #fff;
+    text-align: left;
+    font-family:"General Sans"; 
+    
+  }
+  
+  ul {
+    list-style: none;
+    padding: 0;
+    text-align: left;
+    gap:20px;
+    margin-bottom: 30px;
+  }
+  
+  ul li {
+    margin-bottom: 5px;
+    text-align: left;
+    margin-bottom: 20px;
+    
+  }
+  
+  ul li a {
+    color: #ccc; 
+    text-decoration: none;
+    text-align: left;
+    font-family:"General Sans"; 
+    font-size:"190px"
+  }
+  
+  ul li a:hover {
+    color: #fff;
+    text-align: left;
+  }
+  
+  
+@media screen and (max-width: 268px) {
+  .footer {
+      padding: 20px; 
+  }
+
+  .content {
+      padding: 10px; 
+  }
+
+  .column {
+      flex: 0 0 100%; 
+      margin-bottom: 10px; 
+  }
+
+  ul li {
+      margin-bottom: 5px;
+  }
+}
