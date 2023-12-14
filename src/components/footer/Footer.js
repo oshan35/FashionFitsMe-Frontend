@@ -56,7 +56,7 @@ const Footer = () => {
 
 
         <div className="column">
-          <h3>Brands</h3>
+          <h3> </h3>
           <ul>
             <li><a href="/page1">Levis</a></li>
             <li><a href="/page2">Polo</a></li>

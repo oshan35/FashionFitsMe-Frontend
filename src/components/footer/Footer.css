@@ -17,7 +17,8 @@
     padding: 50px;
     flex-wrap: wrap; 
     justify-content: space-around; 
-    border-top: 1px solid #ccc;}
+   
+  }
   
   .top-row {
     display: flex;
