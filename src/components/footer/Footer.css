@@ -32,6 +32,7 @@
 
   .bottom-row{
     display: flex;
+    align-items: center;
     flex-direction: column;
     background-color: rgb(159, 45, 45);
     height:20%; 

@@ -4,7 +4,9 @@ import './Footer.css';
 import FacebookImage from '../../asserts/Facebook.png';
 import InstagramImage from '../../asserts/Instagram.png';
 import TwitterImage from '../../asserts/TwitterX.png';
+import {Flex} from 'antd';
 const { Footer: AntFooter } = Layout;
+
 
 const Footer = () => {
   return (
@@ -70,9 +72,11 @@ const Footer = () => {
        
       </div>
       <div className="bottom-part">
+      <Flex justify='center'>
       <img src={FacebookImage} width="64px" height="64px" />      
       <img src={InstagramImage} width="64px" height="64px" />   
       <img src={TwitterImage} width="64px" height="64px" />   
+      </Flex>
       </div>
     </AntFooter>
   );
