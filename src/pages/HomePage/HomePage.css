@@ -1,0 +1,99 @@
+.img1 {
+   
+    width: 50%; 
+    height: 100%; 
+  
+  }
+  .image1{
+    height:80vh;
+    background-image: url('../../asserts/imag1.png');
+    width:50%;
+    background-size: cover;
+  }
+  .image2{
+    height:80vh;
+    background-image: url('../../asserts/img4.png');
+    width:50%;
+    background-size: cover;
+  }
+  .image3{
+    height:80vh;
+    background-image: url('../../asserts/img3.png');
+    width:100%;
+    background-size: cover;
+  }
+  .image4{
+    height:80vh;
+    background-image: url('../../asserts/img4.png');
+    width:50%;
+    background-size: cover;
+  }
+  .image5{
+    height:80vh;
+    background-image: url('../../asserts/img5.png');
+    width:50%;
+    background-size: cover;
+  }
+  .grid-item{
+    height: 100%;
+    width:auto;
+    
+    
+  }
+
+  .img3{
+    width:100%;
+    
+    
+  }
+  .grid-container{
+    gap:1px;
+    height: auto;
+  }
+.brand-item{
+    width:auto;
+    height:100%;
+}
+
+.brands{
+   
+    justify-content: space-between;
+    flex-wrap: wrap; 
+}
+@media screen and (max-width: 768px) {
+    /* Adjust styles for smalle screens */
+    .brands-item {
+        width:auto;
+    }
+    .brands{
+        justify-content: space-between;
+        flex-wrap: wrap; 
+    }
+    /* Update image sizes */
+    .img1 {
+        width: 100%;
+        height: auto;
+    }
+
+    .grid-item {
+        height: 50vh;
+    }
+
+    .grid-container {
+        display: flex;
+        flex-direction: column;
+        gap: 3px;
+        overflow-x: hidden;
+    }
+
+    /* Update responsive background image sizes */
+    .image1,
+    .image2,
+    .image3,
+    .image4,
+    .image5 {
+        height: 50vh; /* Adjust the height as needed */
+        width: 100%;
+    }
+}
+    
