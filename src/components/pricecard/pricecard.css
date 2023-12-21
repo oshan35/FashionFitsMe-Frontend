@@ -1,0 +1,17 @@
+.price-container{
+    width: 265px;
+    height: 473px;
+    background-color: brown;
+}
+
+.pictuer{
+    height: 80%;
+    width: auto;
+    background-color: aqua;
+}
+
+.price-name{
+    height: 20%;
+    width: auto;
+    background-color: antiquewhite;
+}
