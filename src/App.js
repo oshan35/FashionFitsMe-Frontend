@@ -4,17 +4,13 @@ import './App.css';
 import Navbar from './components/navbar/navbar';
 
 import Footer from './components/footer/Footer';
-
+import HomePage from './pages/HomePage/Homepage';
 
 function App() {
   return (
-<<<<<<< HEAD
     <div className="App">
     <Footer/>
     </div>
-=======
-    <Navbar/>
->>>>>>> b5c28d4 (navbar component)
   );
 }
 
