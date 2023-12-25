@@ -3,12 +3,11 @@
   height: auto;
   width:100%; 
   position: relative;
-
   padding: 2px;
 }
 .nav-container{
   width: 100%; 
- height:auto;
+  height:auto;
   position: absolute;
   top: 0;
   left: 0;
@@ -48,35 +47,33 @@
 
   }
   .image3{
-    height:615px;
+    height:585px;
     background-image: url('../../asserts/img3.png');
     width:100%;
-    background-size: contain;
+    background-size: cover;
     background-position: center;
     background-repeat: no-repeat;
    
   }
   .image4{
-    height:619px;
+    height:585px;
     background-image: url('../../asserts/img4.png');
     width:50%;
-    background-size: contain;
+    background-size: cover;
     background-position: center;
     background-repeat: no-repeat;
   }
   .image5{
-    height:619px;
+    height:585px;
     background-image: url('../../asserts/img5.png');
     width:50%;
-    background-size: contain;
+    background-size: cover;
     background-position: center;
     background-repeat: no-repeat;
   }
   .grid-item{
     height: 100%;
     width:100%;
-    
-    
   }
 
   .img3{
@@ -160,7 +157,7 @@
   .image3,
   .image4,
   .image5{
-    height: 300px;
+    height: 270px;
     background-size: cover;
 
   }
