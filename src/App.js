@@ -9,7 +9,7 @@ import HomePage from './pages/HomePage/Homepage';
 function App() {
   return (
     <div className="App">
-    <Footer/>
+    <HomePage/>
     </div>
   );
 }
