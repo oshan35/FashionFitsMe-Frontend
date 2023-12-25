@@ -1,9 +1,15 @@
 .grid-container{
   gap:1px;
   height: auto;
+<<<<<<< HEAD
   width:1516px; 
   position: relative;
   gap:5px;
+=======
+  width:100%; 
+  position: relative;
+
+>>>>>>> 74c3566f2fa20e656049629457b15372c953e037
   padding: 2px;
 }
 .nav-container{
@@ -24,7 +30,10 @@
 .grid-item1 {
   height:663px;
   position: relative;
+<<<<<<< HEAD
   
+=======
+>>>>>>> 74c3566f2fa20e656049629457b15372c953e037
 }
 
 
@@ -39,43 +48,77 @@
     background-image: url('../../asserts/imag1.jpg');
     width:55%;
     background-size: cover;
+<<<<<<< HEAD
+=======
+
+>>>>>>> 74c3566f2fa20e656049629457b15372c953e037
   }
   .image2{
     height:663px;
     background-image: url('../../asserts/img4.png');
     width:45%;
     background-size: cover;
+<<<<<<< HEAD
+=======
+
+>>>>>>> 74c3566f2fa20e656049629457b15372c953e037
   }
   .image3{
     height:615px;
     background-image: url('../../asserts/img3.png');
     width:100%;
+<<<<<<< HEAD
     background-size: cover;
+=======
+    background-size: contain;
+    background-position: center;
+    background-repeat: no-repeat;
+   
+>>>>>>> 74c3566f2fa20e656049629457b15372c953e037
   }
   .image4{
     height:619px;
     background-image: url('../../asserts/img4.png');
     width:50%;
+<<<<<<< HEAD
     background-size: cover;
+=======
+    background-size: contain;
+    background-position: center;
+    background-repeat: no-repeat;
+>>>>>>> 74c3566f2fa20e656049629457b15372c953e037
   }
   .image5{
     height:619px;
     background-image: url('../../asserts/img5.png');
     width:50%;
+<<<<<<< HEAD
     background-size: cover;
   }
   .grid-item{
     height: 100%;
     width:auto;
     gap:5px;
+=======
+    background-size: contain;
+    background-position: center;
+    background-repeat: no-repeat;
+  }
+  .grid-item{
+    height: 100%;
+    width:100%;
+>>>>>>> 74c3566f2fa20e656049629457b15372c953e037
     
     
   }
 
   .img3{
     width:100%;
+<<<<<<< HEAD
     
     
+=======
+>>>>>>> 74c3566f2fa20e656049629457b15372c953e037
   }
   
 
@@ -105,6 +148,7 @@
     
 }
 
+<<<<<<< HEAD
 .brand1{
   height:168px;
   background-image: url('../../asserts/image 1.png');
@@ -166,6 +210,24 @@
   background-image: url('../../asserts/image10.png');
   width:279px;
   background-size: cover;
+=======
+.brand-icon {
+  width: 150px; 
+  height: 150px; 
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.brand-icon img {
+  max-width: 100%;
+  max-height: 100%;
+}
+
+.brand-image {
+  width: 100%; 
+  height: auto; 
+>>>>>>> 74c3566f2fa20e656049629457b15372c953e037
 }
 
 
@@ -193,23 +255,45 @@
   .image4,
   .image5 {
     width: 100%;
+<<<<<<< HEAD
     
+=======
+>>>>>>> 74c3566f2fa20e656049629457b15372c953e037
   }
 
  
   
+<<<<<<< HEAD
   .imgage3 {
     width: 700px;
+=======
+  .image3,
+  .image4,
+  .image5{
+    height: 300px;
+>>>>>>> 74c3566f2fa20e656049629457b15372c953e037
     background-size: cover;
 
   }
   .grid-item-brands{
+<<<<<<< HEAD
     height:auto; 
+=======
+    height:auto;
+    align-items:center;
+
+>>>>>>> 74c3566f2fa20e656049629457b15372c953e037
   }
   /* Example of adjusting brand items for smaller screens */
   .brands-top,
   .brands-bottom {
     flex-direction: column;
+<<<<<<< HEAD
+=======
+    align-items: center;
+    width: 100%;
+    padding: 0px;
+>>>>>>> 74c3566f2fa20e656049629457b15372c953e037
   }
 
   /* Adjust other specific styles as needed */
