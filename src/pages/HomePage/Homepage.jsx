@@ -4,10 +4,7 @@ import './HomePage.css';
 import { Card } from 'antd';
 import Navbar from '../../components/navbar/navbar';
 import Footer from '../../components/footer/Footer';
-import img1 from '../../asserts/imag1.png'
-import img3 from '../../asserts/img3.png'
-import img4 from '../../asserts/img4.png'
-import img5 from '../../asserts/img5.png'
+
 import image1 from '../../asserts/image 1.png'
 import image2 from '../../asserts/image 2.png'
 import image3 from '../../asserts/image 3.png'
@@ -22,15 +19,17 @@ import image10 from '../../asserts/image10.png'
 const HomePage = () => {
     return (
 
-        <>
+    <>
         <Flex vertical="vertical" className="grid-container">
+            <Flex  className="nav-container">
 
-            <Navbar/>
-            <Flex horizontal="horizontal" className="grid-item">
+                <Navbar className="nav-item"/>
+                </Flex>
+                <Flex horizontal="horizontal" className="grid-item1">
             <Flex  className="image1"> </Flex>
             <Flex  className="image2"> </Flex>
+         
             </Flex>
-
             <Flex horizontal="horizontal" className="grid-item">
             <Flex  className="image3"> </Flex>
             
@@ -39,22 +38,31 @@ const HomePage = () => {
             <Flex  className="image4"> </Flex>
             <Flex  className="image5"> </Flex>
             </Flex>
-            <Flex vertical="vertical ">
+            <Flex vertical="vertical " className="grid-item-brands">
 
-            <Flex horizontal="horizontal" className="brands">
-            <img src={image1}  className='brand-item'/> 
-            <img src={image2}  className='brand-item'/> 
-            <img src={image3}  className='brand-item'/> 
-            <img src={image4}  className='brand-item'/> 
-            <img src={image5}  className='brand-item'/> 
-            </Flex>
-            <Flex horizontal="horizontal" className="brands">
-            <img src={image6}  className='brand-item'/> 
-            <img src={image7}  className='brand-item'/> 
-            <img src={image8}  className='brand-item'/> 
-            <img src={image9}  className='brand-item'/> 
-            <img src={image10}  className='brand-item'/> 
-            </Flex>
+                <Flex horizontal="horizontal" className="brands-top">
+                <Flex  className="brand10"> </Flex>
+                   
+                    <Flex  className="brand8"> </Flex>
+                    <Flex  className="brand7"> </Flex>
+                    <Flex  className="brand2"> </Flex>
+                    <Flex  className="brand3"> </Flex>
+                    
+            
+                </Flex>
+                <Flex horizontal="horizontal" className="brands-bottom">
+                    <Flex  className="brand4"> </Flex>
+                    <Flex  className="brand5"> </Flex>
+                    <Flex  className="brand9"> </Flex>
+                    <Flex  className="brand1"> </Flex>
+                    <Flex  className="brand6"> </Flex>
+                   
+                   
+                 
+                   
+            
+
+                </Flex>
             </Flex>
             <Flex className="grid-item"></Flex>
             <Footer/>
