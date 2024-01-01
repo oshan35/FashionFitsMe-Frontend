@@ -1,17 +1,6 @@
 .grid-container{
   gap:1px;
   height: auto;
-<<<<<<< HEAD
-<<<<<<< HEAD
-  width:1516px; 
-  position: relative;
-  gap:5px;
-=======
-  width:100%; 
-  position: relative;
-
->>>>>>> 74c3566f2fa20e656049629457b15372c953e037
-=======
   width:100%; 
   position: relative;
   padding: 2px;
@@ -34,13 +23,6 @@
 .grid-item1 {
   height:663px;
   position: relative;
-<<<<<<< HEAD
-<<<<<<< HEAD
-  
-=======
->>>>>>> 74c3566f2fa20e656049629457b15372c953e037
-=======
->>>>>>> 74c3566 (mobile responsive media css changes)
 }
 
 
@@ -55,28 +37,14 @@
     background-image: url('../../asserts/imag1.jpg');
     width:55%;
     background-size: cover;
-<<<<<<< HEAD
-<<<<<<< HEAD
-=======
 
->>>>>>> 74c3566f2fa20e656049629457b15372c953e037
-=======
-
->>>>>>> 74c3566 (mobile responsive media css changes)
   }
   .image2{
     height:663px;
     background-image: url('../../asserts/img4.png');
     width:45%;
     background-size: cover;
-<<<<<<< HEAD
-<<<<<<< HEAD
-=======
 
->>>>>>> 74c3566f2fa20e656049629457b15372c953e037
-=======
-
->>>>>>> 74c3566 (mobile responsive media css changes)
   }
   .image3{
     height:585px;
@@ -86,10 +54,6 @@
     background-position: center;
     background-repeat: no-repeat;
    
-<<<<<<< HEAD
->>>>>>> 74c3566f2fa20e656049629457b15372c953e037
-=======
->>>>>>> 74c3566 (mobile responsive media css changes)
   }
   .image4{
     height:585px;
@@ -98,7 +62,6 @@
     background-size: cover;
     background-position: center;
     background-repeat: no-repeat;
->>>>>>> 74c3566 (mobile responsive media css changes)
   }
   .image5{
     height:585px;
@@ -115,14 +78,6 @@
 
   .img3{
     width:100%;
-<<<<<<< HEAD
-<<<<<<< HEAD
-    
-    
-=======
->>>>>>> 74c3566f2fa20e656049629457b15372c953e037
-=======
->>>>>>> 74c3566 (mobile responsive media css changes)
   }
   
 
@@ -152,78 +107,6 @@
     
 }
 
-<<<<<<< HEAD
-<<<<<<< HEAD
-.brand1{
-  height:168px;
-  background-image: url('../../asserts/image 1.png');
-  width:237px;
-  background-size: cover;
-=======
-.brand-icon {
-  width: 150px; 
-  height: 150px; 
-  display: flex;
-  justify-content: center;
-  align-items: center;
->>>>>>> 74c3566 (mobile responsive media css changes)
-}
-
-.brand-icon img {
-  max-width: 100%;
-  max-height: 100%;
-}
-<<<<<<< HEAD
-.brand3{
-  height:144px;
-  background-image: url('../../asserts/image 3.png');
-  width:171px;
-  background-size: cover;
-}
-.brand4{
-  height:202px;
-  background-image: url('../../asserts/image 4.png');
-  width:233px;
-  background-size: cover;
-}
-.brand5{
-  height:190px;
-  background-image: url('../../asserts/under_armour.jpeg');
-  width:239px;
-  background-size: cover;
-}
-.brand6{
-  margin-top: 20px;
-  margin-right: 30px;
-  height:156px;
-  background-image: url('../../asserts/image 6.png');
-  width:214px;
-  background-size: cover;
-}
-.brand7{
-  height:83px;
-  background-image: url('../../asserts/image7.png');
-  width:252px;
-  background-size: cover;
-}
-.brand8{
-  height:91px;
-  background-image: url('../../asserts/image8.png');
-  width:135px;
-  background-size: cover;
-}
-.brand9{
-  height:168px;
-  background-image: url('../../asserts/image9.png');
-  width:185px;
-  background-size: cover;
-}
-.brand10{
-  height:128px;
-  background-image: url('../../asserts/image10.png');
-  width:279px;
-  background-size: cover;
-=======
 .brand-icon {
   width: 150px; 
   height: 150px; 
@@ -236,16 +119,10 @@
   max-width: 100%;
   max-height: 100%;
 }
-=======
->>>>>>> 74c3566 (mobile responsive media css changes)
 
 .brand-image {
   width: 100%; 
   height: auto; 
-<<<<<<< HEAD
->>>>>>> 74c3566f2fa20e656049629457b15372c953e037
-=======
->>>>>>> 74c3566 (mobile responsive media css changes)
 }
 
 
@@ -273,24 +150,10 @@
   .image4,
   .image5 {
     width: 100%;
-<<<<<<< HEAD
-<<<<<<< HEAD
-    
-=======
->>>>>>> 74c3566f2fa20e656049629457b15372c953e037
-=======
->>>>>>> 74c3566 (mobile responsive media css changes)
   }
 
  
   
-<<<<<<< HEAD
-<<<<<<< HEAD
-  .imgage3 {
-    width: 700px;
-=======
-=======
->>>>>>> 74c3566 (mobile responsive media css changes)
   .image3,
   .image4,
   .image5{
@@ -299,36 +162,17 @@
 
   }
   .grid-item-brands{
-<<<<<<< HEAD
-<<<<<<< HEAD
-    height:auto; 
-=======
     height:auto;
     align-items:center;
 
->>>>>>> 74c3566f2fa20e656049629457b15372c953e037
-=======
-    height:auto;
-    align-items:center;
-
->>>>>>> 74c3566 (mobile responsive media css changes)
   }
   /* Example of adjusting brand items for smaller screens */
   .brands-top,
   .brands-bottom {
     flex-direction: column;
-<<<<<<< HEAD
-<<<<<<< HEAD
-=======
     align-items: center;
     width: 100%;
     padding: 0px;
->>>>>>> 74c3566f2fa20e656049629457b15372c953e037
-=======
-    align-items: center;
-    width: 100%;
-    padding: 0px;
->>>>>>> 74c3566 (mobile responsive media css changes)
   }
 
   /* Adjust other specific styles as needed */

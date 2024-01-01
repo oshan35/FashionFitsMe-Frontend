@@ -1,5 +1,7 @@
 .App {
   text-align: center;
+  margin-top: 50px;
+  margin-left: 40px;
 }
 
 .App-logo {
@@ -23,6 +25,8 @@
   font-size: calc(10px + 2vmin);
   color: white;
 }
+
+
 
 .App-link {
   color: #61dafb;
