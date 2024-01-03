@@ -1,0 +1,66 @@
+.bag-container{
+    gap:15px;
+    height: auto;
+    width:auto; 
+    flex-direction: column;
+    padding: 20px;
+  }
+  .bag-nav-container{
+    width: 100%; 
+    height:auto;
+    
+ 
+  
+  
+  
+  }
+  .paragraph{
+    margin-top: 32px;
+    font-size: small;
+  }
+  .nav-item {
+    height: 80px;
+    width: 100%; 
+  }
+  .bag-item {
+    margin-top: 70px;
+    
+    gap:10px;
+    
+  }
+  
+  .shopping-card{
+    gap:10px;
+
+  }
+  .header{
+    margin-top: 25px;
+  }
+  .card-item{
+    gap:20px;
+    justify-content: space-between;
+    
+  }
+.bill-item{
+    width: 100%;
+   padding-right: 150px;
+ 
+}
+  
+  /* Media query for screens up to 768px */
+  @media screen and (max-width: 768px) {
+    .grid-container {
+      width: 100%; /* Adjust container width for smaller screens */
+    }
+  
+    /* Change horizontal flex layouts to vertical */
+    .grid-item1,
+    .grid-item,
+    .grid-item-brands {
+      flex-direction: column;
+    }
+  
+  }
+  
+  
+      

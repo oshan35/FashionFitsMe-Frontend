@@ -1,0 +1,20 @@
+.summary-container{
+    height: 358px;
+    width: 409px;
+    gap:20px;
+}
+
+.summary-item{
+    justify-content: space-between;
+}
+.horizontal-line {
+    border: none;
+    border-top: 1px solid black; 
+}
+.bill{
+    justify-content: end;
+}
+.bill-item{
+    justify-content: space-between;
+    width: 100%;
+}
