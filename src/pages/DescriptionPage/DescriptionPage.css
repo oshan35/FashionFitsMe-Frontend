@@ -1,0 +1,42 @@
+.main-container{
+   margin-top: 80px;
+   height: 100vh;
+}
+.description-container{
+    height: 70%;
+}
+
+.image-container{
+    width: 50%;
+    height: 100%;
+}
+
+.details-container{
+    width: 40%;
+}
+
+.content-image{
+
+    margin-top: 10%;
+    
+}
+
+.price-tag{
+    margin-top: 5%;
+}
+
+.size-bar{
+    margin: 5%;
+}
+
+.buy-options{
+    height: 100%;
+    width: 100%;
+}
+.option-btn{
+    height: 30%;
+    width: 50%;
+}
+
+
+
