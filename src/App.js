@@ -6,17 +6,19 @@ import Navbar from './components/navbar/navbar';
 import Footer from './components/footer/Footer';
 import HomePage from './pages/HomePage/Homepage';
 import PriceCard from './components/pricecard/pricecard';
+import DescriptionPage from './pages/DescriptionPage/DescriptionPage';
 
 import TestImage from './asserts/test-image.jpeg'
 
 function App() {
   return (
     <>
-    <PriceCard
-      picture={TestImage}
-      itemName={"Test"}
-      itemPrice={2000}
+    <DescriptionPage
+      image={TestImage}
+      name ={"HERO SEAMLESS CROP TOP - NAVY"}
+      price={"LKR 3141.00"}
     />
+    
     </>
   );
 }
