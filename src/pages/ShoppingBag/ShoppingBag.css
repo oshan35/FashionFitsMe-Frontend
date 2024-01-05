@@ -31,6 +31,8 @@
   
   .shopping-card{
     gap:10px;
+    
+    width: 60%;
 
   }
   .header{
@@ -43,8 +45,13 @@
   }
 .bill-item{
     width: 100%;
-   padding-right: 150px;
+    padding-right: 80px;
+   
+  
  
+}
+.bill{
+  margin-top: 10px;
 }
   
   /* Media query for screens up to 768px */

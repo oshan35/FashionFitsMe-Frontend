@@ -9,7 +9,7 @@ const ClothCard = ({ picture, itemDescription }) => {
     return (
         <>
             <Flex horizontal='horizontal' className='main-container'>
-                <Flex className='picture' justify='center'>
+                <Flex className='picture' >
                     {picture && <img src={picture} alt="Price Card"/>}
                 </Flex>
                 <Flex vertical='vertical' justify='center' className='no-picture'>

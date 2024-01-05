@@ -1,7 +1,7 @@
 .summary-container{
-    height: 358px;
+    height: 350px;
     width: 409px;
-    gap:20px;
+    gap:5px;
 }
 
 .summary-item{

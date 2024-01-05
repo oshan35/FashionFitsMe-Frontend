@@ -14,10 +14,11 @@ function App() {
 
   return (
     <div className="App">
-    
+    {/* <HomePage/> */}
     <ShoppingBag/>
     </div>
   );
+
 }
 
 export default App;

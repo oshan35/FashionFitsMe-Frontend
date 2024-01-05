@@ -45,8 +45,10 @@ const ShoppingBag = () => {
                     <ClothCard picture={testimg1} itemDescription={item}/>
                 
                 </Flex>
-                <Flex  className="bill"> </Flex>
-            <OrderSummary subTotal={"5000"} orderInformation={orderInfo}/>
+                <Flex className='bill' > 
+                <OrderSummary  subTotal={"5000"} orderInformation={orderInfo}/>
+
+                </Flex>
             </Flex>
             <h1 className='header'> YOU MAY ALSO LIKE</h1>
             <Flex horizontal="horizontal" className="card-item">
