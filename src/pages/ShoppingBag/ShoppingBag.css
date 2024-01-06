@@ -1,5 +1,5 @@
 .bag-container{
-    gap:15px;
+    gap:5px;
     height: auto;
     width:auto; 
     flex-direction: column;
@@ -33,34 +33,55 @@
     gap:10px;
     
     width: 60%;
+    height: fit-content;
 
   }
   .header{
     margin-top: 25px;
+    align-self: center;
+    font-size: 34px;
   }
   .card-item{
     gap:20px;
     justify-content: space-between;
+    margin-left: 70px;
+    margin-right: 50px;
     
   }
 .bill-item{
     width: 100%;
     padding-right: 80px;
-   
   
  
 }
-.bill{
-  margin-top: 10px;
+.bill {
+  flex-direction: column;
+  align-items: center;
+  padding: 20px; 
 }
+
+.checkout-btn {
+  background-color: #7F7C7C;
+  color: white;
+  font-weight: bold;
+  border: none;
+  border-radius: 0;
+  padding: 10px 20px;
+  text-align: center;
+  width:100%;
+  height:50px;
+  font-size: 22px;
+
+
+}
+
   
   /* Media query for screens up to 768px */
   @media screen and (max-width: 768px) {
     .grid-container {
-      width: 100%; /* Adjust container width for smaller screens */
+      width: 100%; 
     }
   
-    /* Change horizontal flex layouts to vertical */
     .grid-item1,
     .grid-item,
     .grid-item-brands {

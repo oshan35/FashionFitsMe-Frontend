@@ -24,7 +24,7 @@ const ClothCard = ({ picture, itemDescription }) => {
                                         defaultValue="Qty"
                                         className='select'
                                         bordered
-                                        style={{ width: 80, borderRadius: 4 }}
+                                        style={{ width: 80, borderRadius: 4 , height:30 }}
                                         dropdownStyle={{ borderRadius: 4 }}
                                     >
                                         <Option value="1">1</Option>
