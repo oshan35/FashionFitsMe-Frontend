@@ -67,6 +67,7 @@ const App = () => {
         <Input
           prefix={<UserOutlined className="site-form-item-icon" />}
           placeholder="Userame"
+          type="email"
         />
       </Form.Item>
 
