@@ -1,0 +1,182 @@
+.grid-container4{
+    display: flex;
+    padding: 30px;
+
+}
+
+  
+
+.grid-cell1 {
+    width: 900px;
+    margin: 10px;
+    padding: 10px;
+    font-weight: bold;
+    height: 100px;
+    border: 1px solid #ccc; 
+    background-color: #F0EEEE; 
+
+  }
+
+  .grid-cell2 {
+    height: 250px; 
+    padding: 10px;
+    font-weight: bold;
+    width: 550px;
+    margin: 10px;
+    border: 1px solid #ccc; 
+    background-color: #F0EEEE; 
+
+  }
+
+  .grid-cell3 {
+    height: 250px;
+    padding: 10px;
+    font-weight: bold;
+    width: 330px;
+    margin: 10px;
+    border: 1px solid #ccc; 
+    background-color: #F0EEEE; 
+
+  }
+
+  .grid-cell4 {
+    width: 400px;
+    height: 370px;
+    margin: 10px;
+    border: 1px solid #ccc; 
+    background-color: #F0EEEE;
+    display: grid; 
+    grid-template-columns: 0.2fr 1fr; 
+    grid-template-rows: 1fr 1fr 1fr 1fr; 
+  }
+  
+  .grid-cell4 > div {
+    padding: 10px;
+    margin-left: 20px;
+    background-color: #f0f0f0; 
+  }
+
+
+  .grid-cell4 > div:nth-child(2) {
+    color: #6B6B6B; 
+    font-size: 16px; 
+    font-weight: bold;
+  }
+  .grid-cell4 > div:nth-child(4) {
+    color: #6B6B6B; 
+    font-size: 16px; 
+    font-weight: bold;
+  }
+  .grid-cell4 > div:nth-child(6) {
+    color: #6B6B6B; 
+    font-size: 16px; 
+    font-weight: bold;
+  }
+  .grid-cell4 > div:nth-child(8) {
+    color: #6B6B6B;  
+    font-size: 16px; 
+    font-weight: bold;
+  }
+
+  .grid-cell4 > div:nth-child(1) {
+    background-image: url('D:\5th Semester\Software Group Project\FashionFitsMe-Frontend\src\asserts\icons8-verify-50.png'); 
+    background-repeat: no-repeat;
+    background-size: 30px;
+    align-items:center;
+    justify-content: center;
+    margin-top: 20px; 
+
+  }
+  
+  .grid-cell4 > div:nth-child(3) {
+    background-image: url('D:\5th Semester\Software Group Project\FashionFitsMe-Frontend\src/asserts/icons8-delivery-50.png'); 
+    background-repeat: no-repeat;
+    background-size: 30px;
+    margin-top: 20px; 
+
+  }
+
+  .grid-cell4 > div:nth-child(5) {
+    background-image: url('D:\5th Semester\Software Group Project\FashionFitsMe-Frontend\src\asserts\icons8-pending-50.png'); 
+    background-repeat: no-repeat;
+    background-size: 30px;
+    margin-top: 20px; 
+
+  }
+
+  .grid-cell4 > div:nth-child(7) {
+    background-image: url('D:\5th Semester\Software Group Project\FashionFitsMe-Frontend\src\asserts\icons8-cancel-50.png'); 
+    background-repeat: no-repeat;
+    background-size: 30px;
+    margin-top: 20px; 
+
+  }
+
+  .grid-cell5 {
+    flex: 1;
+    height: 210px;
+    padding: 20px;
+    align-items: center;
+    justify-content: center; 
+    margin: 10px;
+    border: 1px solid #ccc; 
+    background-color: #F0EEEE; 
+    border-radius: 50%;
+    background-repeat: no-repeat;
+    background-position: center;
+}
+
+.image1 {
+  background-image: url('../../asserts/image\ 4.png'); 
+  background-size: contain;
+}
+.image2 {
+  background-image: url('../../asserts/image8.png'); 
+  background-size: contain;
+
+}
+.image3 {
+  background-image: url('../../asserts/image\ 6.png'); 
+  background-size: contain;
+}
+.image4 {
+  background-image: url('../../asserts/image7.png'); 
+  background-size: contain;
+}
+.image5 {
+  background-image: url('../../asserts/image10.png'); 
+  background-size: contain;
+}
+
+  .grid-cell6 {
+    width: 1070px;
+    padding: 10px;
+    height: 350px;
+    margin: 10px;
+    border: 1px solid #ccc; 
+    background-color: #F0EEEE; 
+    font-weight: bold;
+
+  }
+
+  .grid-cell7 {
+    width: 400px;
+    padding: 10px;
+    height: 350px;
+    margin: 10px;
+    border: 1px solid #ccc; 
+    background-color: #F0EEEE; 
+    font-weight: bold;
+
+  }
+
+  .grid-cell8 {
+    height: 350px;
+    padding: 10px;
+    margin: 10px;
+    border: 1px solid #ccc; 
+    background-color: #F0EEEE; 
+    font-weight: bold;
+
+  }
+  
