@@ -78,15 +78,20 @@
   
   /* Media query for screens up to 768px */
   @media screen and (max-width: 768px) {
-    .grid-container {
-      width: 100%; 
-    }
-  
-    .grid-item1,
-    .grid-item,
-    .grid-item-brands {
-      flex-direction: column;
-    }
+    .bill-item{
+     flex-direction: column;
+     justify-content: space-between;
+     background-color: aqua;
+    
+   
+  }
+  .shopping-card{
+    gap:10px;
+    
+    width: 100%;
+    height: fit-content;
+
+  }
   
   }
   

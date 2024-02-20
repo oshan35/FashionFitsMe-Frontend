@@ -1,0 +1,56 @@
+.rectangular-button {
+    border: 1px solid #000;
+    height: 45px;
+    border-radius: 0%;
+    
+  }
+  .catalogue-container{
+    gap:5px;
+    height: auto;
+    width:auto; 
+    flex-direction: column;
+    padding: 2px;
+    background-color: aqua;
+  }
+  .catlogue-nav-container{
+    width: 100%; 
+    height:auto;
+  
+  }
+  .nav-item {
+    height: 80px;
+    width: 100%; 
+  }
+  .filter-container{
+    width: 100%; 
+    height:auto;
+    background-color: rgb(255, 0, 8);
+    margin-top: 80px;
+    margin-left: 1230px;
+
+  }
+  .button-content {
+    display: flex; 
+    vertical-align: center; 
+    margin-bottom: 5px;
+  }
+  .button-text {
+    flex: 1; 
+    margin-bottom: 3px;
+    
+    font-size: 20px;
+  }
+  .button-image {
+    height:30px;
+    margin-right: 5px;
+  }
+  .page-bar-container{
+    
+    
+  }
+  .cloth-cards-container{
+    padding: 20px;
+    background-color: blueviolet;
+    justify-items: center;
+    gap:3px
+  }

@@ -35,6 +35,8 @@ const OrderSummary = ({subTotal,orderInformation}) => {
                  <p>Estimated Total</p>
                  <p>{subTotal}</p>
             </Flex>
+           
+
 
 
 
