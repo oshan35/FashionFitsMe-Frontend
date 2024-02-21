@@ -2,7 +2,9 @@ import React from 'react';
 import {Flex, Button} from 'antd';
 import './pricecard.css'
 
-const PriceCard = ({ picture, itemName, itemPrice }) => {
+const PriceCard = ({itemData}) => {
+    const { picture, itemName, itemPrice } = itemData;
+    console.log(itemName);
     return (
         <>
             <Flex vertical='vertical' className='price-container'>
