@@ -54,7 +54,7 @@ const FilterModal = ({ visible, onCancel }) => {
           Apply Filter
         </Button>,
       ]}
-      style={{ borderRadius: 0 , height: '1000px' }} // Apply dynamic height
+      style={{ borderRadius: 0 , height: '1000px' ,backgroundColor:'gray'}} // Apply dynamic height
       className="FilterModal"
     >
       {/* Categories dropdown */}
