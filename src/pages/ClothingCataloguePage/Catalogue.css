@@ -10,7 +10,7 @@
     width:auto; 
     flex-direction: column;
     padding: 2px;
-    background-color: aqua;
+    /* background-color: aqua; */
   }
   .catlogue-nav-container{
     width: 100%; 
@@ -24,7 +24,7 @@
   .filter-container{
     width: 100%; 
     height:auto;
-    background-color: rgb(255, 0, 8);
+    /* background-color: rgb(255, 0, 8); */
     margin-top: 80px;
     margin-left: 1230px;
 
@@ -50,7 +50,7 @@
   }
   .cloth-cards-container{
     padding: 20px;
-    background-color: blueviolet;
+    /* background-color: blueviolet; */
     justify-items: center;
     gap:3px
   }

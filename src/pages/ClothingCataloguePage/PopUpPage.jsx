@@ -1,5 +1,6 @@
 import React, { useState, useRef } from 'react';
 import { Modal, Button, Select } from 'antd';
+
 import './PopUpPage.css'; // Import any necessary CSS
 
 const { Option } = Select;
@@ -41,22 +42,23 @@ const FilterModal = ({ visible, onCancel }) => {
     const newHeight = averageOptionHeight * extractedOptions.length + padding;
     setModalHeight(newHeight);
   };
-  
+  const TitleSection = () => (
+    <div className="custom-modal-title-section">
+      <span className="custom-modal-title" >Filter By</span>
+    </div>
+  );
 
   return (
     <Modal
-    title={<span className="custom-modal-title">Filter By</span>}
-      visible={visible}
-      onCancel={onCancel}
-      footer={[
-       
-        <Button key="apply" className='ApplyButton' onClick={onCancel}>
-          Apply Filter
-        </Button>,
-      ]}
-      style={{ borderRadius: 0 , height: '1000px' ,backgroundColor:'gray'}} // Apply dynamic height
-      className="FilterModal"
-    >
+    title={<span style={{ fontSize: '35px', color: 'black'}} className='custom-modal-title-section'>Filter By</span>}
+  visible={visible}
+  onCancel={onCancel}
+  footer={[
+    <Button key="apply" className='ApplyButton' onClick={onCancel}>
+      Apply Filter
+    </Button>,
+  ]}
+>
       {/* Categories dropdown */}
       <div className="filter-modal-div">
         <Select

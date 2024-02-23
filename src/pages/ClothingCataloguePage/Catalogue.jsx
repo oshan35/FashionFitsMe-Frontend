@@ -13,70 +13,67 @@ const Catalogue = ({ onClick }) => {
     const [filterModalVisible, setFilterModalVisible] = useState(false);
     const cardsPerPage = 4;
     const rowsPerPage = 9;
-    ///////////////////////////////////////////////////////////
-
-//     const item = {
-//         itemName: 'FAVORITE STRIPE T-SHIRT',
-//         itemColour: 'Classic Pink Multi ',
-//         itemSize: 'xxs',
-//         inStock:'2'
-//     };
-//     const products = [];
-//   for (let i = 0; i < 140; i++) {
     
-//     const itemDescription = {
-//       itemName: `Item ${i + 1}`,
-//       itemColour: 'Test Colour',
-//       itemSize: 'Test Size',
-//       inStock: 10,
-//       itemPrice: "$1000"
-//     };
-//     products.push({ id: i + 1, picture:testimg2, itemPrice: "$1000",itemName: `Item ${i + 1}`, });
-//   }
-  /////////////////////////////////////////////////////////////////
+   
+  
+  
+
     useEffect(() => {
+      const fetchProducts = async () => {
+        try {
+          const response = await fetch('http://localhost:5000/product_shopping_cart/Cart001');
+          if (!response.ok) {
+            throw new Error('Failed to fetch products');
+          }
+          const cartProducts = await response.json();
+          console.log('Cart products:', cartProducts);
+          setProducts(cartProducts); 
+    
+          const productImagePromises = cartProducts.map(product => fetchProductImages(product.productId));
+          const productImages = await Promise.all(productImagePromises);
+          console.log('Product images:', productImages);
+    
+          const imageMap = {};
+          productImages.forEach(({ productId, data }) => {
+            if (data.length > 0) {
+              imageMap[productId] = data[0]; // Set the first image only
+            }
+          });
+    
+          console.log('Product image map:', imageMap);
+          if (Object.keys(imageMap).length > 0) {
+            setProductImages(imageMap);
+          } else {
+            console.error('No product images found.');
+          }
+
+        } catch (error) {
+          console.error('Error fetching products:', error);
+        }
+      };
+      
+      const fetchProductImages = async (productId) => {
+        try {
+          const response = await fetch(`http://localhost:5000/product-images/getImage/${productId}`);
+          if (!response.ok) {
+            throw new Error(`Failed to fetch image data for product ${productId}`);
+          }
+          const data = await response.json();
+          console.log('Product image data for', productId, ':', data);
+          
+          return { productId, data}; // Return an object with productId and imageData
+        } catch (error) {
+          console.error('Error fetching product image:', error);
+          return { productId, data: null }; 
+        }
+      };
+      
+      
       fetchProducts();
-    }, []); 
-    useEffect(() => {
-      fetchProductImages();
+      
     }, []); 
   
-    const fetchProducts = async () => {
-      try {
-        const response = await fetch('http://localhost:5000/product_shopping_cart/Cart001');
-        if (!response.ok) {
-          throw new Error('Failed to fetch products');
-        }
-        const data = await response.json();
-        setProducts(data); 
-      } catch (error) {
-        console.error('Error fetching products:', error);
-      }
-    };
 
-    const fetchProductImages = async () => {
-      try {
-        const response = await fetch('http://localhost:5000/product-images/getImage/p07');
-        if (!response.ok) {
-          throw new Error('Failed to fetch products');
-        }
-        const data = await response.json();
-        console.log('data:', data);
-
-        const imageMap = {};
-        data.forEach(image => {
-            imageMap[image.product.productId] = image.imageData;
-            console.log('Product ID Image:', image.product.productId);
-        });
-        // Print keys
-        Object.keys(imageMap).forEach(key => {
-          console.log('Product ID:', key);
-      });
-        setProductImages(imageMap);
-      } catch (error) {
-        console.error('Error fetching products:', error);
-      }
-    };
   
     const indexOfLastProduct = currentPage * cardsPerPage * rowsPerPage;
     const indexOfFirstProduct = indexOfLastProduct - cardsPerPage * rowsPerPage;
@@ -117,10 +114,11 @@ const Catalogue = ({ onClick }) => {
         <Flex className="cloth-cards-container" wrap="wrap" justify="center">
         {products.slice((currentPage - 1) * cardsPerPage * rowsPerPage, currentPage * cardsPerPage * rowsPerPage).map((product) => (
             <PriceCard
-                key={product.productId} 
-                picture={`data:image/jpeg;base64, ${productImages[product.productId]}`} 
-                itemName={product.productName}
-                itemPrice={product.price}
+            itemData={{
+              picture: `data:image/jpeg;base64, ${productImages[product.productId]}`,
+              itemName: product.productName,
+              itemPrice: product.price
+          }}
             />
           ))}
         </Flex>
