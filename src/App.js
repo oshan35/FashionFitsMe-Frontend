@@ -8,17 +8,20 @@ import HomePage from './pages/HomePage/Homepage';
 import PriceCard from './components/pricecard/pricecard';
 import DescriptionPage from './pages/DescriptionPage/DescriptionPage';
 
-import TestImage from './asserts/test-image.jpeg'
+import TestImage from './asserts/TestImage-Price-card.jpeg'
 
 function App() {
+  const itemData = {
+    image: TestImage, 
+    name: 'Example Item Name Example Item Name Example Item Name Example Item Name Example Item Name Example Item Name Example Item Name',
+    price: '100',
+  
+  };
   return (
     <>
     <DescriptionPage
-      image={TestImage}
-      name ={"HERO SEAMLESS CROP TOP - NAVY"}
-      price={"LKR 3141.00"}
+      
     />
-    
     </>
   );
 }
