@@ -12,7 +12,7 @@ const DescriptionPage = () => {
     
     const [itemData, setItemData] = useState({
         image: TestImage,
-        name:'Example Item Name',
+        name:'Example Item NameExample Item Name Example Item Name Example Item Name Example Item Name Example Item Name',
         price:'100',
         sizes: ['S', 'M', 'L', 'XL'],
         colors: ['Green', 'Blue', 'Red'],
@@ -44,7 +44,7 @@ const DescriptionPage = () => {
 
             <Navbar/>
             <Flex vertical="vertical" className="main-container">
-                <Flex horizontal="horizontal" justify="space-around" className="description-container">
+                <Flex wrap="wrap" gap="small" className="description-container">
                     <Flex horizontal="horizontal" className="image-container" justify="center" align="center">
                         <Flex className="main-image">
                             <img src={image} className="content-image"/>
