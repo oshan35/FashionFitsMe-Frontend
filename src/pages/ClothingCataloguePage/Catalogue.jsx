@@ -5,10 +5,10 @@ import Navbar from '../../components/navbar/navbar';
 import Footer from '../../components/footer/Footer';
 import filterSortImage from '../../asserts/filter_image.jpeg'
 import PriceCard from '../../components/pricecard/pricecard';
-import testimg2 from '../../asserts/TOMMY hIGLFIGER1.jpeg'
 import FilterModal from './PopUpPage';
 const Catalogue = ({ onClick }) => {
     const [products, setProducts] = useState([]);
+    const [productImage, setProductImages] = useState([]);
     const [currentPage, setCurrentPage] = useState(1);
     const [filterModalVisible, setFilterModalVisible] = useState(false);
     const cardsPerPage = 4;
@@ -37,15 +37,35 @@ const Catalogue = ({ onClick }) => {
     useEffect(() => {
       fetchProducts();
     }, []); 
+    useEffect(() => {
+      fetchProductImages();
+    }, []); 
   
     const fetchProducts = async () => {
       try {
-        const response = await fetch('your_api_endpoint_here');
+        const response = await fetch('http://localhost:5000/product_shopping_cart/Cart001');
         if (!response.ok) {
           throw new Error('Failed to fetch products');
         }
         const data = await response.json();
         setProducts(data); 
+      } catch (error) {
+        console.error('Error fetching products:', error);
+      }
+    };
+
+    const fetchProductImages = async () => {
+      try {
+        const response = await fetch('http://localhost:5000/product-images/getImage/p05');
+        if (!response.ok) {
+          throw new Error('Failed to fetch products');
+        }
+        const data = await response.json();
+        const imageMap = {};
+        data.forEach(image => {
+            imageMap[image.productId] = image.imageData[0];
+        });
+        setProductImages(imageMap);
       } catch (error) {
         console.error('Error fetching products:', error);
       }
@@ -90,10 +110,10 @@ const Catalogue = ({ onClick }) => {
         <Flex className="cloth-cards-container" wrap="wrap" justify="center">
         {products.slice((currentPage - 1) * cardsPerPage * rowsPerPage, currentPage * cardsPerPage * rowsPerPage).map((product) => (
             <PriceCard
-                key={product.id} 
-                picture={product.picture} 
-                itemName={product.itemName}
-                itemPrice={product.itemPrice}
+                key={product.productId} 
+                picture={`data:image/jpeg;base64, ${productImage.imageData}`} 
+                itemName={product.productName}
+                itemPrice={product.price}
             />
           ))}
         </Flex>
