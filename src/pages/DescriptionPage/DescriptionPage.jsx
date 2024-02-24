@@ -4,6 +4,8 @@ import Footer from '../../components/footer/Footer';
 import './DescriptionPage.css';
 import React, {useEffect, useState} from "react";
 import TestImage from '../../asserts/TestImage-Price-card.jpeg'
+import TestImage2 from '../../asserts/test-image.jpeg'
+import TestImage3 from '../../asserts/test-image.jpeg'
 
 
 const DescriptionPage = () => {
@@ -13,10 +15,11 @@ const DescriptionPage = () => {
         name:'Example Item Name',
         price:'100',
         sizes: ['S', 'M', 'L', 'XL'],
-        colors: ['Green', 'Blue', 'Red']
+        colors: ['Green', 'Blue', 'Red'],
+        image_colors: {'Green':TestImage, 'Blue':TestImage2, 'Red': TestImage3}
     });
 
-    const {image, name, price, sizes, colors} = itemData;
+    const {image, name, price, sizes, colors, image_colors} = itemData;
 
     useEffect(() => {
         fetch('your-backend-endpoint')
@@ -31,6 +34,11 @@ const DescriptionPage = () => {
           })); 
     }, []);
 
+    const handleColorClick = (color) => {
+        const newImage = image_colors[color];
+        setItemData({ ...itemData, image: newImage });
+    };
+
     return (
         <>  
 
@@ -41,9 +49,19 @@ const DescriptionPage = () => {
                         <Flex className="main-image">
                             <img src={image} className="content-image"/>
                         </Flex>
-                        <Flex className="options">
-                            
-
+                        <Flex  vertical="vertical"  className="options">
+                            {colors.map((color, index) => (
+                                    <Flex key={index} className="color-option" onClick={() => handleColorClick(color)}>
+                                        <Button
+                                            className="color-preview"
+                                            style={{
+                                                backgroundImage: `url(${image_colors[color]})`,
+                                                backgroundSize: 'cover',
+                                                backgroundPosition: 'center',
+                                            }}
+                                        />
+                                    </Flex>
+                                ))}
                         </Flex>
                         
                     </Flex>
@@ -81,7 +99,6 @@ const DescriptionPage = () => {
                     Test
                 </Flex>
             </Flex>              
-  
         </>
     );
 }
