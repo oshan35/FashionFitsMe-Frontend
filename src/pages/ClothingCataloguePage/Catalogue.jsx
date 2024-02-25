@@ -8,7 +8,7 @@ import PriceCard from '../../components/pricecard/pricecard';
 import FilterModal from './PopUpPage';
 const Catalogue = ({ onClick }) => {
     const [products, setProducts] = useState([]);
-    const [productImage, setProductImages] = useState([]);
+    const [productImages, setProductImages] = useState([]);
     const [currentPage, setCurrentPage] = useState(1);
     const [filterModalVisible, setFilterModalVisible] = useState(false);
     const cardsPerPage = 4;
@@ -56,15 +56,22 @@ const Catalogue = ({ onClick }) => {
 
     const fetchProductImages = async () => {
       try {
-        const response = await fetch('http://localhost:5000/product-images/getImage/p05');
+        const response = await fetch('http://localhost:5000/product-images/getImage/p07');
         if (!response.ok) {
           throw new Error('Failed to fetch products');
         }
         const data = await response.json();
+        console.log('data:', data);
+
         const imageMap = {};
         data.forEach(image => {
-            imageMap[image.productId] = image.imageData[0];
+            imageMap[image.product.productId] = image.imageData;
+            console.log('Product ID Image:', image.product.productId);
         });
+        // Print keys
+        Object.keys(imageMap).forEach(key => {
+          console.log('Product ID:', key);
+      });
         setProductImages(imageMap);
       } catch (error) {
         console.error('Error fetching products:', error);
@@ -111,7 +118,7 @@ const Catalogue = ({ onClick }) => {
         {products.slice((currentPage - 1) * cardsPerPage * rowsPerPage, currentPage * cardsPerPage * rowsPerPage).map((product) => (
             <PriceCard
                 key={product.productId} 
-                picture={`data:image/jpeg;base64, ${productImage.imageData}`} 
+                picture={`data:image/jpeg;base64, ${productImages[product.productId]}`} 
                 itemName={product.productName}
                 itemPrice={product.price}
             />
