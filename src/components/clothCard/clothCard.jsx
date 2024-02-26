@@ -1,8 +1,8 @@
 import React from 'react';
 import {Flex, Button} from 'antd';
-import './clothCard.css'
+import './ClothCard.css'
 import { Select } from 'antd';
-const ClothCard = ({ picture, itemDescription }) => {
+const ClothCard = ({  itemDescription }) => {
 
     const { Option } = Select;
     
@@ -10,7 +10,7 @@ const ClothCard = ({ picture, itemDescription }) => {
         <>
             <Flex horizontal='horizontal' className='main-container'>
                 <Flex className='picture' >
-                    {picture && <img src={picture} alt="Price Card"/>}
+                    {itemDescription.picture && <img src={itemDescription.picture} alt="Price Card"/>}
                 </Flex>
                 <Flex vertical='vertical' justify='center' className='no-picture'>
                     <Flex vertical='vertical' justify='center' className='top-part'>

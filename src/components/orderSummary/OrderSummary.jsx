@@ -4,11 +4,11 @@ import './OrderSummary.css';
 import { Card } from 'antd';
 import Navbar from '../../components/navbar/navbar';
 import Footer from '../../components/footer/Footer';
-import ClothCard from '../../components/clothCard/clothCard';
+import ClothCard from '../clothCard/ClothCard';
 import PriceCard from '../../components/pricecard/pricecard'
 import testimg from '../../asserts/76J4405_IYI_FNT________________________________.jpeg'
 
-const OrderSummary = ({subTotal,orderInformation}) => {
+const OrderSummary = ({orderInformation}) => {
     
    
     return (
@@ -33,7 +33,7 @@ const OrderSummary = ({subTotal,orderInformation}) => {
             
             <Flex horizontal="horizontal" className="summary-item">
                  <p>Estimated Total</p>
-                 <p>{subTotal}</p>
+                 <p>{orderInformation.subTotal}</p>
             </Flex>
            
 

@@ -12,12 +12,9 @@ const Catalogue = ({ onClick }) => {
     const [currentPage, setCurrentPage] = useState(1);
     const [filterModalVisible, setFilterModalVisible] = useState(false);
     const cardsPerPage = 4;
-    const rowsPerPage = 9;
+    const rowsPerPage = 1;
     
-   
-  
-  
-
+    
     useEffect(() => {
       const fetchProducts = async () => {
         try {
