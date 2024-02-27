@@ -7,11 +7,15 @@ import Footer from '../../components/footer/Footer';
 import ClothCard from '../../components/clothCard/ClothCard';
 import PriceCard from '../../components/pricecard/pricecard'
 import OrderSummary from '../../components/orderSummary/OrderSummary';
-const ShoppingBag = (cartId) => {
+const ShoppingBag = ({cartId}) => {
     const [clothCards, setClothCards] = useState([]);
     const [products, setProducts] = useState([]);
     const [productImages, setProductImages] = useState([]);
     const [orderInformation,setOrderInformation]=useState([]);
+    const [productInfo,setProductInfo]=useState([]);
+    const [priceCardsData, setPriceCardsData] = useState([]);
+    const [orderInfo, setOrderInfo] = useState({ subTotal: '', shipping: '' });
+
 
     // Function to fetch cloth card data from the API
     const fetchClothCardData = async () => {
@@ -28,7 +32,6 @@ const ShoppingBag = (cartId) => {
         }
     };
 
-    const [priceCardsData, setPriceCardsData] = useState([]);
 
     useEffect(() => {
         // Fetch data from API
@@ -94,7 +97,7 @@ const ShoppingBag = (cartId) => {
         };
 
         function fetchTotals(cartId) {
-          fetch(`/api/shopping-cart/totals?cartId=${cartId}`)
+          fetch(`http://localhost:5000/product_shopping_cart/totals/${cartId}`)
               .then(response => {
                   if (!response.ok) {
                       throw new Error('Unable to fetch totals');
@@ -102,12 +105,10 @@ const ShoppingBag = (cartId) => {
                   return response.json();
               })
               .then(data => {
-                  // Handle the response data here
-                  console.log(data);
+                  console.log('orserSummary data',data);
                   setOrderInformation(data);
               })
               .catch(error => {
-                  // Handle error
                   console.error('Error fetching totals:', error);
               });
       }
@@ -116,25 +117,9 @@ const ShoppingBag = (cartId) => {
         fetchProducts();
         fetchTotals(cartId);
         
-      }, []); 
+      }, []);
 
 
-
-
-
-    const [orderInfo, setOrderInfo] = useState({ subTotal: '', shipping: '' });
-
-    useEffect(() => {
-        // Fetch data from API
-        fetch('YOUR_ORDER_API_ENDPOINT')
-        .then(response => response.json())
-        .then(data => {
-            setOrderInfo(data); // Assuming data is an object with subTotal and shipping properties
-        })
-        .catch(error => {
-            console.error('Error fetching order info:', error);
-        });
-    }, []);
 
 
     useEffect(() => {
@@ -152,7 +137,7 @@ const ShoppingBag = (cartId) => {
             </Flex>
             <Flex horizontal="horizontal" className="bag-item">
                  <h1>SHOPPING BAG </h1>
-                 <p className="paragraph">(2 items)</p>
+                 <p className="paragraph">({products.length} items)</p>
 
             </Flex>
             
@@ -163,6 +148,10 @@ const ShoppingBag = (cartId) => {
                         itemDescription={{
                             picture: `data:image/jpeg;base64, ${productImages[product.productId]}`,
                             itemName: product.productName,
+                            itemColour:productInfo.itemColour,
+                            itemColour:productInfo.itemColour,
+                            itemSize:productInfo.itemSize,
+                            inStock:productInfo.inStock
                             
                         }}/>
                     ))}
@@ -171,8 +160,9 @@ const ShoppingBag = (cartId) => {
                 </Flex>
                 <div className='bill'>
                     {/* Havent passed data for ESTIMATED TOTAL */}
-                    <OrderSummary orderInformation={{subTotal: orderInformation.total_amount,
-                                                    shipping :orderInformation.discount_amount}} />                   
+                    <OrderSummary orderInformation={{subTotal: orderInformation.totalAmount,
+                                                    discount:orderInformation.discountAmount,
+                                                    estimatedTotal:orderInformation.estimatedTotal}} />                   
                 <button className="checkout-btn">GO TO CHECKOUT</button>
                 </div>
             </Flex>

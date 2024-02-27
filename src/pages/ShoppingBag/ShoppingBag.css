@@ -3,7 +3,7 @@
     height: auto;
     width:auto; 
     flex-direction: column;
-    padding: 20px;
+    padding: 30px;
   }
   .bag-nav-container{
     width: 100%; 
@@ -16,7 +16,7 @@
   }
   .paragraph{
     margin-top: 32px;
-    font-size: small;
+    font-size: 15px;
   }
   .nav-item {
     height: 80px;
@@ -30,10 +30,11 @@
   }
   
   .shopping-card{
-    gap:0px;
-    
+    gap:10px;
+    /* background-color: aqua; */
     width: 60%;
     height: fit-content;
+    margin-left: 50px;
 
   }
   .header{
@@ -51,7 +52,7 @@
 .bill-item{
     width: 100%;
     padding-right: 80px;
-  background-color: aqua;
+  background-color: white;
  
 }
 .bill {

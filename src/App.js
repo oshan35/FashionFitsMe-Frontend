@@ -22,12 +22,11 @@ function App() {
 
   return (
     <div className="App">
-      {/* <ShoppingBag/> */}
+      {/* <ShoppingBag cartId={'Cart001'}/> */}
     {/* <HomePage/> */}
-    {/* <Catalogue/> */}
-    <ClothCard itemDescription={itemDescription} />
-    <ClothCard itemDescription={itemDescription} />
-    <ClothCard itemDescription={itemDescription} />
+    <Catalogue/>
+    {/* <ClothCard itemDescription={itemDescription} /> */}
+
    {/* <DescriptionPage/> */}
     </div>
   );

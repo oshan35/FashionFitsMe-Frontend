@@ -69,9 +69,17 @@ const FilterModal = ({ visible, onCancel }) => {
           bordered={false}
           ref={dropdownRefs.categories}
         >
-          <Option value="category1">Category 1</Option>
-          <Option value="category2">Category 2</Option>
-          <Option value="category3">Category 3</Option>
+          <Option value="Jeans">Jeans</Option>
+          <Option value="Pants">Pants</Option>
+          <Option value="Polos">Polos</Option>
+          <Option value="Shirts">Shirts</Option>
+          <Option value="Shorts">Shorts</Option>
+          <Option value="T-shirts">T-Shirts</Option>
+          
+
+
+
+
         </Select>
       </div>
 

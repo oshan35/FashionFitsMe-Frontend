@@ -22,8 +22,8 @@ const OrderSummary = ({orderInformation}) => {
                 <p>{orderInformation.subTotal}</p>
             </Flex>
             <Flex horizontal="horizontal" className="summary-item">
-                <p>Shipping</p>
-                <p>{orderInformation.shipping}</p>
+                <p>Discount</p>
+                <p>{orderInformation.discount}</p>
             </Flex>
             <Flex horizontal="horizontal" className="summary-item">
                 <p>Tax</p>
@@ -33,7 +33,7 @@ const OrderSummary = ({orderInformation}) => {
             
             <Flex horizontal="horizontal" className="summary-item">
                  <p>Estimated Total</p>
-                 <p>{orderInformation.subTotal}</p>
+                 <p>{orderInformation.estimatedTotal}</p>
             </Flex>
            
 
