@@ -1,6 +1,5 @@
 import { Flex, Button, InputNumber } from "antd";
 import Navbar from '../../components/navbar/navbar';
-import Footer from '../../components/footer/Footer';
 import './DescriptionPage.css';
 import React, {useEffect, useState} from "react";
 import TestImage from '../../asserts/TestImage-Price-card.jpeg'

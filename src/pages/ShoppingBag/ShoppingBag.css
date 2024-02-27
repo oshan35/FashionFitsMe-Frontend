@@ -30,7 +30,7 @@
   }
   
   .shopping-card{
-    gap:10px;
+    gap:0px;
     
     width: 60%;
     height: fit-content;
@@ -42,8 +42,8 @@
     font-size: 34px;
   }
   .card-item{
-    gap:20px;
-    justify-content: space-between;
+    gap:0px;
+    justify-content:flex-start; 
     margin-left: 70px;
     margin-right: 50px;
     
@@ -51,7 +51,7 @@
 .bill-item{
     width: 100%;
     padding-right: 80px;
-  
+  background-color: aqua;
  
 }
 .bill {

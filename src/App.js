@@ -11,14 +11,21 @@ import testimg from './asserts/76J4405_IYI_FNT________________________________.j
 import ShoppingBag from './pages/ShoppingBag/ShoppingBag';
 import DescriptionPage from './pages/DescriptionPage/DescriptionPage';
 function App() {
+  const itemDescription = {
+    itemName: 'Shirt',
+    itemColour: 'Blue',
+    itemSize: 'Medium',
+    inStock: 10,
+    picture: testimg // Replace with actual image path
+  };
 
-  
 
   return (
     <div className="App">
+      <ShoppingBag/>
     {/* <HomePage/> */}
     {/* <Catalogue/> */}
-   < ShoppingBag/>
+    {/* <ClothCard itemDescription={itemDescription} /> */}
    {/* <DescriptionPage/> */}
     </div>
   );

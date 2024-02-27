@@ -8,11 +8,11 @@ const ClothCard = ({  itemDescription }) => {
     
     return (
         <>
-            <Flex horizontal='horizontal' className='main-container'>
+            <Flex horizontal='horizontal' className='main-container' style={{ height: '200px' }}>
                 <Flex className='picture' >
                     {itemDescription.picture && <img src={itemDescription.picture} alt="Price Card"/>}
                 </Flex>
-                <Flex vertical='vertical' justify='center' className='no-picture'>
+                <Flex vertical='vertical'  className='no-picture'>
                     <Flex vertical='vertical' justify='center' className='top-part'>
                         
                             <Flex vertical='vertical' justify='center' className='container'>
@@ -43,11 +43,9 @@ const ClothCard = ({  itemDescription }) => {
                                         {itemDescription.inStock > 0 ? `Only ${itemDescription.inStock} left in stock` : 'Out of stock'} | Ships in 1-2 business days
                                     </p>
                                     <p className='shipping-info'></p>
-                                </Flex>
-                               
+                                </Flex>                              
                                 
                             </Flex>
-                            
                         
                     </Flex>
                         <Flex horizontal='horizontal' className='bottom-part'>
