@@ -27,15 +27,11 @@
     margin-left: auto;
 }
 
-.main-container{
+.clothcard-container{
      /* height:50px; */
     width:550px;
     /* gap:80px; */
-background-color: rgb(153, 161, 161);
-
-
-    
-
+    background-color: rgb(153, 161, 161);
 }
 
 .picture{
