@@ -15,20 +15,20 @@ import image7 from '../../asserts/image7.png'
 import image8 from '../../asserts/image8.png'
 import image9 from '../../asserts/image9.png'
 import image10 from '../../asserts/image10.png'
-
+import Button from '../../components/ShiningButton/ShiningButton'
 const HomePage = () => {
     return (
 
     <>
         <Flex vertical="vertical" className="grid-container">
             <Flex  className="nav-container">
-
                 <Navbar className="nav-item"/>
             </Flex>
             <Flex horizontal="horizontal" className="grid-item1">
                 <Flex  className="image1"> </Flex>
-                <Flex  className="image2"> </Flex>
-            
+                <Flex justify='center' align='center' className="image2"> 
+                   <Button>Try Our Virtual Fit On With FashionFits Me  </Button>
+                </Flex>
             </Flex>
             <Flex horizontal="horizontal" className="grid-item">
                 <Flex  className="image3"> </Flex>
