@@ -11,9 +11,45 @@ const Catalogue = ({ onClick }) => {
     const [productImages, setProductImages] = useState([]);
     const [currentPage, setCurrentPage] = useState(1);
     const [filterModalVisible, setFilterModalVisible] = useState(false);
+    const [filteredProducts, setFilteredProducts] = useState([]); 
+    const [selectedFilters, setSelectedFilters] = useState({
+      categories: null,
+      size: null,
+      price: null,
+      colour: null,
+      gender: null,
+      brand: null,
+  });
+
     const cardsPerPage = 4;
     const rowsPerPage = 1;
-    
+
+    const updateSelectedFilters = (filters) => {
+      setSelectedFilters(filters);
+      console.log('Selected filteres',selectedFilters);
+
+  };
+    // Function to apply filters and update filtered products
+    const applyFilters = () => {
+      const filtered = products.filter(product => {
+          return (
+              (!selectedFilters.categories || product.category === selectedFilters.categories) &&
+              (!selectedFilters.size || product.size === selectedFilters.size) &&
+              (!selectedFilters.brand || product.brand === selectedFilters.brand)&&
+              (!selectedFilters.price || product.price === selectedFilters.price)&&
+              (!selectedFilters.gender || product.gender === selectedFilters.gender)&&
+              (!selectedFilters.colour || product.colour === selectedFilters.colour)
+             
+          );
+      });
+
+      // Set filtered products
+      setFilteredProducts(filtered);
+      console.log('filtered data',filteredProducts);
+
+      // Hide filter modal
+      setFilterModalVisible(false);
+  };
     
     useEffect(() => {
       const fetchProducts = async () => {
@@ -23,12 +59,12 @@ const Catalogue = ({ onClick }) => {
             throw new Error('Failed to fetch products');
           }
           const cartProducts = await response.json();
-          console.log('Cart products:', cartProducts);
+          //console.log('Cart products:', cartProducts);
           setProducts(cartProducts); 
     
           const productImagePromises = cartProducts.map(product => fetchProductImages(product.productId));
           const productImages = await Promise.all(productImagePromises);
-          console.log('Product images:', productImages);
+         // console.log('Product images:', productImages);
     
           const imageMap = {};
           productImages.forEach(({ productId, data }) => {
@@ -37,7 +73,7 @@ const Catalogue = ({ onClick }) => {
             }
           });
     
-          console.log('Product image map:', imageMap);
+         // console.log('Product image map:', imageMap);
           if (Object.keys(imageMap).length > 0) {
             setProductImages(imageMap);
           } else {
@@ -56,7 +92,7 @@ const Catalogue = ({ onClick }) => {
             throw new Error(`Failed to fetch image data for product ${productId}`);
           }
           const data = await response.json();
-          console.log('Product image data for', productId, ':', data);
+         // console.log('Product image data for', productId, ':', data);
           
           return { productId, data}; // Return an object with productId and imageData
         } catch (error) {
@@ -131,8 +167,13 @@ const Catalogue = ({ onClick }) => {
         <Flex  >
             <Footer/>
         </Flex>
-        <FilterModal visible={filterModalVisible} onCancel={handleFilterModalCancel} />
-
+        <FilterModal
+                visible={filterModalVisible}
+                onCancel={() => setFilterModalVisible(false)}
+                updateSelectedFilters={updateSelectedFilters} 
+                applyFilters={applyFilters} 
+                selectedFilters={selectedFilters}
+            />
 </>
     
 }
