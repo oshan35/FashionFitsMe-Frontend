@@ -13,24 +13,13 @@ const ShoppingBag = ({cartId}) => {
     const [productImages, setProductImages] = useState([]);
     const [orderInformation,setOrderInformation]=useState([]);
     const [productInfo,setProductInfo]=useState([]);
+    const [productColors,setProductColors]=useState([]);
     const [priceCardsData, setPriceCardsData] = useState([]);
     const [orderInfo, setOrderInfo] = useState({ subTotal: '', shipping: '' });
 
 
     // Function to fetch cloth card data from the API
-    const fetchClothCardData = async () => {
-        try {
-            // Perform API request to fetch cloth card data
-            // Replace 'apiEndpoint' with your actual API endpoint
-            const response = await fetch('apiEndpoint');
-            const data = await response.json();
-            
-            // Update cloth card state with fetched data
-            setClothCards(data);
-        } catch (error) {
-            console.error('Error fetching cloth card data:', error);
-        }
-    };
+   
 
 
     useEffect(() => {
@@ -43,13 +32,26 @@ const ShoppingBag = ({cartId}) => {
         .catch(error => {
             console.error('Error fetching price card data:', error);
         });
+
+        //fetchClothCardData(cartId);
+        
+
     }, []);
+    useEffect(() => {
+     
+
+      
+      console.log('productColors:',productInfo);
+
+  }, [productInfo]);
+
 
 
     useEffect(() => {
         const fetchProducts = async () => {
           try {
-            const response = await fetch('http://localhost:5000/product_shopping_cart/Cart001');
+            const response = await fetch (`http://localhost:5000/products`);
+           
             if (!response.ok) {
               throw new Error('Failed to fetch products');
             }
@@ -96,6 +98,24 @@ const ShoppingBag = ({cartId}) => {
           }
         };
 
+        const fetchClothCardData = async (cartId) => {
+          try {
+            console.log('cartId:',cartId);
+              // Perform API request to fetch cloth card data
+              // Replace 'apiEndpoint' with your actual API endpoint
+              const response = await fetch(`http://localhost:5000/product_shopping_cart/${cartId}/product-color-sizes`);
+              
+              const data = await response.json();
+              console.log('data:',data);
+              setProductInfo(data);
+              
+              // Update cloth card state with fetched data
+              setClothCards(data);
+          } catch (error) {
+              console.error('Error fetching cloth card data:', error);
+          }
+      };
+
         function fetchTotals(cartId) {
           fetch(`http://localhost:5000/product_shopping_cart/totals/${cartId}`)
               .then(response => {
@@ -116,16 +136,14 @@ const ShoppingBag = ({cartId}) => {
         
         fetchProducts();
         fetchTotals(cartId);
+        fetchClothCardData(cartId);
         
       }, []);
 
 
 
 
-    useEffect(() => {
-        // Fetch cloth card data when component mounts
-        fetchClothCardData();
-    }, []); // Empty dependency array ensures this effect runs only once
+   
     return (
 
         
@@ -137,21 +155,20 @@ const ShoppingBag = ({cartId}) => {
             </Flex>
             <Flex horizontal="horizontal" className="bag-item">
                  <h1>SHOPPING BAG </h1>
-                 <p className="paragraph">({products.length} items)</p>
+                 <p className="paragraph">({productInfo.length} items)</p>
 
             </Flex>
             
             <Flex horizontal="horizontal" className="bill-item">
                 <Flex vertical="vertical" className="shopping-card">
-                {products.map((product) => (
+                {productInfo.map((product) => (
                    <ClothCard
                         itemDescription={{
-                            picture: `data:image/jpeg;base64, ${productImages[product.productId]}`,
-                            itemName: product.productName,
-                            itemColour:productInfo.itemColour,
-                            itemColour:productInfo.itemColour,
-                            itemSize:productInfo.itemSize,
-                            inStock:productInfo.inStock
+                            picture: `data:image/jpeg;base64, ${productImages[product.product.productId]}`,
+                            itemName: product.product.productName,
+                            itemColour:product.id.color,
+                            itemSize:product.id.size,
+                            inStock:product.quantity
                             
                         }}/>
                     ))}

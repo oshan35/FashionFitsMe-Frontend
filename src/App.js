@@ -22,9 +22,9 @@ function App() {
 
   return (
     <div className="App">
-      {/* <ShoppingBag cartId={'Cart001'}/> */}
+      <ShoppingBag cartId={'Cart001'}/>
     {/* <HomePage/> */}
-    <Catalogue/>
+    {/* <Catalogue/> */}
     {/* <ClothCard itemDescription={itemDescription} /> */}
 
    {/* <DescriptionPage/> */}

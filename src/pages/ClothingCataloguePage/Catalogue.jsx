@@ -15,8 +15,8 @@ const Catalogue = ({ onClick }) => {
     const [selectedFilters, setSelectedFilters] = useState({
       categories: null,
       size: null,
-      price: null,
-      colour: null,
+     price:null,
+      color: null,
       gender: null,
       brand: null,
   });
@@ -26,40 +26,61 @@ const Catalogue = ({ onClick }) => {
 
     const updateSelectedFilters = (filters) => {
       setSelectedFilters(filters);
-      console.log('Selected filteres',selectedFilters);
-
+      console.log('Selected filters', filters);
   };
-    // Function to apply filters and update filtered products
-    const applyFilters = () => {
-      const filtered = products.filter(product => {
-          return (
-              (!selectedFilters.categories || product.category === selectedFilters.categories) &&
-              (!selectedFilters.size || product.size === selectedFilters.size) &&
-              (!selectedFilters.brand || product.brand === selectedFilters.brand)&&
-              (!selectedFilters.price || product.price === selectedFilters.price)&&
-              (!selectedFilters.gender || product.gender === selectedFilters.gender)&&
-              (!selectedFilters.colour || product.colour === selectedFilters.colour)
-             
-          );
-      });
+  
+  // const applyFilters = (filters) => {
+  //     const filtered = products.filter(product => {
+  //         return (
+  //             (!filters.categories || product.category === filters.categories) &&
+  //             (!filters.size || product.size === filters.size) &&
+  //             (!filters.brand || product.brand === filters.brand) &&
+  //             (!filters.price || product.price === filters.price) &&
+  //             (!filters.gender || product.gender === filters.gender) &&
+  //             (!filters.color || product.color === filters.color)
+  //         );
+  //     });
+  
+  //     // Set filtered products
+  //     setFilteredProducts(filtered);
+  //     console.log('Filtered data', filteredProducts);
+  //     // Hide filter modal
+  //     setFilterModalVisible(false);
+  // };
 
-      // Set filtered products
-      setFilteredProducts(filtered);
-      console.log('filtered data',filteredProducts);
-
-      // Hide filter modal
-      setFilterModalVisible(false);
-  };
+  const applyFilters = (filters) => {
+    setSelectedFilters(filters);
     
+    fetch(`http://localhost:5000/products/filter`, {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(filters),
+    })
+    .then(response => response.json())
+    .then(data => {
+        // Handle filtered products data
+        console.log(data);
+        setProducts(data); 
+    })
+    .catch(error => {
+        console.error('Error fetching filtered products:', error);
+    });
+};
+
+useEffect(() => {
+  console.log('Filtered data', selectedFilters);
+ }, [selectedFilters]); 
     useEffect(() => {
       const fetchProducts = async () => {
         try {
-          const response = await fetch('http://localhost:5000/product_shopping_cart/Cart001');
+          const response = await fetch('http://localhost:5000/products');
           if (!response.ok) {
             throw new Error('Failed to fetch products');
           }
           const cartProducts = await response.json();
-          //console.log('Cart products:', cartProducts);
+          console.log('Cart products:', cartProducts);
           setProducts(cartProducts); 
     
           const productImagePromises = cartProducts.map(product => fetchProductImages(product.productId));

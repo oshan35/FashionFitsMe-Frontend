@@ -8,7 +8,9 @@ const { Option } = Select;
 const FilterModal = ({ visible, onCancel,updateSelectedFilters, applyFilters,selectedFilters }) => {
 
   const [selectedFiltersInternal, setSelectedFiltersInternal] = useState(selectedFilters);
-   // Update selected filters when the prop changes
+  const [selectedFiltersPrice, setSelectedFiltersPrice] = useState(selectedFilters);
+
+  // Update selected filters when the prop changes
    useEffect(() => {
     setSelectedFiltersInternal((prevFilters) => ({
       ...prevFilters,
@@ -17,21 +19,44 @@ const FilterModal = ({ visible, onCancel,updateSelectedFilters, applyFilters,sel
   }, [updateSelectedFilters]);
 
   const handleDropdownChange = (value, dropdownName) => {
-    // Update selected filters state
-    setSelectedFiltersInternal((prevFilters) => ({
-      ...prevFilters,
-      [dropdownName]: value,
+    // Update price based on dropdown value
+    let priceRange = null;
+    if (value === '0- 1000') {
+      priceRange = { min: 0, max: 1000 };
+    } else if (value === '1000-5000') {
+      priceRange = { min: 1000, max: 5000 };
+    } else if (value === '5000-10000') {
+      priceRange = { min: 5000, max: 10000 };
+    } else if (value === '10000-15000') {
+      priceRange = { min: 10000, max: 15000 };
+    } else if (value === ' 15000') {
+      priceRange = { min: 15000, max: Infinity }; // Handle 'more than 15000'
+    }else{
+      
+    }
+    if (dropdownName === 'price'){
+      setSelectedFiltersInternal((prevFilters) => ({
+        ...prevFilters,
+        price: priceRange, // Update price with the extracted object
+        
+      }));
+      setSelectedFiltersPrice((prevFilters) => ({
+        ...prevFilters,
+        [dropdownName]: value, // Update price with the extracted object
+        
+      }));
+    }
+    else{
+      setSelectedFiltersInternal((prevFilters) => ({
+        ...prevFilters,
+        [dropdownName]: value,
     }));
-
-    // Update the prop for parent component
-    updateSelectedFilters(selectedFilters); // Pass updated selectedFilters back
+    }
   };
 
   const handleApplyFilters = () => {
-    // Apply filters
-    applyFilters(selectedFilters);
-
-    // Close modal
+    // Apply filters with updated price range
+    applyFilters(selectedFiltersInternal);
     onCancel();
   };
 
@@ -76,13 +101,13 @@ const FilterModal = ({ visible, onCancel,updateSelectedFilters, applyFilters,sel
           value={selectedFiltersInternal.size}
           onChange={(value) => handleDropdownChange(value, 'size')}
         > 
-          <Option value="sizeXXS">XXS</Option>
-          <Option value="size1XS">XS</Option>
-          <Option value="sizeS">S</Option>
+          <Option value="XXS">XXS</Option>
+          <Option value="XS">XS</Option>
+          <Option value="S">S</Option>
           <Option value="M">M</Option>
-          <Option value="sizeL">L</Option>
-          <Option value="sizeXL">XL</Option>
-          <Option value="sizeXXL">XXL</Option>
+          <Option value="L">L</Option>
+          <Option value="XL">XL</Option>
+          <Option value="XXL">XXL</Option>
          
             </Select>
       </div>
@@ -93,15 +118,15 @@ const FilterModal = ({ visible, onCancel,updateSelectedFilters, applyFilters,sel
           className="filter-modal-select"
           placeholder="Price"
           bordered={false}
-          value={selectedFiltersInternal.price}
+          value={selectedFiltersPrice.price}
           onChange={(value) => handleDropdownChange(value, 'price')}
           
         >
-          <Option value="less than 1000">less than 1000</Option>
+          <Option value="0- 1000">less than 1000</Option>
           <Option value="1000-5000">1000-5000</Option>
           <Option value="5000-10000">5000-10000</Option>
           <Option value="10000-15000">10000-15000</Option>
-          <Option value="more than 15000">more than 15000</Option>
+          <Option value=" 15000">more than 15000</Option>
         </Select>
       </div>
 
@@ -109,10 +134,10 @@ const FilterModal = ({ visible, onCancel,updateSelectedFilters, applyFilters,sel
       <div className="filter-modal-div">
         <Select
           className="filter-modal-select"
-          placeholder="Colour"
+          placeholder="Color"
           bordered={false}
-          value={selectedFiltersInternal.colour}
-          onChange={(value) => handleDropdownChange(value, 'colour')}
+          value={selectedFiltersInternal.color}
+          onChange={(value) => handleDropdownChange(value, 'color')}
          
         >
           <Option value="Red">Red</Option>
@@ -137,7 +162,7 @@ const FilterModal = ({ visible, onCancel,updateSelectedFilters, applyFilters,sel
           className="filter-modal-select"
           placeholder="Gender"
           bordered={false}
-          value={selectedFiltersInternal.categories}
+          value={selectedFiltersInternal.gender}
           onChange={(value) => handleDropdownChange(value, 'gender')}
         >
           <Option value="Men">Men</Option>
