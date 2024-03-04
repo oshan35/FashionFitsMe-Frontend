@@ -6,29 +6,24 @@ import Catalogue from './pages/ClothingCataloguePage/Catalogue';
 import PriceCard from './components/pricecard/pricecard';
 import Footer from './components/footer/Footer';
 import HomePage from './pages/HomePage/Homepage';
-import ClothCard from './components/clothCard/ClothCard';
-import testimg from './asserts/76J4405_IYI_FNT________________________________.jpeg'
-import ShoppingBag from './pages/ShoppingBag/ShoppingBag';
+import PriceCard from './components/pricecard/pricecard';
 import DescriptionPage from './pages/DescriptionPage/DescriptionPage';
+
+import TestImage from './asserts/TestImage-Price-card.jpeg'
+
 function App() {
-  const itemDescription = {
-    itemName: 'Shirt',
-    itemColour: 'Blue',
-    itemSize: 'Medium',
-    inStock: 10,
-    picture: testimg // Replace with actual image path
+  const itemData = {
+    image: TestImage, 
+    name: 'Example Item Name Example Item Name Example Item Name Example Item Name Example Item Name Example Item Name Example Item Name',
+    price: '100',
+  
   };
-
-
   return (
-    <div className="App">
-      <ShoppingBag cartId={'Cart001'}/>
-    {/* <HomePage/> */}
-    {/* <Catalogue/> */}
-    {/* <ClothCard itemDescription={itemDescription} /> */}
-
-   {/* <DescriptionPage/> */}
-    </div>
+    <>
+    <DescriptionPage
+      
+    />
+    </>
   );
 
 }
