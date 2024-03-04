@@ -1,7 +1,7 @@
 import {Flex} from 'antd';
 import React from 'react';
 import './HomePage.css';
-import { Card } from 'antd';
+
 import Navbar from '../../components/navbar/navbar';
 import Footer from '../../components/footer/Footer';
 
