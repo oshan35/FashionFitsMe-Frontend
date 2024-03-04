@@ -11,14 +11,71 @@ const Catalogue = ({ onClick }) => {
     const [productImages, setProductImages] = useState([]);
     const [currentPage, setCurrentPage] = useState(1);
     const [filterModalVisible, setFilterModalVisible] = useState(false);
+    const [filteredProducts, setFilteredProducts] = useState([]); 
+    const [selectedFilters, setSelectedFilters] = useState({
+      categories: null,
+      size: null,
+     price:null,
+      color: null,
+      gender: null,
+      brand: null,
+  });
+
     const cardsPerPage = 4;
     const rowsPerPage = 1;
+
+    const updateSelectedFilters = (filters) => {
+      setSelectedFilters(filters);
+      console.log('Selected filters', filters);
+  };
+  
+  // const applyFilters = (filters) => {
+  //     const filtered = products.filter(product => {
+  //         return (
+  //             (!filters.categories || product.category === filters.categories) &&
+  //             (!filters.size || product.size === filters.size) &&
+  //             (!filters.brand || product.brand === filters.brand) &&
+  //             (!filters.price || product.price === filters.price) &&
+  //             (!filters.gender || product.gender === filters.gender) &&
+  //             (!filters.color || product.color === filters.color)
+  //         );
+  //     });
+  
+  //     // Set filtered products
+  //     setFilteredProducts(filtered);
+  //     console.log('Filtered data', filteredProducts);
+  //     // Hide filter modal
+  //     setFilterModalVisible(false);
+  // };
+
+  const applyFilters = (filters) => {
+    setSelectedFilters(filters);
     
-    
+    fetch(`http://localhost:5000/products/filter`, {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(filters),
+    })
+    .then(response => response.json())
+    .then(data => {
+        // Handle filtered products data
+        console.log(data);
+        setProducts(data); 
+    })
+    .catch(error => {
+        console.error('Error fetching filtered products:', error);
+    });
+};
+
+useEffect(() => {
+  console.log('Filtered data', selectedFilters);
+ }, [selectedFilters]); 
     useEffect(() => {
       const fetchProducts = async () => {
         try {
-          const response = await fetch('http://localhost:5000/product_shopping_cart/Cart001');
+          const response = await fetch('http://localhost:5000/products');
           if (!response.ok) {
             throw new Error('Failed to fetch products');
           }
@@ -28,7 +85,7 @@ const Catalogue = ({ onClick }) => {
     
           const productImagePromises = cartProducts.map(product => fetchProductImages(product.productId));
           const productImages = await Promise.all(productImagePromises);
-          console.log('Product images:', productImages);
+         // console.log('Product images:', productImages);
     
           const imageMap = {};
           productImages.forEach(({ productId, data }) => {
@@ -37,7 +94,7 @@ const Catalogue = ({ onClick }) => {
             }
           });
     
-          console.log('Product image map:', imageMap);
+         // console.log('Product image map:', imageMap);
           if (Object.keys(imageMap).length > 0) {
             setProductImages(imageMap);
           } else {
@@ -56,7 +113,7 @@ const Catalogue = ({ onClick }) => {
             throw new Error(`Failed to fetch image data for product ${productId}`);
           }
           const data = await response.json();
-          console.log('Product image data for', productId, ':', data);
+         // console.log('Product image data for', productId, ':', data);
           
           return { productId, data}; // Return an object with productId and imageData
         } catch (error) {
@@ -131,8 +188,13 @@ const Catalogue = ({ onClick }) => {
         <Flex  >
             <Footer/>
         </Flex>
-        <FilterModal visible={filterModalVisible} onCancel={handleFilterModalCancel} />
-
+        <FilterModal
+                visible={filterModalVisible}
+                onCancel={() => setFilterModalVisible(false)}
+                updateSelectedFilters={updateSelectedFilters} 
+                applyFilters={applyFilters} 
+                selectedFilters={selectedFilters}
+            />
 </>
     
 }

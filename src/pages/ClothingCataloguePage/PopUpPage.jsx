@@ -1,52 +1,65 @@
-import React, { useState, useRef } from 'react';
+import React, { useState, useEffect } from 'react';
 import { Modal, Button, Select } from 'antd';
 
 import './PopUpPage.css'; // Import any necessary CSS
 
 const { Option } = Select;
 
-const FilterModal = ({ visible, onCancel }) => {
-  const [dropdownValues, setDropdownValues] = useState({
-    // Initialize with placeholder values
-    categories: null,
-    size: null,
-    price: null,
-    colour: null,
-    material: null,
-    brand: null,
-  });
-  const [extractedOptions, setExtractedOptions] = useState([]);
-  const [modalHeight, setModalHeight] = useState(null);
+const FilterModal = ({ visible, onCancel,updateSelectedFilters, applyFilters,selectedFilters }) => {
 
-  const dropdownRefs = {
-    categories: useRef(null),
-    size: useRef(null),
-    price: useRef(null),
-    colour: useRef(null),
-    material: useRef(null),
-    brand: useRef(null),
-  };
+  const [selectedFiltersInternal, setSelectedFiltersInternal] = useState(selectedFilters);
+  const [selectedFiltersPrice, setSelectedFiltersPrice] = useState(selectedFilters);
+
+  // Update selected filters when the prop changes
+   useEffect(() => {
+    setSelectedFiltersInternal((prevFilters) => ({
+      ...prevFilters,
+      ...selectedFilters,
+    }));
+  }, [updateSelectedFilters]);
 
   const handleDropdownChange = (value, dropdownName) => {
-    setDropdownValues({ ...dropdownValues, [dropdownName]: value }); // Update selected value
-    setExtractedOptions([...extractedOptions, value]); // Track extracted options
-    updateModalHeight();
+    // Update price based on dropdown value
+    let priceRange = null;
+    if (value === '0- 1000') {
+      priceRange = { min: 0, max: 1000 };
+    } else if (value === '1000-5000') {
+      priceRange = { min: 1000, max: 5000 };
+    } else if (value === '5000-10000') {
+      priceRange = { min: 5000, max: 10000 };
+    } else if (value === '10000-15000') {
+      priceRange = { min: 10000, max: 15000 };
+    } else if (value === ' 15000') {
+      priceRange = { min: 15000, max: Infinity }; // Handle 'more than 15000'
+    }else{
+      
+    }
+    if (dropdownName === 'price'){
+      setSelectedFiltersInternal((prevFilters) => ({
+        ...prevFilters,
+        price: priceRange, // Update price with the extracted object
+        
+      }));
+      setSelectedFiltersPrice((prevFilters) => ({
+        ...prevFilters,
+        [dropdownName]: value, // Update price with the extracted object
+        
+      }));
+    }
+    else{
+      setSelectedFiltersInternal((prevFilters) => ({
+        ...prevFilters,
+        [dropdownName]: value,
+    }));
+    }
   };
 
-  const updateModalHeight = () => {
-    const dropdownHeights = Object.values(dropdownRefs).map((ref) =>
-      ref.current ? ref.current.clientHeight : 0
-    );
-    const averageOptionHeight = dropdownHeights.reduce((sum, height) => sum + height, 0) / dropdownHeights.length;
-    const padding = 16; // Adjust padding as needed
-    const newHeight = averageOptionHeight * extractedOptions.length + padding;
-    setModalHeight(newHeight);
+  const handleApplyFilters = () => {
+    // Apply filters with updated price range
+    applyFilters(selectedFiltersInternal);
+    onCancel();
   };
-  const TitleSection = () => (
-    <div className="custom-modal-title-section">
-      <span className="custom-modal-title" >Filter By</span>
-    </div>
-  );
+
 
   return (
     <Modal
@@ -54,8 +67,8 @@ const FilterModal = ({ visible, onCancel }) => {
   visible={visible}
   onCancel={onCancel}
   footer={[
-    <Button key="apply" className='ApplyButton' onClick={onCancel}>
-      Apply Filter
+    <Button key="apply" className='ApplyButton' onClick={handleApplyFilters}>
+    Apply Filter
     </Button>,
   ]}
 >
@@ -63,11 +76,10 @@ const FilterModal = ({ visible, onCancel }) => {
       <div className="filter-modal-div">
         <Select
           className="filter-modal-select"
-          placeholder="Categories"
-          value={dropdownValues.categories}
+          placeholder="categories"
+          value={selectedFiltersInternal.categories}
           onChange={(value) => handleDropdownChange(value, 'categories')}
           bordered={false}
-          ref={dropdownRefs.categories}
         >
           <Option value="Jeans">Jeans</Option>
           <Option value="Pants">Pants</Option>
@@ -75,10 +87,7 @@ const FilterModal = ({ visible, onCancel }) => {
           <Option value="Shirts">Shirts</Option>
           <Option value="Shorts">Shorts</Option>
           <Option value="T-shirts">T-Shirts</Option>
-          
-
-
-
+        
 
         </Select>
       </div>
@@ -89,15 +98,18 @@ const FilterModal = ({ visible, onCancel }) => {
           className="filter-modal-select"
           placeholder="Size"
           bordered={false}
-          value={dropdownValues.size}
+          value={selectedFiltersInternal.size}
           onChange={(value) => handleDropdownChange(value, 'size')}
-          dropdownMatchSelectWidth={false}
-          ref={dropdownRefs.size}
-        >
-          <Option value="size1">Size 1</Option>
-          <Option value="size2">Size 2</Option>
-          <Option value="size3">Size 3</Option>
-        </Select>
+        > 
+          <Option value="XXS">XXS</Option>
+          <Option value="XS">XS</Option>
+          <Option value="S">S</Option>
+          <Option value="M">M</Option>
+          <Option value="L">L</Option>
+          <Option value="XL">XL</Option>
+          <Option value="XXL">XXL</Option>
+         
+            </Select>
       </div>
 
       {/* Price dropdown */}
@@ -106,14 +118,15 @@ const FilterModal = ({ visible, onCancel }) => {
           className="filter-modal-select"
           placeholder="Price"
           bordered={false}
-          value={dropdownValues.price}
+          value={selectedFiltersPrice.price}
           onChange={(value) => handleDropdownChange(value, 'price')}
-          dropdownMatchSelectWidth={false}
-          ref={dropdownRefs.price}
+          
         >
-          <Option value="price1">Price 1</Option>
-          <Option value="price2">Price 2</Option>
-          <Option value="price3">Price 3</Option>
+          <Option value="0- 1000">less than 1000</Option>
+          <Option value="1000-5000">1000-5000</Option>
+          <Option value="5000-10000">5000-10000</Option>
+          <Option value="10000-15000">10000-15000</Option>
+          <Option value=" 15000">more than 15000</Option>
         </Select>
       </div>
 
@@ -121,33 +134,41 @@ const FilterModal = ({ visible, onCancel }) => {
       <div className="filter-modal-div">
         <Select
           className="filter-modal-select"
-          placeholder="Colour"
+          placeholder="Color"
           bordered={false}
-          value={dropdownValues.colour}
-          onChange={(value) => handleDropdownChange(value, 'colour')}
-          dropdownMatchSelectWidth={false}
-          ref={dropdownRefs.colour}
+          value={selectedFiltersInternal.color}
+          onChange={(value) => handleDropdownChange(value, 'color')}
+         
         >
-          <Option value="colour1">Colour 1</Option>
-          <Option value="colour2">Colour 2</Option>
-          <Option value="colour3">Colour 3</Option>
+          <Option value="Red">Red</Option>
+          <Option value="Blue">Blue</Option>
+          <Option value="Green">Green</Option>
+          <Option value="Black">Black</Option>
+          <Option value="Grey">Grey</Option>
+          <Option value="Navy">Navy</Option>
+          <Option value="Brown">Brown</Option>
+          <Option value="Orange">Orange</Option>
+          <Option value="White">White</Option>
+          <Option value="Yellow">Yellow</Option>
+          <Option value="Purple">Purple</Option>
+
+
         </Select>
       </div>
 
-      {/* Material dropdown */}
+      {/* Gender dropdown */}
       <div className="filter-modal-div">
         <Select
           className="filter-modal-select"
-          placeholder="Material"
+          placeholder="Gender"
           bordered={false}
-          value={dropdownValues.material}
-          onChange={(value) => handleDropdownChange(value, 'material')}
-          dropdownMatchSelectWidth={false}
-          ref={dropdownRefs.material}
+          value={selectedFiltersInternal.gender}
+          onChange={(value) => handleDropdownChange(value, 'gender')}
         >
-          <Option value="material1">Material 1</Option>
-          <Option value="material2">Material 2</Option>
-          <Option value="material3">Material 3</Option>
+          <Option value="Men">Men</Option>
+          <Option value="Women">Women</Option>
+          <Option value="Unisex">Unisex</Option>
+          <Option value="Kids">Kids</Option>
         </Select>
       </div>
 
@@ -157,14 +178,15 @@ const FilterModal = ({ visible, onCancel }) => {
           className="filter-modal-select"
           placeholder="Brand"
           bordered={false}
-          value={dropdownValues.brand}
+          value={selectedFiltersInternal.brand}
           onChange={(value) => handleDropdownChange(value, 'brand')}
-          dropdownMatchSelectWidth={false}
-          ref={dropdownRefs.brand}
+          
         >
-          <Option value="brand1">Brand 1</Option>
-          <Option value="brand2">Brand 2</Option>
-          <Option value="brand3">Brand 3</Option>
+          <Option value="Nike">Nike</Option>
+          <Option value="Adidas">Adidas</Option>
+          <Option value="Puma">Puma</Option>
+          <Option value="Carnage">Carnage</Option>
+          <Option value="Odel">Odel</Option>
         </Select>
       </div>
     </Modal>
