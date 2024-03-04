@@ -10,6 +10,8 @@ import ClothCard from './components/clothCard/ClothCard';
 import testimg from './asserts/76J4405_IYI_FNT________________________________.jpeg'
 import ShoppingBag from './pages/ShoppingBag/ShoppingBag';
 import DescriptionPage from './pages/DescriptionPage/DescriptionPage';
+import BillingDetails from './pages/BillingDetailsPage/BillingDetails';
+
 function App() {
   const itemDescription = {
     itemName: 'Shirt',
@@ -19,15 +21,9 @@ function App() {
     picture: testimg // Replace with actual image path
   };
 
-
   return (
     <div className="App">
-      {/* <ShoppingBag cartId={'Cart001'}/> */}
-    {/* <HomePage/> */}
-    <Catalogue/>
-    {/* <ClothCard itemDescription={itemDescription} /> */}
-
-   {/* <DescriptionPage/> */}
+      <BillingDetails/>
     </div>
   );
 

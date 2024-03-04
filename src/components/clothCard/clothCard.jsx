@@ -2,6 +2,7 @@ import React from 'react';
 import {Flex, Button} from 'antd';
 import './ClothCard.css'
 import { Select } from 'antd';
+
 const ClothCard = ({  itemDescription }) => {
 
     const { Option } = Select;
