@@ -1,0 +1,41 @@
+.BillingDetails-main-container{
+    height: 100vh;
+    width: 100%;
+}
+
+.two-row-details{
+    margin-top: 130px;
+    display: flex;
+    width: 100%;
+    height: 100%;
+}
+
+.billing-form-data-container{
+
+    width: 50%;
+    height: 100%;
+}
+
+.billing-component-container{
+    width: 50%;
+    height: 100%;
+}
+
+.radio-option {
+    padding: 8px 0; /* Adjust padding as needed */
+  }
+  
+.radio-separator {
+    border-bottom: 1px solid #e8e8e8; /* Adjust color and thickness as needed */
+    width: 100%; /* Ensure the line stretches across the container */
+    padding-bottom: 10%;
+  }
+  
+ .col-input{
+    width: 100%;
+    flex-grow: 1;
+ }
+ .test{
+    width: 100%;
+    
+ }
