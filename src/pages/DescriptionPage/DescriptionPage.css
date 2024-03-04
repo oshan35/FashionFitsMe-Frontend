@@ -21,8 +21,8 @@
     width: 85%;
     height: 100%;
     display: flex;
-    justify-content: center;
-    align-items: center;
+    justify-content: right;
+    align-items:center;
 }
 
 .options{
@@ -62,11 +62,11 @@
 }
 
 .size-bar{
-    margin: 5%;
+    margin: 2%;
 }
 
 .color-container{
-    margin: 5%;
+    margin: 2%;
 }
 
 .buy-options{
@@ -83,7 +83,7 @@
 }
 
 .quantity-container{
-    margin: 5%;
+    margin: 2%;
 }
 
 
@@ -103,11 +103,12 @@
     display: flex;
     justify-content: center;
     align-items: center;
+    padding: 10px 10px 10px 10px;
 }
 
 .color-preview {
     margin-top: 10%;
     width: 100%; /* Adjust as needed */
-    height: 80%; /* Adjust as needed */
+    height: 100%; /* Adjust as needed */
     
 }
