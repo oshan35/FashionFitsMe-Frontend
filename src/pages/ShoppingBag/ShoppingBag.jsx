@@ -138,12 +138,7 @@ const ShoppingBag = ({cartId}) => {
         fetchTotals(cartId);
         fetchClothCardData(cartId);
         
-      }, []);
-
-
-
-
-   
+      }, []);  
     return (
 
         
@@ -156,25 +151,32 @@ const ShoppingBag = ({cartId}) => {
             <Flex horizontal="horizontal" className="bag-item">
                  <h1>SHOPPING BAG </h1>
                  <p className="paragraph">({productInfo.length} items)</p>
-
             </Flex>
+
+            {productInfo.length === 0 ? (
+    <Flex vertical="vertical"  justify content ="center" className="empty-cart-message">
+      <h1>Your shopping bag is empty</h1>
+    </Flex>
+  ) : (
             
             <Flex horizontal="horizontal" className="bill-item">
                 <Flex vertical="vertical" className="shopping-card">
-                {productInfo.map((product) => (
-                   <ClothCard
-                        itemDescription={{
-                            picture: `data:image/jpeg;base64, ${productImages[product.product.productId]}`,
-                            itemName: product.product.productName,
-                            itemColour:product.id.color,
-                            itemSize:product.id.size,
-                            inStock:product.quantity
-                            
-                        }}/>
-                    ))}
-
-                
+                  {productInfo.map((product) => (
+                    <ClothCard
+                          itemDescription={{
+                              picture: `data:image/jpeg;base64, ${productImages[product.product.productId]}`,
+                              itemName: product.product.productName,
+                              itemColour:product.id.color,
+                              itemSize:product.id.size,
+                              inStock:product.quantity,
+                              
+                              
+                          }}/>
+                    ))}                
                 </Flex>
+
+
+
                 <div className='bill'>
                     {/* Havent passed data for ESTIMATED TOTAL */}
                     <OrderSummary orderInformation={{subTotal: orderInformation.totalAmount,
@@ -183,6 +185,9 @@ const ShoppingBag = ({cartId}) => {
                 <button className="checkout-btn">GO TO CHECKOUT</button>
                 </div>
             </Flex>
+
+
+)}
             <h1 className='header'> YOU MAY ALSO LIKE</h1>
             <Flex horizontal="horizontal" className="card-item">
                 {products.map((product) => (
@@ -194,10 +199,11 @@ const ShoppingBag = ({cartId}) => {
                  }}
                    />
                 ))}
-
             </Flex>
            
             
+
+
             <Footer/>
         </Flex>
         </>
