@@ -1,0 +1,67 @@
+.filter-modal-select {
+    width: calc(100% - 32px); /* Adjust width to account for padding */
+    margin-bottom: 16px;
+    height:60px; /* Set the height */
+    align-items: stretch;
+    border: none !important;
+  }
+  .custom-modal-title-section {
+    /* background-color: rgb(196, 191, 191); */
+    height: 55px;
+    width: 300px;
+    
+  }
+  
+  .custom-modal-title {
+    font-size: 55px;
+    color: white;
+  }
+  
+  
+  
+  .filter-modal-div {
+    margin-bottom: 5px;
+
+  }
+  
+  /* Remove margin-bottom for the last .filter-modal-div */
+  .filter-modal-div:last-child {
+    margin-bottom: 0;
+  }
+
+  
+  
+  /* filterModal.css */
+.ant-modal {
+    top: 20px; /* Align modal to the top */
+    margin-left: 5px; 
+    transform: translateX(calc(100% -200px)); /* Adjust this value based on your requirements */
+  }
+  .filter-modal-select .ant-select-selection-placeholder {
+    font-size: 20px;
+    color: rgb(82, 80, 80);
+    /* font-weight: bold; */
+
+  }
+  
+  .filter-modal-select .ant-select-suffix {
+    /* Target the suffix container holding the arrowhead */
+    color: black !important;  }
+  .ApplyButton{
+    width: 100%;
+    background-color: rgb(159, 156, 156);
+    height: 50px;
+    color: white;
+  }
+  /* .FilterModal {
+    border-radius: 0; 
+    /* height: 800px;
+    color: rgb(129, 131, 131); 
+    
+  } */
+.custom-modal-title {
+    color: rgb(30, 30, 32);
+    font-weight: bold;
+    font-size: 25px;
+  }
+  
