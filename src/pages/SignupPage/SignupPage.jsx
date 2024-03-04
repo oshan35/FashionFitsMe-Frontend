@@ -6,7 +6,7 @@ import Navbar from '../../components/navbar/navbar';
 import Footer from '../../components/footer/Footer';
 
 
-const App = () => {
+const SignUpPage = () => {
   const onFinish = (values) => {
     console.log("Received values of form: ", values);
   };
@@ -101,4 +101,4 @@ const App = () => {
     </Form>
   );
 };
-export default App;
+export default SignUpPage;
