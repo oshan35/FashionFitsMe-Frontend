@@ -6,11 +6,9 @@ import Catalogue from './pages/ClothingCataloguePage/Catalogue';
 import PriceCard from './components/pricecard/pricecard';
 import Footer from './components/footer/Footer';
 import HomePage from './pages/HomePage/Homepage';
-import ClothCard from './components/clothCard/ClothCard';
-import testimg from './asserts/76J4405_IYI_FNT________________________________.jpeg'
-import ShoppingBag from './pages/ShoppingBag/ShoppingBag';
-import DescriptionPage from './pages/DescriptionPage/DescriptionPage';
-import BillingDetails from './pages/BillingDetailsPage/BillingDetails';
+import PriceCard from './components/pricecard/pricecard';
+
+import TestImage from './asserts/test-image.jpeg'
 
 function App() {
   const itemDescription = {
@@ -22,9 +20,13 @@ function App() {
   };
 
   return (
-    <div className="App">
-      <BillingDetails/>
-    </div>
+    <>
+    <PriceCard
+      picture={TestImage}
+      itemName={"Test"}
+      itemPrice={2000}
+    />
+    </>
   );
 
 }
