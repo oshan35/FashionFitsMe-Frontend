@@ -2,15 +2,14 @@
 import React from 'react';
 import './App.css';
 
-import SignupPage from './pages/SignupPage/SignupPage';
-import Dashboard from './components/Dashboard/Dashboard'
+import CheckoutPage from './pages/CheckoutPage/CheckoutPage';
 
 
 
 function App() {
   return (
     <>
-   <Dashboard/>
+   <CheckoutPage/>
     </>
   );
 }

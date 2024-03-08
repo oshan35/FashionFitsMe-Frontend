@@ -1,0 +1,79 @@
+.column{
+    padding: 10px;
+    margin-left: 20px;
+}
+
+.heading {
+    color: rgb(0, 0, 0);
+    font-weight: bold;
+    font-size: 20px;
+    margin-top: 40px;
+    
+  }
+
+  .text-1{
+    color:black;
+    font-size: 14px;
+  }
+
+.text-2{
+    color: rgb(0, 0, 0);
+    font-weight:500;
+    font-size: 18px;
+    margin-top: 40px;
+  }
+.line{
+    background-color: black;
+    margin-top: 50px;
+}
+.address-box{
+    height: 1200;
+    resize: none;
+    width: 80%;
+    margin-top: 20px;
+    margin-bottom: 10px;
+}
+
+.text-3{
+    color: rgb(0, 0, 0);
+    font-weight:500;
+    font-size: 18px;
+    margin-top: 20px;
+  }
+
+  .checkbox-text {
+    font-weight: 400;
+    font-size: 15px; /* bold the checkbox text */
+    margin-left: 100px;
+    margin-top: 40px;
+  }
+  
+  .checkbox-line{
+    background-color: black;
+    margin-top: 50px;
+} 
+  
+.text-4{
+    margin-right: 400px;
+    margin-left: 200px;
+}
+
+.text-5{
+    margin-left: 200px;
+}
+  
+.text-6{
+    margin: 20px 0 20px 0;
+}
+
+.button{
+    background: rgb(89, 89, 89);
+    color: white;
+    font-weight: bold;
+    width: 600px;
+    align-items: center;
+    justify-content: center;
+    margin-top: 20px;
+    margin-bottom: 100px;
+    margin-left: 380px;
+}
