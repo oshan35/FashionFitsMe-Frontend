@@ -1,5 +1,4 @@
 import {Flex} from 'antd';
-import React from 'react';
 import './HomePage.css';
 
 import Navbar from '../../components/navbar/navbar';
@@ -16,13 +15,15 @@ import image8 from '../../asserts/image8.png'
 import image9 from '../../asserts/image9.png'
 import image10 from '../../asserts/image10.png'
 import Button from '../../components/ShiningButton/ShiningButton'
+
+import {  } from '../ClothingCataloguePage/Catalogue'
 const HomePage = () => {
     return (
 
     <>
         <Flex vertical="vertical" className="grid-container">
             <Flex  className="nav-container">
-                <Navbar className="nav-item"/>
+                <Navbar className="nav-item" />
             </Flex>
             <Flex horizontal="horizontal" className="grid-item1">
                 <Flex  className="image1"> </Flex>
