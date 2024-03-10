@@ -21,6 +21,7 @@ const DescriptionPage = () => {
         image_colors: {}
     });
 
+<<<<<<< HEAD
     const {image, productName, price, sizes, colors, image_colors} = itemData;
     
 
@@ -38,6 +39,27 @@ const DescriptionPage = () => {
             .catch(error => console.error('Error fetching product information:', error));
     }, [productId]); // Include productId in the dependency array to refetch data when it changes
     
+=======
+    const {image, name, price, sizes, colors, image_colors} = itemData;
+    const [selectedOption, setSelectedOption] = useState(null);
+
+    const handleButtonClick = (option) => {
+        setSelectedOption(option); 
+    };
+
+    useEffect(() => {
+        fetch('/product-description')
+          .then(response => response.json())
+          .then(data => setItemData({
+            ...itemData, 
+            image: TestImage, 
+            name: 'Example Item Name',
+            price: '100',
+            sizes: ['S', 'M', 'L'],
+            colors: ['Green', 'Blue', 'Red']
+          })); 
+    }, []);
+>>>>>>> dev
 
     const handleColorClick = (color) => {
         const newImage = `data:image/jpeg;base64,${image_colors[color]}`;
@@ -87,7 +109,11 @@ const DescriptionPage = () => {
                         <Flex wrap="wrap" gap="small" className="color-container">
                             
                         {colors && colors.map((color, index) => (
+<<<<<<< HEAD
                                 <Button key={index} style={{backgroundColor: color, color:'white', borderBlockColor:color}}  onClick={() => handleColorClick(color)} className="color-palet"></Button>
+=======
+                                <Button key={index} style={{backgroundColor: color, color:'white', borderBlockColor:color}} className="color-palet" ></Button>
+>>>>>>> dev
                             ))}
 
                         </Flex>
@@ -103,9 +129,7 @@ const DescriptionPage = () => {
                         </Flex>
                     </Flex>
                 </Flex>
-                <Flex>
-                    Test
-                </Flex>
+
             </Flex>              
         </>
     );

@@ -10,29 +10,26 @@ import ShoppingBag from './pages/ShoppingBag/ShoppingBag'
 import SignUpPage from './pages/SignupPage/SignupPage';
 import Catalogue from './pages/ClothingCataloguePage/Catalogue';
 import BillingDetails from './pages/BillingDetailsPage/BillingDetails';
-import { FilterProvider } from './Contexts/FilterContext';
+import ModelViewer from './components/bodymodelRender/bodymodel';
 
 function App() {
 
   return (
     <>
-    <FilterProvider>
-    <Router>
-     
-     <div>
-       <Routes>
-         <Route path="/" element={<HomePage />} />
-         <Route path="/catalogue" element={<Catalogue />} />
-         <Route path="/description" element={<DescriptionPage />} />
-         <Route path="/shopping-bag" element={<ShoppingBag />} />
-         <Route path="/sign-up" element={<SignUpPage />} />
-         <Route path="/billing-details" element={<BillingDetails />} />
-       </Routes> 
-     </div>    
-     </Router>   
-    </FilterProvider>
-   
-     
+      <Router>
+      <div>
+        <Routes>
+          <Route path="/" element={<HomePage />} />
+          <Route path="/catalogue" element={<Catalogue />} />
+          <Route path="/description" element={<DescriptionPage />} />
+          <Route path="/shopping-bag" element={<ShoppingBag />} />
+          <Route path="/sign-up" element={<SignUpPage />} />
+          <Route path="/billing-details" element={<BillingDetails />} />
+          <Route path="/model-view" element={<ModelViewer />} />
+        </Routes>
+  
+      </div>
+      </Router>
   
     </>
   );
