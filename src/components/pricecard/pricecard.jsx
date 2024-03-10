@@ -1,13 +1,21 @@
 import React from 'react';
 import {Flex, Button} from 'antd';
 import './pricecard.css'
+import { useNavigate } from 'react-router-dom';
 
 const PriceCard = ({itemData}) => {
-    const { picture, itemName, itemPrice } = itemData;
-    console.log(itemName);
+    const { productId,picture, itemName, itemPrice } = itemData;
+    
+
+    const navigate = useNavigate(); 
+
+    const handleClick = () => {
+        console.log('product Id on',productId);
+        navigate(`/description?productId=${productId}`); 
+    }
     return (
         <>
-            <Flex vertical='vertical' className='price-container'>
+            <Flex vertical='vertical' className='price-container' onClick={handleClick}>
                 <Flex className='pictuer' justify='center'>
                     {picture && <img src={picture} alt="Price Card"/>}
                 </Flex>
@@ -19,5 +27,6 @@ const PriceCard = ({itemData}) => {
         </>
     )
 }
+
 
 export default PriceCard

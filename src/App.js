@@ -27,13 +27,9 @@ function App() {
          <Route path="/shopping-bag" element={<ShoppingBag />} />
          <Route path="/sign-up" element={<SignUpPage />} />
          <Route path="/billing-details" element={<BillingDetails />} />
-       </Routes>
-    
- 
-     </div>
-     
-     </Router>
-    
+       </Routes> 
+     </div>    
+     </Router>   
     </FilterProvider>
    
      

@@ -96,6 +96,7 @@ useEffect(() => {
         {products.slice((currentPage - 1) * cardsPerPage * rowsPerPage, currentPage * cardsPerPage * rowsPerPage).map((product) => (
             <PriceCard
             itemData={{
+              productId:product.product.productId,
               picture: `data:image/jpeg;base64, ${product.productImages[0].imageData}`,
               itemName: product.product.productName,
               itemPrice: product.product.price
