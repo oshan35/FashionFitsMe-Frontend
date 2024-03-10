@@ -6,19 +6,40 @@ import React, {useEffect, useState} from "react";
 import TestImage from '../../asserts/TestImage-Price-card.jpeg'
 import TestImage2 from '../../asserts/test-image.jpeg'
 import TestImage3 from '../../asserts/test-image.jpeg'
-
-
+import { useLocation } from 'react-router-dom';
 const DescriptionPage = () => {
-    
+    const location = useLocation();
+    const searchParams = new URLSearchParams(location.search);
+    const productId = searchParams.get('productId');
+    console.log('productId on description page', productId);
     const [itemData, setItemData] = useState({
-        image: TestImage,
-        name:'Example Item NameExample Item Name Example Item Name Example Item Name Example Item Name Example Item Name',
-        price:'100',
-        sizes: ['S', 'M', 'L', 'XL'],
-        colors: ['Green', 'Blue', 'Red'],
-        image_colors: {'Green':TestImage, 'Blue':TestImage2, 'Red': TestImage3}
+        image: '',
+        productName:'',
+        price:'',
+        sizes: [],
+        colors: [],
+        image_colors: {}
     });
 
+<<<<<<< HEAD
+    const {image, productName, price, sizes, colors, image_colors} = itemData;
+    
+
+    useEffect(() => {
+        // Fetch product information using productId
+        fetch(`http://localhost:5000/products/getProductInformation?productId=${productId}`)
+            .then(response => response.json())
+            .then(data => {
+                // Update the itemData state with the fetched data
+                setItemData({
+                    ...data,
+                    image: `data:image/jpeg;base64,${data.image}` // Update the image property
+                });
+            })
+            .catch(error => console.error('Error fetching product information:', error));
+    }, [productId]); // Include productId in the dependency array to refetch data when it changes
+    
+=======
     const {image, name, price, sizes, colors, image_colors} = itemData;
     const [selectedOption, setSelectedOption] = useState(null);
 
@@ -38,11 +59,13 @@ const DescriptionPage = () => {
             colors: ['Green', 'Blue', 'Red']
           })); 
     }, []);
+>>>>>>> dev
 
     const handleColorClick = (color) => {
-        const newImage = image_colors[color];
+        const newImage = `data:image/jpeg;base64,${image_colors[color]}`;
         setItemData({ ...itemData, image: newImage });
     };
+
 
     return (
         <>  
@@ -60,10 +83,12 @@ const DescriptionPage = () => {
                                         <Button
                                             className="color-preview"
                                             style={{
-                                                backgroundImage: `url(${image_colors[color]})`,
+                                                backgroundImage: `url(data:image/jpeg;base64,${image_colors[color]})`,
                                                 backgroundSize: 'cover',
                                                 backgroundPosition: 'center',
+                                                
                                             }}
+                                            
                                         />
                                     </Flex>
                                 ))}
@@ -72,7 +97,7 @@ const DescriptionPage = () => {
                     </Flex>
                     <Flex vertical="vertical" className="details-container" align="left">
                         
-                        <h1 className="cloth-name">{name}</h1>
+                        <h1 className="cloth-name">{productName}</h1>
                         <p className="price-tag"> Rs {price}</p>
                         <p className="size-tag">size</p>
                         <Flex wrap="wrap" gap="small" className="size-bar">
@@ -84,7 +109,11 @@ const DescriptionPage = () => {
                         <Flex wrap="wrap" gap="small" className="color-container">
                             
                         {colors && colors.map((color, index) => (
+<<<<<<< HEAD
+                                <Button key={index} style={{backgroundColor: color, color:'white', borderBlockColor:color}}  onClick={() => handleColorClick(color)} className="color-palet"></Button>
+=======
                                 <Button key={index} style={{backgroundColor: color, color:'white', borderBlockColor:color}} className="color-palet" ></Button>
+>>>>>>> dev
                             ))}
 
                         </Flex>

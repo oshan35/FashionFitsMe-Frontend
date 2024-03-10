@@ -3,8 +3,9 @@
    height: 100vh;
 }
 .description-container{
-    height: 80%;
-    height: 100vh;
+    height: 100%;
+    width: 100%;
+
 
 }
 
@@ -46,7 +47,6 @@
   
     width: 40%;
     height: 100%;
-    /* padding-left: 20px; */
 }
 
 .content-image{
@@ -108,7 +108,11 @@
 
 .color-preview {
     margin-top: 10%;
-    width: 100%; /* Adjust as needed */
-    height: 100%; /* Adjust as needed */
+    width: 100%; 
+    height: 100%; 
+    
+     object-fit:cover;
+    
+    
     
 }
