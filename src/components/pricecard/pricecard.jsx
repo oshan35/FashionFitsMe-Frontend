@@ -20,8 +20,8 @@ const PriceCard = ({itemData}) => {
                     {picture && <img src={picture} alt="Price Card"/>}
                 </Flex>
                 <Flex vertical='vertical' justify='center' className='price-name'>
-                    <p className='product-name'>{itemName}</p>
-                    <p>Rs{itemPrice}</p>
+                    <p className='product-name-container' >{itemName}</p>
+                    <p className='product-price-container'>   LKR {itemPrice}</p>
                 </Flex>
             </Flex>
         </>

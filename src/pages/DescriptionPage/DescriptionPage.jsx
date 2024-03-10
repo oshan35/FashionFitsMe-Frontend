@@ -64,6 +64,7 @@ const DescriptionPage = () => {
                                                 backgroundImage: `url(data:image/jpeg;base64,${image_colors[color]})`,
                                                 backgroundSize: 'cover',
                                                 backgroundPosition: 'center',
+                                                
                                             }}
                                             
                                         />

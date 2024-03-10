@@ -18,7 +18,7 @@ const Catalogue = ({ onClick }) => {
     const { filters } = useContext(FilterContext);
 
     const cardsPerPage = 4;
-    const rowsPerPage = 1;
+    const rowsPerPage = 4;
 
     const applyFilters = (filters) => {
     
