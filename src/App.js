@@ -10,7 +10,7 @@ import ShoppingBag from './pages/ShoppingBag/ShoppingBag'
 import SignUpPage from './pages/SignupPage/SignupPage';
 import Catalogue from './pages/ClothingCataloguePage/Catalogue';
 import BillingDetails from './pages/BillingDetailsPage/BillingDetails';
-
+import ModelViewer from './components/bodymodelRender/bodymodel';
 
 function App() {
 
@@ -25,6 +25,7 @@ function App() {
           <Route path="/shopping-bag" element={<ShoppingBag />} />
           <Route path="/sign-up" element={<SignUpPage />} />
           <Route path="/billing-details" element={<BillingDetails />} />
+          <Route path="/model-view" element={<ModelViewer />} />
         </Routes>
   
       </div>

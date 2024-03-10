@@ -20,9 +20,14 @@ const DescriptionPage = () => {
     });
 
     const {image, name, price, sizes, colors, image_colors} = itemData;
+    const [selectedOption, setSelectedOption] = useState(null);
+
+    const handleButtonClick = (option) => {
+        setSelectedOption(option); 
+    };
 
     useEffect(() => {
-        fetch('your-backend-endpoint')
+        fetch('/product-description')
           .then(response => response.json())
           .then(data => setItemData({
             ...itemData, 
@@ -79,7 +84,7 @@ const DescriptionPage = () => {
                         <Flex wrap="wrap" gap="small" className="color-container">
                             
                         {colors && colors.map((color, index) => (
-                                <Button key={index} style={{backgroundColor: color, color:'white', borderBlockColor:color}} className="color-palet"></Button>
+                                <Button key={index} style={{backgroundColor: color, color:'white', borderBlockColor:color}} className="color-palet" ></Button>
                             ))}
 
                         </Flex>
@@ -95,9 +100,7 @@ const DescriptionPage = () => {
                         </Flex>
                     </Flex>
                 </Flex>
-                <Flex>
-                    Test
-                </Flex>
+
             </Flex>              
         </>
     );
