@@ -12,7 +12,6 @@
     padding: 10px;
     font-weight: bold;
     height: 100px;
-    border: 1px solid #ccc; 
     background-color: #F0EEEE; 
 
   }
@@ -23,7 +22,6 @@
     font-weight: bold;
     width: 550px;
     margin: 10px;
-    border: 1px solid #ccc; 
     background-color: #F0EEEE; 
 
   }
@@ -34,7 +32,6 @@
     font-weight: bold;
     width: 330px;
     margin: 10px;
-    border: 1px solid #ccc; 
     background-color: #F0EEEE; 
 
   }
@@ -43,7 +40,6 @@
     width: 400px;
     height: 370px;
     margin: 10px;
-    border: 1px solid #ccc; 
     background-color: #F0EEEE;
     display: grid; 
     grid-template-columns: 0.2fr 1fr; 
@@ -119,7 +115,6 @@
     align-items: center;
     justify-content: center; 
     margin: 10px;
-    border: 1px solid #ccc; 
     background-color: #F0EEEE; 
     border-radius: 50%;
     background-repeat: no-repeat;
@@ -153,7 +148,6 @@
     padding: 10px;
     height: 350px;
     margin: 10px;
-    border: 1px solid #ccc; 
     background-color: #F0EEEE; 
     font-weight: bold;
 
@@ -164,7 +158,6 @@
     padding: 10px;
     height: 350px;
     margin: 10px;
-    border: 1px solid #ccc; 
     background-color: #F0EEEE; 
     font-weight: bold;
 
@@ -174,7 +167,6 @@
     height: 350px;
     padding: 10px;
     margin: 10px;
-    border: 1px solid #ccc; 
     background-color: #F0EEEE; 
     font-weight: bold;
 
