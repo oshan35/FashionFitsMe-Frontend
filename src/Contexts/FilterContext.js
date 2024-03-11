@@ -4,22 +4,23 @@ const FilterContext = createContext({
   filters: {
     categories: null,
     size: null,
-    price:null,
+    price: null,
     color: null,
     gender: null,
     brand: null,
   },
   setFilter: (filter, value) => {},
+  resetFilters: () => {},
 });
 
 const FilterProvider = ({ children }) => {
   const [filters, setFilters] = useState({
-      categories: null,
-      size: null,
-      price:null,
-      color: null,
-      gender: null,
-      brand: null,
+    categories: null,
+    size: null,
+    price: null,
+    color: null,
+    gender: null,
+    brand: null,
   });
 
   const setFilter = (filter, value) => {
@@ -29,10 +30,19 @@ const FilterProvider = ({ children }) => {
     });
   };
 
-
+  const resetFilters = () => {
+    setFilters({
+      categories: null,
+      size: null,
+      price: null,
+      color: null,
+      gender: null,
+      brand: null,
+    });
+  };
 
   return (
-    <FilterContext.Provider value={{ filters, setFilter }}>
+    <FilterContext.Provider value={{ filters, setFilter, resetFilters }}>
       {children}
     </FilterContext.Provider>
   );
