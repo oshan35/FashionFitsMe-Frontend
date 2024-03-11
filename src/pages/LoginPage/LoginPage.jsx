@@ -1,16 +1,15 @@
 import React, { useState } from "react";
-import "./SignupPage.css";
+import "./LoginPage.css";
 import { LockOutlined, UserOutlined, MobileOutlined } from "@ant-design/icons";
 import { Button, Checkbox, Form, Input } from "antd";
 import Navbar from '../../components/navbar/navbar';
 import Footer from '../../components/footer/Footer';
 import {Flex} from 'antd';
 
-const SignUpPage = () => {
+const LoginPage = () => {
  
     const [formData, setFormData] = useState({
-      firstName: "",
-      lastName: "",
+      
       username: "",
       password: ""
     });
@@ -18,7 +17,7 @@ const SignUpPage = () => {
     const onFinish = async () => {
       console.log("Uform data",formData);
       try {
-        const response = await fetch('http://localhost:5000/customer/signup', {
+        const response = await fetch('http://localhost:5000/customer/login', {
           method: 'POST',
           headers: {
             'Content-Type': 'application/json'
@@ -27,9 +26,9 @@ const SignUpPage = () => {
         });
   
         if (response.ok) {
-          console.log("User registered successfully");
+          console.log("User signed up successfully");
         } else {
-          console.error("Registration failed");
+          console.error("Sign up failed");
         }
       } catch (error) {
         console.error("Error occurred:", error);
@@ -47,11 +46,11 @@ const SignUpPage = () => {
       <Flex  className="nav-container">
         <Navbar className="nav-item" />
       </Flex>
-      <Flex vertical="vertical" className="sign-up-item">
+      <Flex vertical="vertical" className="login-item">
         <Form name="normal_login" className="login-form" initialValues={{remember: true,}} onFinish={onFinish}>
           <h1 className="heading">CREATE ACCOUNT</h1>
     
-          <Form.Item name="firstName" className="textbox" rules={[{ required: true, message: "Please input your First Name!",},]}  >
+          {/* <Form.Item name="firstName" className="textbox" rules={[{ required: true, message: "Please input your First Name!",},]}  >
             <Input placeholder="First Name" name="firstName" onChange={handleChange}style={{
                 width: '400px',
                 height: '50px',
@@ -67,7 +66,7 @@ const SignUpPage = () => {
                 borderRadius: '0', 
                 borderColor: 'rgb(194, 193, 193)', 
               }} /> 
-          </Form.Item>
+          </Form.Item> */}
 
           <Form.Item name="username" className="textbox" rules={[{ required: true, message: "Please input your Username!",},]}  >
             <Input prefix={<UserOutlined className="site-form-item-icon" />} placeholder="Userame" name="username" onChange={handleChange} type="email" style={{
@@ -90,7 +89,7 @@ const SignUpPage = () => {
           </Form.Item>
 
           <Form.Item>
-            <Button type="primary" htmlType="submit" className="login-form-button">Sign Up</Button>
+            <Button type="primary" htmlType="submit" className="login-form-button">Login</Button>
           </Form.Item>
         </Form>
       </Flex>
@@ -100,4 +99,4 @@ const SignUpPage = () => {
   );
 };
 
-export default SignUpPage;
+export default LoginPage;
