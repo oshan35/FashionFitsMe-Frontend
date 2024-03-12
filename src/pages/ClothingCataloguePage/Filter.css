@@ -1,0 +1,10 @@
+.price-filter-container{
+    width: 100%;
+    margin-bottom: 15px;
+    
+}
+
+.filter-item-container{
+    gap:0px;
+    margin-left: 15px;
+}

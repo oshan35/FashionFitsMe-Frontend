@@ -1,5 +1,5 @@
 
-import React from 'react';
+import React, { useState } from 'react';
 import './App.css';
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import Navbar from './components/navbar/navbar';
@@ -13,12 +13,13 @@ import BillingDetails from './pages/BillingDetailsPage/BillingDetails';
 import ModelViewer from './components/bodymodelRender/bodymodel';
 import LoginPage from './pages/LoginPage/LoginPage';
 import { FilterProvider } from './Contexts/FilterContext';
-
+import {SelectedFiltersProvider} from './Contexts/SelectedFilterContext'
+import Filter from './pages/ClothingCataloguePage/Filter';
 function App() {
 
   return (
     <>
-    <FilterProvider>
+    <SelectedFiltersProvider>
     <Router>
       <div>
         <Routes>
@@ -34,7 +35,9 @@ function App() {
   
       </div>
       </Router>
-    </FilterProvider>
+    </SelectedFiltersProvider>
+
+
     
   
     </>
@@ -42,4 +45,19 @@ function App() {
 
 };
 
+
+// function App() {
+ 
+
+//   return (
+//     <>
+    
+//     <div className="App">
+//    <Filter/>
+//     </div></>
+   
+//   );
+// }
+
 export default App;
+

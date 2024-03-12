@@ -1,13 +1,17 @@
-import { Flex, Button, InputNumber } from "antd";
+import { Flex, Button, InputNumber, Spin} from "antd";
 import Navbar from '../../components/navbar/navbar';
 import Footer from '../../components/footer/Footer';
 import './DescriptionPage.css';
+import { useNavigate } from 'react-router-dom';
+
 import React, {useEffect, useState} from "react";
 import TestImage from '../../asserts/TestImage-Price-card.jpeg'
 import TestImage2 from '../../asserts/test-image.jpeg'
 import TestImage3 from '../../asserts/test-image.jpeg'
 import { useLocation } from 'react-router-dom';
 const DescriptionPage = () => {
+const cartId='Cart001';
+    const navigate = useNavigate(); 
     const location = useLocation();
     const searchParams = new URLSearchParams(location.search);
     const productId = searchParams.get('productId');
@@ -22,9 +26,10 @@ const DescriptionPage = () => {
     });
 
     const {image, productName, price, sizes, colors, image_colors} = itemData;
-    
+    const [isLoading, setIsLoading] = useState(true);
 
     useEffect(() => {
+        setIsLoading(true); // Set loading to true when fetching starts
         // Fetch product information using productId
         fetch(`http://localhost:5000/products/getProductInformation?productId=${productId}`)
             .then(response => response.json())
@@ -34,21 +39,48 @@ const DescriptionPage = () => {
                     ...data,
                     image: `data:image/jpeg;base64,${data.image}` // Update the image property
                 });
+                setIsLoading(false); // Set loading to false when fetching is done
             })
-            .catch(error => console.error('Error fetching product information:', error));
+            .catch(error => {
+                console.error('Error fetching product information:', error);
+                setIsLoading(false); // Set loading to false in case of error
+            });
     }, [productId]); // Include productId in the dependency array to refetch data when it changes
+
+
+    // useEffect(() => {
+    //     // Fetch product information using productId
+    //     fetch(`http://localhost:5000/products/getProductInformation?productId=${productId}`)
+    //         .then(response => response.json())
+    //         .then(data => {
+    //             // Update the itemData state with the fetched data
+    //             setItemData({
+    //                 ...data,
+    //                 image: `data:image/jpeg;base64,${data.image}` // Update the image property
+    //             });
+    //         })
+    //         .catch(error => console.error('Error fetching product information:', error));
+    // }, [productId]); // Include productId in the dependency array to refetch data when it changes
     
 
     const handleColorClick = (color) => {
         const newImage = `data:image/jpeg;base64,${image_colors[color]}`;
         setItemData({ ...itemData, image: newImage });
     };
-
+    const handleAddtoCartClick = () => {
+        console.log('product Id on',productId);
+        navigate(`/shopping-bag?cartId=${cartId}`); 
+    }
 
     return (
         <>  
 
             <Navbar/>
+            {isLoading ? ( // Render loading screen if isLoading is true
+                <Flex className="loading-container" justify="center" align="center">
+                    <Spin size="large" />
+                </Flex>
+            ) : (
             <Flex vertical="vertical" className="main-container">
                 <Flex wrap="wrap" gap="small" className="description-container">
                     <Flex horizontal="horizontal" className="image-container" justify="center" align="center">
@@ -98,13 +130,14 @@ const DescriptionPage = () => {
                         </Flex>
 
                         <Flex vertical="vertical" className="buy-options" justify="space-around" align="center">
-                            <Button type="primary" className="option-btn">Add To Cart</Button>
+                            <Button type="primary" className="option-btn" onClick={() => handleAddtoCartClick()}>Add To Cart</Button>
                             <Button type="primary" className="option-btn">Check Out</Button>
                         </Flex>
                     </Flex>
                 </Flex>
 
-            </Flex>              
+            </Flex>
+            )}             
         </>
     );
 }

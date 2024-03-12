@@ -7,7 +7,12 @@ import Footer from '../../components/footer/Footer';
 import ClothCard from '../../components/clothCard/ClothCard';
 import PriceCard from '../../components/pricecard/pricecard'
 import OrderSummary from '../../components/orderSummary/OrderSummary';
-const ShoppingBag = ({cartId}) => {
+import { useLocation } from 'react-router-dom';
+
+const ShoppingBag = () => {
+  const location = useLocation();
+  const searchParams = new URLSearchParams(location.search);
+  const cartId = searchParams.get('cartId');
     const [clothCards, setClothCards] = useState([]);
     const [products, setProducts] = useState([]);
     const [productImages, setProductImages] = useState([]);
@@ -20,8 +25,6 @@ const ShoppingBag = ({cartId}) => {
 
     // Function to fetch cloth card data from the API
    
-
-
     useEffect(() => {
         // Fetch data from API
         fetch('YOUR_API_ENDPOINT')
@@ -33,14 +36,11 @@ const ShoppingBag = ({cartId}) => {
             console.error('Error fetching price card data:', error);
         });
 
-        //fetchClothCardData(cartId);
-        
+        //fetchClothCardData(cartId);       
 
     }, []);
     useEffect(() => {
-     
-
-      
+         
       console.log('productColors:',productInfo);
 
   }, [productInfo]);
