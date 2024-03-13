@@ -32,6 +32,15 @@
     justify-content: right;
     align-items: center;
 }
+.options-colours{
+    width: 50%;
+    height: 5%;
+    display: flex;
+    justify-content:left;
+    align-items: top;
+    margin-top: 10px
+
+}
 
 .image-container{
     width: 50%;
@@ -47,7 +56,7 @@
   
     width: 40%;
     height: 100%;
-    /* padding-left: 20px; */
+    gap:15px
 }
 
 .content-image{
@@ -60,12 +69,36 @@
 
 .price-tag{
     margin-top: 5%;
+    
 }
 
-.size-bar{
-    margin: 2%;
-}
-
+  
+  .size-button {
+    position: relative;
+  }
+  
+  .size-button.not-in-list::after {
+    content: '';
+    position: absolute;
+    bottom: 50%;
+    left: 0;
+    width: 100%;
+    border-bottom: 1px solid black; /* Adjust the thickness and color of the line */
+  }
+  
+.size-bar {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px; /* Add a gap between buttons */
+  }
+  
+  .size-bar button {
+    border: 1px solid black; /* Add border to buttons */
+    border-radius: 0; /* Set border radius to zero */
+    margin: 0; /* Remove any default margin */
+    color: black;
+  }
+  
 .color-container{
     margin: 2%;
 }
@@ -85,7 +118,8 @@
 }
 
 .quantity-container{
-    margin: 2%;
+    margin-top: 10px;
+    gap: 20px;
 }
 
 .loading-container{
@@ -97,18 +131,27 @@
 .input-filed{
     margin-left: 10%;
     height: 40px;
+    border-color: rgb(92, 90, 90);
+    border-radius: 0px;
 }
+.color-preview-button{
+    height:45px;
+    width: 15px;
 
+}
 
 .color-option {
     width: 100%; 
     height: 80%; 
     cursor: pointer;
-   
     display: flex;
     justify-content: center;
     align-items: center;
     padding: 10px 10px 10px 10px;
+}
+.colour-title{
+    font-size: 20px;
+    margin-bottom: 0px;
 }
 
 .color-preview {
@@ -125,4 +168,23 @@
 .loading-container{
     width: 100%;
     height: 100vh;
+}
+
+
+.cloth-name{
+    font-size: 35px;
+    color: rgb(34, 34, 34);
+    font-weight:600;
+    margin-bottom: 0px;
+
+}
+
+.cloth-id{
+    color: rgb(108, 108, 108);
+    font-weight: 400;
+    font-size: 25px;
+    margin-bottom: 8px;
+    margin-top: -10px;
+
+
 }
