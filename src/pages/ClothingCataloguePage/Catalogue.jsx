@@ -12,11 +12,8 @@ import { useSelectedFilters } from '../../Contexts/SelectedFilterContext';
 import Filter from './Filter';
 const Catalogue = ({ onClick }) => {
   const [products, setProducts] = useState([]);
-    const [productImages, setProductImages] = useState([]);
     const [currentPage, setCurrentPage] = useState(1);
-    const [filterModalVisible, setFilterModalVisible] = useState(false);
-    const [filteredProducts, setFilteredProducts] = useState([]); 
-   // const { filters } = useContext(FilterContext);
+    
     const [isLoading, setIsLoading] = useState(true);
 
     const cardsPerPage = 4;

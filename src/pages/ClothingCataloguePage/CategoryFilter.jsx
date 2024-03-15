@@ -1,7 +1,7 @@
-import './CategoryFilter.css'; // Import CSS file for styling
+import './CategoryFilter.css'; 
 import React from 'react';
 import PropTypes from 'prop-types';
-import { useSelectedFilters } from '../../Contexts/SelectedFilterContext'; // Import the context
+import { useSelectedFilters } from '../../Contexts/SelectedFilterContext'; 
 import { Flex } from 'antd';
 
   function CategoryFilter({ title, categories }) {
@@ -32,7 +32,6 @@ import { Flex } from 'antd';
       return acc;
     }, {});
   
-    // Log selected filters to console
     console.log("Selected Filters:", Object.values(selectedFiltersByTitle));
 
 

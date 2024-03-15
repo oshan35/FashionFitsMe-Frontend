@@ -44,3 +44,4 @@ export const SelectedFiltersProvider = ({ children }) => {
     </SelectedFiltersContext.Provider>
   );
 };
+

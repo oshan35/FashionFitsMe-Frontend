@@ -36,12 +36,6 @@ const OrderSummary = ({orderInformation}) => {
                  <p>{orderInformation.estimatedTotal}</p>
             </Flex>
            
-
-
-
-
-
-
         </Flex>
         </>
     );

@@ -1,63 +1,23 @@
+import { createBrowserRouter, RouterProvider } from "react-router-dom";
+import { Home, Product, Catogeries,CartPage } from "./pages";
 
-import React, { useState } from 'react';
-import './App.css';
-import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
-import Navbar from './components/navbar/navbar';
-import Footer from './components/footer/Footer';
-import HomePage from './pages/HomePage/Homepage';
-import DescriptionPage from './pages/DescriptionPage/DescriptionPage';
-import ShoppingBag from './pages/ShoppingBag/ShoppingBag'
-import SignUpPage from './pages/SignupPage/SignupPage';
-import Catalogue from './pages/ClothingCataloguePage/Catalogue';
-import BillingDetails from './pages/BillingDetailsPage/BillingDetails';
-import ModelViewer from './components/bodymodelRender/bodymodel';
-import LoginPage from './pages/LoginPage/LoginPage';
-import { FilterProvider } from './Contexts/FilterContext';
-import {SelectedFiltersProvider} from './Contexts/SelectedFilterContext'
-import Filter from './pages/ClothingCataloguePage/Filter';
-function App() {
+const router = createBrowserRouter([
+  {
+    path: "/",
+    element: <Home/>,
+  },
+  {
+    path: "/product/:id",
+    element: <Product />,
+  },
+  {
+    path: "/catogeries/:id",
+    element: <Catogeries />,
+  },
+]);
 
-  return (
-    <>
-    <SelectedFiltersProvider>
-    <Router>
-      <div>
-        <Routes>
-          <Route path="/" element={<HomePage />} />
-          <Route path="/catalogue" element={<Catalogue />} />
-          <Route path="/description" element={<DescriptionPage />} />
-          <Route path="/shopping-bag" element={<ShoppingBag />} />
-          <Route path="/sign-up" element={<SignUpPage />} />
-          <Route path="/login" element={<LoginPage />} />
-          <Route path="/billing-details" element={<BillingDetails />} />
-          <Route path="/model-view" element={<ModelViewer />} />
-        </Routes>
-  
-      </div>
-      </Router>
-    </SelectedFiltersProvider>
-
-
-    
-  
-    </>
-  );
-
+const App = () => {
+  return <RouterProvider router={router} />;
 };
 
-
-// function App() {
- 
-
-//   return (
-//     <>
-    
-//     <div className="App">
-//    <Filter/>
-//     </div></>
-   
-//   );
-// }
-
 export default App;
-

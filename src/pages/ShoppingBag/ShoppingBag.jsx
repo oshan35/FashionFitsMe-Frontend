@@ -22,15 +22,12 @@ const ShoppingBag = () => {
     const [priceCardsData, setPriceCardsData] = useState([]);
     const [orderInfo, setOrderInfo] = useState({ subTotal: '', shipping: '' });
 
-
-    // Function to fetch cloth card data from the API
-   
     useEffect(() => {
         // Fetch data from API
         fetch('YOUR_API_ENDPOINT')
         .then(response => response.json())
         .then(data => {
-            setPriceCardsData(data); // Assuming data is an array of objects with picture, itemName, and itemPrice properties
+            setPriceCardsData(data); 
         })
         .catch(error => {
             console.error('Error fetching price card data:', error);
@@ -44,7 +41,6 @@ const ShoppingBag = () => {
       console.log('productColors:',productInfo);
 
   }, [productInfo]);
-
 
 
     useEffect(() => {
@@ -101,15 +97,14 @@ const ShoppingBag = () => {
         const fetchClothCardData = async (cartId) => {
           try {
             console.log('cartId:',cartId);
-              // Perform API request to fetch cloth card data
-              // Replace 'apiEndpoint' with your actual API endpoint
+             
               const response = await fetch(`http://localhost:5000/product_shopping_cart/${cartId}/product-color-sizes`);
               
               const data = await response.json();
               console.log('data:',data);
               setProductInfo(data);
               
-              // Update cloth card state with fetched data
+              
               setClothCards(data);
           } catch (error) {
               console.error('Error fetching cloth card data:', error);
@@ -157,8 +152,7 @@ const ShoppingBag = () => {
     <Flex vertical="vertical"  justify content ="center" className="empty-cart-message">
       <h1>Your shopping bag is empty</h1>
     </Flex>
-  ) : (
-            
+  ) : (           
             <Flex horizontal="horizontal" className="bill-item">
                 <Flex vertical="vertical" className="shopping-card">
                   {productInfo.map((product) => (
@@ -174,11 +168,8 @@ const ShoppingBag = () => {
                           }}/>
                     ))}                
                 </Flex>
-
-
-
                 <div className='bill'>
-                    {/* Havent passed data for ESTIMATED TOTAL */}
+
                     <OrderSummary orderInformation={{subTotal: orderInformation.totalAmount,
                                                     discount:orderInformation.discountAmount,
                                                     estimatedTotal:orderInformation.estimatedTotal}} />                   
