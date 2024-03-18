@@ -5,8 +5,13 @@ import ServiceCard from "./ServiceCard";
 import ReviewCard from "./ReviewCard";
 import QuickProductView from "./QuickViewProduct";
 import ViewProduct from "./ViewProduct";
+import OrderSummaryItem from "./OrderSummaryItem";
+import OrderSummaryCard from "./OrderSummaryCard";
+import ShippingCard from "./ShippingCard";
+import OrderSummaryCustomerCard from "./OrderSummaryCustomerCard";
 import CartItemCard from "./CartItemCard";
-import OrderSummary from "./OrderSummaryCard";
+import PayCard from "./PayCard";
+import { PayAccordion } from "./PayAccordian";
 export {
   Button,
   Nav,
@@ -15,6 +20,11 @@ export {
   ReviewCard,
   QuickProductView,
   ViewProduct,
+  OrderSummaryItem,
+  OrderSummaryCard,
+  ShippingCard,
+  OrderSummaryCustomerCard,
   CartItemCard,
-  OrderSummary
+  PayCard,
+  PayAccordion
 };

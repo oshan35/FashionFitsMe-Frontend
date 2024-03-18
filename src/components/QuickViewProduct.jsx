@@ -1,7 +1,7 @@
 import { Fragment, useState } from "react";
 import { Dialog, RadioGroup, Transition } from "@headlessui/react";
-import { XMarkIcon } from "@heroicons/react/24/outline";
-import { StarIcon } from "@heroicons/react/20/solid";
+import { XIcon } from "@heroicons/react/solid";
+import { StarIcon } from "@heroicons/react/solid";
 import { useNavigate } from "react-router-dom";
 
 const product = {
@@ -73,7 +73,7 @@ export default function QuickProductView({ open, setOpen, productData }) {
                     onClick={() => setOpen(false)}
                   >
                     <span className="sr-only">Close</span>
-                    <XMarkIcon className="h-6 w-6" aria-hidden="true" />
+                    <XIcon className="h-6 w-6" aria-hidden="true" />
                   </button>
 
                   <div className="grid w-full grid-cols-1 items-start gap-x-6 gap-y-8 sm:grid-cols-12 lg:gap-x-8">

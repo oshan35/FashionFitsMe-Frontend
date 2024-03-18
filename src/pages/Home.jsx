@@ -9,12 +9,14 @@ import {
   Subscribe,
   SuperQuality,
   MainImage,
+  
  
 
 } from "../sections";
 import { useSelectedFilters } from '../Contexts/SelectedFilterContext'
-import CartPage from "./CartPage";
-
+import OrderSummary from "./OrderSummary";
+import Cart from "./Cart";
+import CheckoutPage from "./CheckoutPage";
 
 
 const Home = () => {
@@ -22,11 +24,12 @@ const Home = () => {
   return (
     <main className="relative ">
       <Nav />
-      {/* <div className="p-3">  
-      <CartPage/>   
-</div> */}
-      <section >
-        {/* <Hero /> */}
+      <div className="p-3">  
+       <CheckoutPage/>
+      </div>
+      <section>
+      <CheckoutPage/>
+        <Hero />
         <MainImage/>
       </section>
       <section className="padding-x py-10">
