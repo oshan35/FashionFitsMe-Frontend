@@ -1,5 +1,6 @@
 import React from "react";
 import { useState } from 'react'
+import RadioGroupShipping from "./RadioGroupShipping";
 
 import {
   Accordion,
@@ -8,7 +9,10 @@ import {
 } from "@material-tailwind/react";
 import { RadioGroup } from '@headlessui/react'
 import { CheckCircleIcon, TrashIcon } from '@heroicons/react/solid'
-
+const shippingMethods = [
+  { id: 'standard', title: 'Standard Delivery' },
+  { id: 'pickup', title: 'Pick Up  from Store' },
+]
  
 function Icon({ id, open }) {
   return (
@@ -42,14 +46,14 @@ export function PayAccordion() {
   return (
     <>
       <Accordion open={open === 1} icon={<Icon id={1} open={open} />}>
-        <AccordionHeader onClick={() => handleOpen(1)}>Payment Details</AccordionHeader>
+        <AccordionHeader onClick={() => handleOpen(1)}>Payment </AccordionHeader>
         <AccordionBody>
-        <section aria-labelledby="payment-heading" className="mt-10">
-              <h2 id="payment-heading" className="text-lg font-medium text-gray-900">
-                Payment details
-              </h2>
+        <section aria-labelledby="payment-heading" className="mt-5">
+              <label  className="text-m font-medium text-gray-500 mb-3">
+              All transactions are secure and encrypted.              </label>
+              <RadioGroupShipping/>
 
-              <div className="mt-6 grid grid-cols-3 sm:grid-cols-4 gap-y-6 gap-x-4">
+              {/* <div className="mt-6 grid grid-cols-3 sm:grid-cols-4 gap-y-6 gap-x-4">
                 <div className="col-span-3 sm:col-span-4">
                   <label htmlFor="name-on-card" className="block text-sm font-medium text-gray-700">
                     Name on card
@@ -109,7 +113,7 @@ export function PayAccordion() {
                     />
                   </div>
                 </div>
-              </div>
+              </div> */}
             </section>
         </AccordionBody>
       </Accordion>
@@ -218,9 +222,26 @@ export function PayAccordion() {
          Shipping Options
         </AccordionHeader>
         <AccordionBody>
-        <div className="mt-10 border-t border-gray-200 pt-10">
-              <RadioGroup value={selectedDeliveryMethod} onChange={setSelectedDeliveryMethod}>
-                <RadioGroup.Label className="text-lg font-medium text-gray-900">Delivery method</RadioGroup.Label>
+        <div className="mt-1  pt-1">
+        {/* <p className="text-sm leading-5 text-gray-500">How do you prefer to receive notifications?</p> */}
+        <div className="space-y-4">
+          {shippingMethods.map((notificationMethod) => (
+            <div key={notificationMethod.id} className="flex items-center">
+              <input
+                id={notificationMethod.id}
+                name="notification-method"
+                type="radio"
+                defaultChecked={notificationMethod.id === 'email'}
+                className="focus:ring-indigo-500 h-4 w-4 text-indigo-600 border-gray-300 ml-1"
+              />
+              <label htmlFor={notificationMethod.id} className="ml-3 block text-sm font-medium text-gray-700">
+                {notificationMethod.title}
+              </label>
+            </div>
+          ))}
+        </div>
+              <RadioGroup className="mt-5  " value={selectedDeliveryMethod} onChange={setSelectedDeliveryMethod}>
+                <RadioGroup.Label className="text-lg font-medium text-gray-900 ">Delivery method</RadioGroup.Label>
 
                 <div className="mt-4 grid grid-cols-1 gap-y-6 sm:grid-cols-2 sm:gap-x-4">
                   {deliveryMethods.map((deliveryMethod) => (

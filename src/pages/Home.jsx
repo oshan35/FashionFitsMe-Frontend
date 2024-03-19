@@ -24,12 +24,9 @@ const Home = () => {
   return (
     <main className="relative ">
       <Nav />
-      <div className="p-3">  
-       <CheckoutPage/>
-      </div>
+      
       <section>
-      <CheckoutPage/>
-        <Hero />
+      
         <MainImage/>
       </section>
       <section className="padding-x py-10">

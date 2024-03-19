@@ -4,7 +4,7 @@ import { Home, Product, Catogeries,Cart,CheckoutPage,CheckoutTest } from "./page
 const router = createBrowserRouter([
   {
     path: "/",
-    element: <CheckoutPage/>,
+    element: <Product/>,
   },
   {
     path: "/product/:id",

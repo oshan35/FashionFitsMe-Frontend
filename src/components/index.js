@@ -12,6 +12,10 @@ import OrderSummaryCustomerCard from "./OrderSummaryCustomerCard";
 import CartItemCard from "./CartItemCard";
 import PayCard from "./PayCard";
 import { PayAccordion } from "./PayAccordian";
+import RadioGroupShipping from "./RadioGroupShipping";
+import PaymentGateWayCard from "./PaymentGatewayCard";
+
+
 export {
   Button,
   Nav,
@@ -26,5 +30,7 @@ export {
   OrderSummaryCustomerCard,
   CartItemCard,
   PayCard,
-  PayAccordion
+  PayAccordion,
+  RadioGroupShipping,
+  PaymentGateWayCard
 };

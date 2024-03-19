@@ -1,7 +1,37 @@
 
-import { PayAccordion } from "../components"
+import { PayAccordion,PaymentGateWayCard } from "../components"
 import { tommyFigure } from "../assets/images"
 const products = [
+  {
+    id: 1,
+    name: "Women's Basic Tee",
+    href: '#',
+    price: '$32.00',
+    color: 'Gray',
+    size: 'S',
+    imageSrc: tommyFigure ,
+    imageAlt: "Front of women's basic tee in heather gray.",
+  },
+  {
+    id: 1,
+    name: "Women's Basic Tee",
+    href: '#',
+    price: '$32.00',
+    color: 'Gray',
+    size: 'S',
+    imageSrc: tommyFigure ,
+    imageAlt: "Front of women's basic tee in heather gray.",
+  },
+  {
+    id: 1,
+    name: "Women's Basic Tee",
+    href: '#',
+    price: '$32.00',
+    color: 'Gray',
+    size: 'S',
+    imageSrc:  tommyFigure ,
+    imageAlt: "Front of women's basic tee in heather gray.",
+  },
   {
     id: 1,
     name: "Women's Basic Tee",
@@ -48,7 +78,7 @@ export default function Example() {
            
 
             <form className="mt-6">
-              <h2 className="text-lg font-medium text-gray-900">Contact information</h2>
+              <h2 className="text-lg font-large text-black-900">Contact information</h2>
 
               <div className="mt-6">
                 <label htmlFor="email-address" className="block text-sm font-medium text-gray-700">
@@ -107,12 +137,42 @@ export default function Example() {
             <div className="mt-10 border-t border-b border-gray-200 divide-y divide-gray-200">
              
               <PayAccordion/>
+
             </div>
+            {/* <PaymentGateWayCard/> */}
+            <div className="mt-10">
+                {/* <h3 className="text-lg font-medium text-gray-900">Billing information</h3>
+
+                <div className="mt-6 flex items-center">
+                  <input
+                    id="same-as-shipping"
+                    name="same-as-shipping"
+                    type="checkbox"
+                    defaultChecked
+                    className="h-4 w-4 border-gray-300 rounded text-indigo-600 focus:ring-indigo-500"
+                  />
+                  <div className="ml-2">
+                    <label htmlFor="same-as-shipping" className="text-sm font-medium text-gray-900">
+                      Same as shipping information
+                    </label>
+                  </div>
+                </div> */}
+             
+
+              <div className="mt-10 flex justify-end pt-6 ">
+                <button
+                  type="submit"
+                  className="bg-indigo-600 border border-transparent rounded-md shadow-sm py-2 px-4 text-sm font-medium text-white hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-offset-gray-50 focus:ring-indigo-500"
+                >
+                  Pay now
+                </button>
+              </div>
+              </div>
           </div>
           <div className="max-w-lg mx-auto w-full">
             <h2 className="sr-only">Order summary</h2>
 
-            <div className="flow-root  overflow-y-auto overflow-x-hidden" id="scroll" style={{ maxHeight: '400px', overflowY: 'auto',scrollbarWidth: 'thin' }}>
+            <div className="flow-root  overflow-y-auto overflow-x-hidden" id="scroll" style={{ maxHeight: '400px', overflowY: 'auto',scrollbarWidth: ' thin' }}>
               <ul role="list" className="-my-6 divide-y divide-gray-200">
                 {products.map((product) => (
                   <li key={product.id} className="py-6 flex space-x-6">
@@ -170,6 +230,8 @@ export default function Example() {
 
          
         </div>
+       
+            
       </div>
     </div>
   )
