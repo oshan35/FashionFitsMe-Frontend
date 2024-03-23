@@ -8,7 +8,7 @@ import { Flex } from 'antd';
     const { selectedFilters, updateSelectedFilters, removeSelectedFilter } = useSelectedFilters();
   
     const handleFilterChange = (categoryId) => {
-      // Check if selectedFilters exists and has a length
+
       if (selectedFilters && selectedFilters.length > 0) {
         const isSelected = selectedFilters.some(filter => filter.title === title && filter.category === categoryId);
         if (isSelected) {
@@ -17,13 +17,13 @@ import { Flex } from 'antd';
           updateSelectedFilters(title, categoryId);
         }
       } else {
-        // If selectedFilters is undefined or empty, always update the filters
+
         updateSelectedFilters(title, categoryId);
       }
     };
     
   
-    // Group selected filters by title
+
     const selectedFiltersByTitle = selectedFilters.reduce((acc, filter) => {
       if (!acc[filter.title]) {
         acc[filter.title] = { title: filter.title, categories: [] };

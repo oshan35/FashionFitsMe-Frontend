@@ -3,7 +3,7 @@ import customer2 from "./customer2.svg";
 import homeimg from "./img21.jpg"
 import footerLogo from "./footer-logo.svg";
 import headerLogo from "./header-logo.svg";
-
+import txtimg from "./txtimg.jpg"
 import about from "./about.png";
 
 import tommyFigure from "./TOMMY hIGLFIGER1.jpeg";
@@ -31,5 +31,6 @@ export {
   about,
   thumbnailBackground,
   homeimg,
-  tommyFigure
+  tommyFigure,
+  txtimg
 };

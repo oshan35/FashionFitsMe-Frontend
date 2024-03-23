@@ -10,10 +10,108 @@ import {
 } from "../assets/icons";
 import { customer1, customer2 } from "../assets/images";
 
+// export const navLinks = [
+//   { path: "/", label: "Home" },
+//   { path: "/catogeries/tops", label: "Tops" },
+//   { path: "/catogeries/dresses", label: "Dresses" },
+//   { path: "/contact-us", label: "Contact Us" },
+// ];
+
+export const filterValues = [
+  {
+    id: 'Color',
+    name: 'Color',
+    options: [
+      { value: 'Red', label: 'Red', checked: false },
+      { value: 'green', label: 'Green', checked: false },
+      { value: 'blue', label: 'Blue', checked: false },
+      { value: 'brown', label: 'Brown', checked: false },
+      { value: 'black', label: 'Black', checked: false },
+      { value: 'orange', label: 'Orange', checked: false },
+      { value: 'grey', label: 'Grey', checked: false },
+      { value: 'white', label: 'White', checked: false },
+      { value: 'navy', label: 'Navy', checked: false },
+      { value: 'yellow', label: 'Yellow', checked: false },
+      { value: 'pink', label: 'Pink', checked: false },
+      { value: 'purple', label: 'Purple', checked: false },
+      { value: 'cream', label: 'Cream', checked: false },
+      { value: 'multicolour', label: 'Multicolour', checked: false }
+    ]
+  },
+  {
+    id: 'Category',
+    name: 'Category',
+    options: [
+      { value: 'Work Wear', label: 'Work Wear', checked: false },
+      { value: 'Dresses', label: 'Dresses', checked: false },
+      { value: 'Denims', label: 'Denims', checked: false },
+      { value: 'Tops', label: 'Tops', checked: false },
+      { value: 'Casuals', label: 'Casuals', checked: false },
+      { value: 'Pants', label: 'Pants', checked: false },
+      { value: 'Linen', label: 'Linen', checked: false },
+      { value: 'Premium Dresses', label: ' Premium Dresses', checked: false }
+    ]
+  },
+  {
+    id: 'Gender',
+    name: 'Gender',
+    options: [
+      { value: 'men', label: 'Men', checked: false },
+      { value: 'women', label: 'Women', checked: false },
+      { value: 'kids', label: 'Kids', checked: false },
+      { value: 'Unisex', label: 'Unisex', checked: false }
+    ]
+  },
+  {
+    id: 'Brand',
+    name: 'Brand',
+    options: [
+      { value: 'aldo', label: 'Aldo', checked: false },
+      { value: 'adidas', label: 'Adidas', checked: false },
+      { value: 'levis', label: 'Levis', checked: false },
+      { value: 'odel', label: 'Odel', checked: false },
+      { value: 'aldo', label: 'Aldo', checked: false },
+      { value: 'polo', label: 'Polo', checked: false },
+      { value: 'under armour', label: 'Under Armour', checked: false },
+      { value: 'abercrombie and fitch', label: 'Abercrombie And Fitch', checked: false },
+      { value: 'gucci', label: 'Gucci', checked: false },
+      { value: 'louis vuiton', label: 'Louis Vuiton', checked: false }
+    ]
+  },
+  {
+    id: 'Size',
+    name: 'Size',
+    options: [
+      { value: 'UK4', label: 'UK4', checked: false },
+      { value: 'UK6', label: 'UK6', checked: false },
+      { value: 'UK8', label: 'UK8', checked: false },
+      { value: 'UK10', label: 'UK10', checked: false },
+      { value: 'UK12', label: 'UK12', checked: false },
+      { value: 'UK14', label: 'UK14', checked: false },
+      { value: 'UK16', label: 'UK16', checked: false },
+      { value: 'UK18', label: 'UK18', checked: false },
+      { value: 'UK20', label: 'UK20', checked: false },
+      { value: '24', label: '24', checked: false },
+      { value: '26', label: '26', checked: false },
+      { value: '28', label: '28', checked: false },
+      { value: '30', label: '30', checked: false },
+      { value: '32', label: '32', checked: false },
+      { value: '34', label: '34', checked: false },
+      { value: '36', label: '36', checked: false }
+    ]
+  }
+];
+
+
+
 export const navLinks = [
   { path: "/", label: "Home" },
-  { path: "/catogeries/tops", label: "Tops" },
-  { path: "/catogeries/dresses", label: "Dresses" },
+  { path: "/catogeries", label: "Tops" ,topic:"Category"},
+  { path: "/catogeries", label: "Dresses" ,topic:"Category"},
+  { path: "/catogeries", label: "Red" ,topic:"Color"},
+  { path: "/catogeries", label: "Men" ,topic:"Gender"},
+  
+
   { path: "/contact-us", label: "Contact Us" },
 ];
 

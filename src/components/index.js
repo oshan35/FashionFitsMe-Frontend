@@ -14,6 +14,9 @@ import PayCard from "./PayCard";
 import { PayAccordion } from "./PayAccordian";
 import RadioGroupShipping from "./RadioGroupShipping";
 import PaymentGateWayCard from "./PaymentGatewayCard";
+import ProductImageCarousel from "./ProductImageCarosel";
+import PriceCardNew from "./PriceCardNew";
+
 
 
 export {
@@ -32,5 +35,7 @@ export {
   PayCard,
   PayAccordion,
   RadioGroupShipping,
-  PaymentGateWayCard
+  PaymentGateWayCard,
+  ProductImageCarousel,
+  PriceCardNew
 };

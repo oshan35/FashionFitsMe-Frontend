@@ -1,23 +1,33 @@
 import { createBrowserRouter, RouterProvider } from "react-router-dom";
-import { Home, Product, Catogeries,Cart,CheckoutPage,CheckoutTest } from "./pages";
-
+import { Home, Product, Catogeries,Cart,CheckoutPage,CheckoutTest, OrderSummary} from "./pages";
+import { CataloguePage } from "./pages";
+import { SelectedFiltersProvider } from "./Contexts/SelectedFilterContext";
+import { PriceCardNew } from "./components";
 const router = createBrowserRouter([
   {
     path: "/",
-    element: <Product/>,
+    element: <Home/>,
   },
   {
-    path: "/product/:id",
+    path: "/product/:productId",
     element: <Product />,
   },
   {
-    path: "/catogeries/:id",
-    element: <Catogeries />,
+    path: "/catogeries",
+    element: <CataloguePage />,
   },
 ]);
 
 const App = () => {
-  return <RouterProvider router={router} />;
+  return (
+    <>
+    <SelectedFiltersProvider>
+     <RouterProvider router={router} />;
+  </SelectedFiltersProvider></>
+
+  )
+ 
+ 
 };
 
 export default App;

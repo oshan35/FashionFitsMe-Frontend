@@ -22,12 +22,13 @@ import CheckoutPage from "./CheckoutPage";
 const Home = () => {
  
   return (
-    <main className="relative ">
-      <Nav />
-      
-      <section>
-      
-        <MainImage/>
+    <main className="">
+     
+      <section className="ml-10 ">
+      <Nav />    
+        </section>
+      <section className="mt-0 ">
+      <MainImage/>
       </section>
       <section className="padding-x py-10">
         <ProductContainer id={"tops"} heading={"Adidas"} title={"brand"}/>

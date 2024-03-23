@@ -5,7 +5,6 @@ import Navbar from '../../components/navbar/navbar';
 import Footer from '../../components/footer/Footer';
 import filterSortImage from '../../asserts/filter_image.jpeg'
 import PriceCard from '../../components/pricecard/pricecard';
-import FilterModal from './PopUpPage';
 import { FilterContext } from '../../Contexts/FilterContext';
 import { useSelectedFilters } from '../../Contexts/SelectedFilterContext';
 
@@ -22,7 +21,7 @@ const Catalogue = ({ onClick }) => {
     const { selectedFilters, minPrice, maxPrice } = useSelectedFilters();
 
   const applyFilters = () => {
-    setIsLoading(true); // Set loading to true when fetching starts
+    setIsLoading(true); 
     
     const filters = { selectedFilters, minPrice, maxPrice };
     console.log('sent to backend',filters)
@@ -37,10 +36,9 @@ const Catalogue = ({ onClick }) => {
     })
       .then((response) => response.json())
       .then((data) => {
-        // Handle the response data
         setProducts(data);
         console.log('retrieved products',data)
-        setIsLoading(false); // Set loading to false when fetching is done
+        setIsLoading(false); 
       })
       .catch((error) => {
         console.error('Error fetching filtered products:', error);
@@ -53,32 +51,7 @@ const Catalogue = ({ onClick }) => {
     applyFilters();
   }, [selectedFilters, minPrice, maxPrice]); // Add filters as dependencies
 
-//   const sendFilterData = async () => {
-//     try {
-//       const response = await axios.post('/filter', {
-//         minPrice,
-//         maxPrice,
-//         selectedFilters,
-//       });
-//       console.log(response.data);
-//     } catch (error) {
-//       console.error('Error sending filter data:', error);
-//     }
-//   };
 
-
-  
-
-//  useEffect(() => {
-//   applyFilters(filters);
-//   console.log('  Filtered products at the begining', products);
-//  }, []); 
-
-// useEffect(() => {
-         
-//   applyFilters(filters);
-      
-//   }, [filters]); 
   
 
   
@@ -93,14 +66,7 @@ const Catalogue = ({ onClick }) => {
       setCurrentPage(page);
     };
 
-    const handleFilterButtonClick = () => {
-        setFilterModalVisible(true);
-      };
-    
-      const handleFilterModalCancel = () => {
-        setFilterModalVisible(false);
-      };
-
+   
     
     return( <>
     <Flex vertical="vertical" className="catalogue-container">
@@ -108,7 +74,7 @@ const Catalogue = ({ onClick }) => {
             <Navbar className="nav-item"/>
         </Flex>
         <Flex  className="filter-container" >
-        <Button className="rectangular-button" onClick={handleFilterButtonClick}>
+        <Button className="rectangular-button" >
 
             <div className="button-content">
                 <img src={filterSortImage} alt="" className="button-image" /> 
@@ -124,7 +90,7 @@ const Catalogue = ({ onClick }) => {
             ) : (
                 <>
                 <Flex vertical='vertical' >
-                <Flex horizontal='horizontal' classname='main-catalogue-container'>
+                <Flex horizontal='horizontal' classname='gap-0'>
                 <Flex className='catalogue-filter-container'><Filter/></Flex>
                
                    
