@@ -3,40 +3,79 @@ import { Dialog, RadioGroup, Transition } from "@headlessui/react";
 import { XIcon } from "@heroicons/react/solid";
 import { StarIcon } from "@heroicons/react/solid";
 import { useNavigate } from "react-router-dom";
+import React, {useEffect} from "react";
 
-const product = {
-  name: "Basic Tee 6-Pack ",
-  price: "$192",
-  rating: 3.9,
-  reviewCount: 117,
-  href: "#",
-  imageSrc:
-    "https://tailwindui.com/img/ecommerce-images/product-quick-preview-02-detail.jpg",
-  imageAlt: "Two each of gray, white, and black shirts arranged on table.",
-  colors: [
-    { name: "White", class: "bg-white", selectedClass: "ring-gray-400" },
-    { name: "Gray", class: "bg-gray-200", selectedClass: "ring-gray-400" },
-    { name: "Black", class: "bg-gray-900", selectedClass: "ring-gray-900" },
-  ],
-  sizes: [
-    { name: "XXS", inStock: true },
-    { name: "XS", inStock: true },
-    { name: "S", inStock: true },
-    { name: "M", inStock: true },
-    { name: "L", inStock: true },
-    { name: "XL", inStock: true },
-    { name: "XXL", inStock: true },
-    { name: "XXXL", inStock: false },
-  ],
-};
 
 function classNames(...classes) {
   return classes.filter(Boolean).join(" ");
 }
+//////////////////////////////////////////////////////
 
-export default function QuickProductView({ open, setOpen, productData }) {
-  const [selectedColor, setSelectedColor] = useState(product.colors[0]);
-  const [selectedSize, setSelectedSize] = useState(product.sizes[2]);
+//                    reviews are commnted, make product has a attribute REVIEW
+/////////////////////////////////////////////////////////////////////////////
+///////////////////////////
+export default function QuickProductView({ open, setOpen, productId }) {
+
+  const reviews = {
+    average: 3.9,
+    totalCount: 512,
+    featured: [
+      {
+        id: 1,
+        title: "Can't say enough good things",
+        rating: 5,
+        content: `
+          <p>I was really pleased with the overall shopping experience. My order even included a little personal, handwritten note, which delighted me!</p>
+          <p>The product quality is amazing, it looks and feel even better than I had anticipated. Brilliant stuff! I would gladly recommend this store to my friends. And, now that I think of it... I actually have, many times!</p>
+        `,
+        author: "Risako M",
+        date: "May 16, 2021",
+        datetime: "2021-01-06",
+      },
+      // More reviews...
+    ],
+  }
+
+  const [itemData, setItemData] = useState({
+    image: '',
+    productName:'',
+    price:'',
+    sizes: [],
+    colors: [],
+    image_colors: {},
+    category:''
+  });
+  
+  
+  
+  const {image, productName, price, sizes, colors, image_colors,category} = itemData;
+  const [isLoading, setIsLoading] = useState(true);
+  
+  useEffect(() => {
+    setIsLoading(true);
+  
+    fetch(`http://localhost:5000/products/getProductInformation?productId=${productId}`)
+        .then(response => response.json())
+        .then(data => {
+            // Update the itemData state with the fetched data
+            setItemData({
+                ...data,
+                image: `data:image/jpeg;base64,${data.image}`
+            });
+            console.log('loaded data at view product',data);
+            setIsLoading(false); 
+            
+  
+        })
+        .catch(error => {
+            console.error('Error fetching product information:', error);
+            setIsLoading(false); 
+        });
+  }, [productId]); 
+
+
+  const [selectedColor, setSelectedColor] = useState(colors[0]);
+  const [selectedSize, setSelectedSize] = useState(sizes[0]);
   const navigate = useNavigate();
 
   return (
@@ -79,17 +118,17 @@ export default function QuickProductView({ open, setOpen, productData }) {
                   <div className="grid w-full grid-cols-1 items-start gap-x-6 gap-y-8 sm:grid-cols-12 lg:gap-x-8">
                     <div className="aspect-h-3 aspect-w-2 overflow-hidden rounded-lg bg-gray-100 sm:col-span-4 lg:col-span-5">
                       <img
-                        src={productData.imageSrc}
-                        alt={productData.name}
+                        src={image}
+                        alt={productName}
                         className="object-cover object-center"
                       />
                     </div>
                     <div className="sm:col-span-8 lg:col-span-7">
                       <h2 className="text-2xl font-bold text-gray-900 sm:pr-12">
-                        {productData.name}
+                        {productName}
                       </h2>
                       <p className="text-2xl text-gray-900">
-                        {productData.prodCode}
+                        {productId}
                       </p>
 
                       <section
@@ -101,11 +140,11 @@ export default function QuickProductView({ open, setOpen, productData }) {
                         </h3>
 
                         <p className="text-2xl text-gray-900">
-                          {productData.price}
+                          {price}
                         </p>
 
                         {/* Reviews */}
-                        <div className="mt-6">
+                        {/* <div className="mt-6">
                           <h4 className="sr-only">Reviews</h4>
                           <div className="flex items-center">
                             <div className="flex items-center">
@@ -132,7 +171,7 @@ export default function QuickProductView({ open, setOpen, productData }) {
                               {product.reviewCount} reviews
                             </a>
                           </div>
-                        </div>
+                        </div> */}
                       </section>
 
                       <section
@@ -159,7 +198,7 @@ export default function QuickProductView({ open, setOpen, productData }) {
                                 Choose a color
                               </RadioGroup.Label>
                               <span className="flex items-center space-x-3">
-                                {product.colors.map((color) => (
+                                {colors.map((color) => (
                                   <RadioGroup.Option
                                     key={color.name}
                                     value={color}
@@ -216,7 +255,7 @@ export default function QuickProductView({ open, setOpen, productData }) {
                                 Choose a size
                               </RadioGroup.Label>
                               <div className="grid grid-cols-4 gap-4">
-                                {product.sizes.map((size) => (
+                                {sizes.map((size) => (
                                   <RadioGroup.Option
                                     key={size.name}
                                     value={size}
@@ -279,7 +318,7 @@ export default function QuickProductView({ open, setOpen, productData }) {
                           <button
                             type="submit"
                             className="mt-6 flex w-full items-center justify-center rounded-md border border-transparent bg-secondary px-8 py-3 text-base font-medium text-white hover:bg-primary hover:text-secondary focus:outline-none focus:ring-2 focus:ring-secondary focus:ring-offset-2"
-                            onClick={() => navigate("/product/121241241")}
+                            onClick={() => navigate(`/product/${productId}`)}
                           >
                             View More
                           </button>
