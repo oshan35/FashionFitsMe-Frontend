@@ -128,9 +128,6 @@ import ProductImageCarousel from "./ProductImageCarosel";
 //   ],
 // };
 
-function classNames(...classes) {
-  return classes.filter(Boolean).join(" ");
-}
 const reviews = {
   average: 3.9,
   totalCount: 512,
@@ -154,7 +151,29 @@ const reviews = {
 export default function ViewProduct({productId}) {
 
  
-
+  const [showPrompt, setShowPrompt] = useState(false);
+  const navigate = useNavigate();
+  
+  function classNames(...classes) {
+    return classes.filter(Boolean).join(" ");
+  }
+  const handleBuyNow = () => {
+    navigate('/checkout');
+  };
+  
+  const handleAddToCart = () => {
+    setShowPrompt(true);
+  };
+  
+  const handleViewCart = () => {
+    navigate("/cart");
+    setShowPrompt(false);
+  };
+  
+  const handleContinueShopping = () => {
+    setShowPrompt(false);
+    // Handle continue shopping logic if needed
+  };
   const [itemData, setItemData] = useState({
     image: '',
     productName:'',
@@ -176,6 +195,7 @@ export default function ViewProduct({productId}) {
     fetch(`http://localhost:5000/products/getProductInformation?productId=${productId}`)
         .then(response => response.json())
         .then(data => {
+          console.log("sizes",sizes);
             // Update the itemData state with the fetched data
             setItemData({
                 ...data,
@@ -254,10 +274,10 @@ export default function ViewProduct({productId}) {
 
 
           <ProductImageCarousel
-  image_colors={image_colors}
-  handleColorClick={handleColorClick}
-  image={image}
-  colors={colors}
+            image_colors={image_colors}
+            handleColorClick={handleColorClick}
+            image={image}
+            colors={colors}
 />
 
         </div>
@@ -346,7 +366,7 @@ export default function ViewProduct({productId}) {
                       }
                       disabled={!size.inStock}
                     >
-                      <RadioGroup.Label as="span">{size.name}</RadioGroup.Label>
+                      <RadioGroup.Label as="span">{size}</RadioGroup.Label>
                     </RadioGroup.Option>
                   ))}
                 </div>
@@ -356,9 +376,47 @@ export default function ViewProduct({productId}) {
             <button
               type="submit"
               className="mt-6 flex w-full items-center justify-center rounded-md border border-transparent bg-secondary px-8 py-3 text-base font-medium text-white hover:bg-primary hover:text-secondary focus:outline-none focus:ring-2 focus:ring-secondary focus:ring-offset-2"
+              onClick={handleBuyNow}
             >
               Buy now
             </button>
+            {/* <button
+              type="submit"
+              className="mt-6 flex w-full items-center justify-center rounded-md border border-transparent bg-secondary px-8 py-3 text-base font-medium text-white hover:bg-primary hover:text-secondary focus:outline-none focus:ring-2 focus:ring-secondary focus:ring-offset-2"
+              onClick={handleAddToCart}
+           >
+              Add to Cart    
+           </button> */}
+
+<div>
+      <button
+        type="button"
+        onClick={handleAddToCart}
+        className="mt-6 flex w-full items-center justify-center rounded-md border border-transparent bg-secondary px-8 py-3 text-base font-medium text-white hover:bg-primary hover:text-secondary focus:outline-none focus:ring-2 focus:ring-secondary focus:ring-offset-2"
+      >
+        Add to Cart
+      </button>
+
+      {showPrompt && (
+        <div className="fixed inset-0 flex items-center justify-center bg-gray-500 bg-opacity-75">
+          <div className="bg-white p-6 rounded-lg">
+            <p className="mb-4 font-bold">What would you like to do?</p>
+            <button
+              className="mr-4 px-4 py-2 bg-primary text-white rounded-md hover:bg-primary-dark"
+              onClick={handleViewCart}
+            >
+              View Cart
+            </button>
+            <button
+              className="px-4 py-2 bg-secondary text-white rounded-md hover:bg-secondary-dark"
+              onClick={handleContinueShopping}
+            >
+              Continue Shopping
+            </button>
+          </div>
+        </div>
+      )}
+    </div>
           </form>
 
           {/* Product details */}

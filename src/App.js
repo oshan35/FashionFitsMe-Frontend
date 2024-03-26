@@ -6,7 +6,7 @@ import { PriceCardNew } from "./components";
 const router = createBrowserRouter([
   {
     path: "/",
-    element: <Home/>,
+    element: <CheckoutPage/>,
   },
   {
     path: "/product/:productId",
@@ -15,6 +15,10 @@ const router = createBrowserRouter([
   {
     path: "/catogeries",
     element: <CataloguePage />,
+  },
+  {
+    path: "/cart",
+    element: <Cart />,
   },
 ]);
 
