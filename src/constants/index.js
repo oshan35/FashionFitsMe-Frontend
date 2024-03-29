@@ -22,7 +22,7 @@ export const filterValues = [
     id: 'Color',
     name: 'Color',
     options: [
-      { value: 'Red', label: 'Red', checked: false },
+      { value: 'red', label: 'Red', checked: false },
       { value: 'green', label: 'Green', checked: false },
       { value: 'blue', label: 'Blue', checked: false },
       { value: 'brown', label: 'Brown', checked: false },
@@ -56,9 +56,9 @@ export const filterValues = [
     id: 'Gender',
     name: 'Gender',
     options: [
-      { value: 'men', label: 'Men', checked: false },
-      { value: 'women', label: 'Women', checked: false },
-      { value: 'kids', label: 'Kids', checked: false },
+      { value: 'Men', label: 'Men', checked: false },
+      { value: 'Women', label: 'Women', checked: false },
+      { value: 'Kids', label: 'Kids', checked: false },
       { value: 'Unisex', label: 'Unisex', checked: false }
     ]
   },

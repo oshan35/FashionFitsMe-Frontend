@@ -1,4 +1,4 @@
-import { Nav,CartItemCard } from "../components";
+import { Nav,CartItemCard ,NavBarNew} from "../components";
 import {
   CustomerReviews,
   Footer,
@@ -9,9 +9,6 @@ import {
   Subscribe,
   SuperQuality,
   MainImage,
-  
- 
-
 } from "../sections";
 import { useSelectedFilters } from '../Contexts/SelectedFilterContext'
 import OrderSummary from "./OrderSummary";
@@ -25,7 +22,7 @@ const Home = () => {
     <main className="">
      
       <section className="ml-10 ">
-      <Nav />    
+      <NavBarNew />    
         </section>
       <section className="mt-0 ">
       <MainImage/>

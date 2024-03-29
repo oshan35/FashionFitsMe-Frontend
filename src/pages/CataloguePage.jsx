@@ -267,59 +267,94 @@ const handlePageChange = (page) => {
 
 
 
-// Function to send data to the backend
-
-useEffect(() => {
-    // Set filters based on location state when component mounts
-    if (location.state && location.state.topic && location.state.label) {
-        // Here you can set your filters based on the topic and label from the state
-        // For demonstration purposes, let's assume setting filters for color and category
+// useEffect(() => {
+//     // Set filters based on location state when component mounts
+//     if (location.state && location.state.topic && location.state.label) {
+//         // Here you can set your filters based on the topic and label from the state
+//         // For demonstration purposes, let's assume setting filters for color and category
        
 
-        setFilters(prevFilters =>
-            prevFilters.map(section => {
+//         setFilters(prevFilters =>
+//             prevFilters.map(section => {
 
-                if (section.id === 'Color' && location.state.topic === 'Color') {
+//                 if (section.id === 'Color' && location.state.topic === 'Color') {
                     
-                    return {
-                        ...section,
-                        options: section.options.map(option =>
-                            option.value === location.state.label ? { ...option, checked: true } : { ...option, checked: false }
-                        )
-                    };
-                } else if (section.id === 'Category' && location.state.topic === 'Category') {
-                    return {
-                        ...section,
-                        options: section.options.map(option =>
-                            option.value === location.state.label ? { ...option, checked: true } : { ...option, checked: false }
-                        )
-                    };
-                } else {
-                    return section;
-                }
-            })
-        );
-       handleDefaultValues(location.state.topic,location.state.label,true);
+//                     return {
+//                         ...section,
+//                         options: section.options.map(option =>
+//                             option.value === location.state.label ? { ...option, checked: true } : { ...option, checked: false }
+//                         )
+//                     };
+//                 } else if (section.id === 'Category' && location.state.topic === 'Category') {
+//                     return {
+//                         ...section,
+//                         options: section.options.map(option =>
+//                             option.value === location.state.label ? { ...option, checked: true } : { ...option, checked: false }
+//                         )
+//                     };
+//                 } else {
+//                     return section;
+//                 }
+//             })
+//         );
+//        handleDefaultValues(location.state.topic,location.state.label,true);
 
-    }
+//     }
+// }, [location.state]);
+
+
+// const handleDefaultValues=(sectionId, optionValue, isChecked)=>{
+//     setSelectedFilters(prevFilters => {
+//         let newFilters = [...prevFilters];
+//         if (isChecked) {
+//           // If the checkbox is checked, add the selected filter
+//           newFilters.push({ title: sectionId, category: optionValue });
+//         } else {
+//           // If the checkbox is unchecked, remove the selected filter
+//           newFilters = newFilters.filter(filter => !(filter.title === sectionId && filter.category === optionValue));
+//         }
+//         return newFilters;
+//       });
+// }
+
+useEffect(() => {
+  // Set filters based on location state when component mounts
+  if (location.state) {
+      const { label1, label2, topic1, topic2 } = location.state;
+      handleDefaultValues(topic1, label1, true);
+      handleDefaultValues(topic2, label2, true);
+  }
 }, [location.state]);
 
-
-const handleDefaultValues=(sectionId, optionValue, isChecked)=>{
-    setSelectedFilters(prevFilters => {
-        let newFilters = [...prevFilters];
-        if (isChecked) {
+const handleDefaultValues = (sectionId, optionValue, isChecked) => {
+  console.log("label2 and topic2",optionValue);
+  setFilters(prevFilters =>
+      prevFilters.map(section => {
+          if (section.id === sectionId) {
+            console.log(sectionId);
+              return {
+                  ...section,
+                   options: section.options.map(option =>
+                    option.value === optionValue ? { ...option, checked: true } : { ...option, checked: false }
+              )
+              };
+          } else {
+              return section;
+          }
+      })
+  );
+  setSelectedFilters(prevFilters => {
+      let newFilters = [...prevFilters];
+      if (isChecked) {
           // If the checkbox is checked, add the selected filter
           newFilters.push({ title: sectionId, category: optionValue });
-        } else {
+      } else {
           // If the checkbox is unchecked, remove the selected filter
           newFilters = newFilters.filter(filter => !(filter.title === sectionId && filter.category === optionValue));
-        }
-        return newFilters;
-      });
-}
-
-  
+      }
+      return newFilters;
+  });
+};
  
 const handleCheckboxChange = (sectionId, optionValue, isChecked) => {
   console.log("checkbox changed");
@@ -618,7 +653,7 @@ useEffect(() => {
                                         {category.sections.map((section) => (
                                           <div key={section.name}>
                                             <p id={`${section.name}-heading`} className="font-medium text-gray-900">
-                                              {/* {section.name} */}
+                                              {section.name}
                                             </p>
                                             <ul
                                               role="list"

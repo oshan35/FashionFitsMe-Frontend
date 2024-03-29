@@ -16,7 +16,7 @@ import RadioGroupShipping from "./RadioGroupShipping";
 import PaymentGateWayCard from "./PaymentGatewayCard";
 import ProductImageCarousel from "./ProductImageCarosel";
 import PriceCardNew from "./PriceCardNew";
-
+import NavBarNew from "./NavNew";
 
 
 export {
@@ -37,5 +37,6 @@ export {
   RadioGroupShipping,
   PaymentGateWayCard,
   ProductImageCarousel,
-  PriceCardNew
+  PriceCardNew,
+  NavBarNew
 };
