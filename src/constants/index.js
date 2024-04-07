@@ -102,8 +102,237 @@ export const filterValues = [
   }
 ];
 
+export const navigation = {
+  featured: [
+    {
+      name: 'New Arrivals',
+      href: '#',
+      imageSrc: 'https://tailwindui.com/img/ecommerce-images/product-page-04-detail-product-shot-01.jpg',
+      imageAlt: 'Drawstring top with elastic loop closure and textured interior padding.',
+    },
+    {
+      name: 'Artwork Tees',
+      href: '#',
+      imageSrc: 'https://tailwindui.com/img/ecommerce-images/category-page-02-image-card-06.jpg',
+      imageAlt:
+        'Three shirts in gray, white, and blue arranged on table with same line drawing of hands and shapes overlapping on front of shirt.',
+    },
+  ],
+  pages: [
+    { name: 'Company', href: '#' },
+    { name: 'Stores', href: '#' },
+  ],
+  categories: [
+    {
+        
+      name:'New Arrivals',
+      Men: [
+        [
+          { name1: 'Dress Shirts', topic1: 'Category' ,name2:'Men' , topic2: 'Gender'  },
+          { name1: 'Pants', topic1: 'Category' ,name2:'Men' , topic2: 'Gender'  },
+          { name1: 'Jackets', topic1: 'Category' ,name2:'Men' , topic2: 'Gender'  },
+          { name1: 'T-Shirts', topic1: 'Category' ,name2:'Men' , topic2: 'Gender'  },
+          { name1: 'Jeans', topic1: 'Category' ,name2:'Men' , topic2: 'Gender'  },
+          { name1: 'Hoodies', topic1: 'Category' ,name2:'Men' , topic2: 'Gender'  },
+        ],
+        [
+          { name1: 'Vests', topic1: 'Category' ,name2:'Men' , topic2: 'Gender'  },
+          { name1: 'Kilts', topic1: 'Category' ,name2:'Men' , topic2: 'Gender'  },
+          { name1: 'Outdoors', topic1: 'Category' ,name2:'Men' , topic2: 'Gender'  },
+          { name1: 'Capes', topic1: 'Category' ,name2:'Men' , topic2: 'Gender'  },
+          { name1: 'Browse All', topic1: 'Category' ,name2:'Men' , topic2: 'Gender'  },
+        ],
+      ],
+      Women: [
+        [
+            { name1:'Tops' , topic1: 'Category' ,name2:'Women' , topic2: 'Gender'  },
+            { name1:'Dresses' , topic1: 'Category' ,name2:'Women' , topic2: 'Gender'   },
+            {name1:'Denims' , topic1: 'Category' ,name2:'Women' , topic2: 'Gender'  }  , 
+            { name1:'Work Wear' , topic1: 'Category' ,name2:'Women' , topic2: 'Gender'   },
+            { name1:'Casuals' , topic1: 'Category' ,name2:'Women' , topic2: 'Gender'   },
+            { name1:'Pants' , topic1: 'Category' ,name2:'Women' , topic2: 'Gender'   },
+            { name1:'Linen' , topic1: 'Category' ,name2:'Women' , topic2: 'Gender'   },
 
+        ],
+        [
+            { name1:'Premium Dresses' , topic1: 'Category' ,name2:'Women' , topic2: 'Gender'  },  
+            { name1:' Activewear' , topic1: 'Category' ,name2:'Women' , topic2: 'Gender'  }, 
+            { name1:'Shorts' , topic1: 'Category' ,name2:'Women' , topic2: 'Gender'  }, 
+            { name1:'T-Shirts' , topic1: 'Category' ,name2:'Women' , topic2: 'Gender'  }, 
+            { name1:'Browse All' , topic1: 'Category' ,name2:'Women' , topic2: 'Gender'  }, 
+            { name1:'Crop Tops' , topic1: 'Category' ,name2:'Women' , topic2: 'Gender'  }, 
+            { name1:'Skirts' , topic1: 'Category' ,name2:'Women' , topic2: 'Gender'  }, 
 
+        ],
+       
+      ],
+     
+      name:'Women',
+      brands: [
+        [
+        { name1:'Carhartt' , topic1: 'Brand' ,name2:'Women' , topic2: 'Gender'  }, 
+        { name1:'Vans' , topic1: 'Brand' ,name2:'Women' , topic2: 'Gender'  }, 
+        { name1:'Timberland' , topic1: 'Brand' ,name2:'Women' , topic2: 'Gender'  }, 
+        { name1:'Nike' , topic1: 'Brand' ,name2:'Women' , topic2: 'Gender'  }, 
+        { name1:'Converse' , topic1: 'Brand' ,name2:'Women' , topic2: 'Gender'  }, 
+        { name1:'Polo Ralph Lauren' , topic1: 'Brand' ,name2:'Women' , topic2: 'Gender'  },
+        { name1:'Fendi' , topic1: 'Brand' ,name2:'Women' , topic2: 'Gender'  }, 
+        
+        ],
+        [
+          { name1:'Balmain' , topic1: 'Brand' ,name2:'Women' , topic2: 'Gender'  }, 
+          { name1:'Armani' , topic1: 'Brand' ,name2:'Women' , topic2: 'Gender'  }, 
+          { name1:'Tom Ford' , topic1: 'Brand' ,name2:'Women' , topic2: 'Gender'  }, 
+          { name1:'Adidas' , topic1: 'Brand' ,name2:'Women' , topic2: 'Gender'  }, 
+          { name1:'Tommy Hilfiger' , topic1: 'Brand' ,name2:'Women' , topic2: 'Gender'  }, 
+          { name1:'Abercrombie and fitch' , topic1: 'Brand' ,name2:'Women' , topic2: 'Gender'  }, 
+        ],
+      ],
+      categories: [
+        [
+            { name1:'Tops' , topic1: 'Category' ,name2:'Women' , topic2: 'Gender'  },
+            { name1:'Dresses' , topic1: 'Category' ,name2:'Women' , topic2: 'Gender'   },
+            {name1:'Denims' , topic1: 'Category' ,name2:'Women' , topic2: 'Gender'  }  , 
+            { name1:'Work Wear' , topic1: 'Category' ,name2:'Women' , topic2: 'Gender'   },
+            { name1:'Casuals' , topic1: 'Category' ,name2:'Women' , topic2: 'Gender'   },
+            { name1:'Pants' , topic1: 'Category' ,name2:'Women' , topic2: 'Gender'   },
+            { name1:'Linen' , topic1: 'Category' ,name2:'Women' , topic2: 'Gender'   },
+
+        ],
+        [
+            { name1:'Premium Dresses' , topic1: 'Category' ,name2:'Women' , topic2: 'Gender'  },  
+            { name1:' Activewear' , topic1: 'Category' ,name2:'Women' , topic2: 'Gender'  }, 
+            { name1:'Shorts' , topic1: 'Category' ,name2:'Women' , topic2: 'Gender'  }, 
+            { name1:'T-Shirts' , topic1: 'Category' ,name2:'Women' , topic2: 'Gender'  }, 
+            { name1:'Browse All' , topic1: 'Category' ,name2:'Women' , topic2: 'Gender'  }, 
+            { name1:'Crop Tops' , topic1: 'Category' ,name2:'Women' , topic2: 'Gender'  }, 
+            { name1:'Skirts' , topic1: 'Category' ,name2:'Women' , topic2: 'Gender'  }, 
+
+        ],
+       
+      ],
+     
+   
+    },
+  
+    {
+      name: 'Men',
+     
+      brands: [
+        [
+        { name1:'Carhartt' , topic1: 'Brand' ,name2:'Women' , topic2: 'Gender'  }, 
+        { name1:'Vans' , topic1: 'Brand' ,name2:'Women' , topic2: 'Gender'  }, 
+        { name1:'Timberland' , topic1: 'Brand' ,name2:'Women' , topic2: 'Gender'  }, 
+        { name1:'Nike' , topic1: 'Brand' ,name2:'Women' , topic2: 'Gender'  }, 
+        { name1:'Converse' , topic1: 'Brand' ,name2:'Women' , topic2: 'Gender'  }, 
+        { name1:'Polo Ralph Lauren' , topic1: 'Brand' ,name2:'Women' , topic2: 'Gender'  },
+        { name1:'Fendi' , topic1: 'Brand' ,name2:'Women' , topic2: 'Gender'  }, 
+        
+        ],
+        [
+          { name1:'Balmain' , topic1: 'Brand' ,name2:'Women' , topic2: 'Gender'  }, 
+          { name1:'Armani' , topic1: 'Brand' ,name2:'Women' , topic2: 'Gender'  }, 
+          { name1:'Tom Ford' , topic1: 'Brand' ,name2:'Women' , topic2: 'Gender'  }, 
+          { name1:'Adidas' , topic1: 'Brand' ,name2:'Women' , topic2: 'Gender'  }, 
+          { name1:'Tommy Hilfiger' , topic1: 'Brand' ,name2:'Women' , topic2: 'Gender'  }, 
+          { name1:'Abercrombie and fitch' , topic1: 'Brand' ,name2:'Women' , topic2: 'Gender'  }, 
+        ],
+      ],
+      categories: [
+        [
+          { name1: 'Dress Shirts', topic1: 'Category' ,name2:'Men' , topic2: 'Gender'  },
+          { name1: 'Pants', topic1: 'Category' ,name2:'Men' , topic2: 'Gender'  },
+          { name1: 'Jackets', topic1: 'Category' ,name2:'Men' , topic2: 'Gender'  },
+          { name1: 'T-Shirts', topic1: 'Category' ,name2:'Men' , topic2: 'Gender'  },
+          { name1: 'Jeans', topic1: 'Category' ,name2:'Men' , topic2: 'Gender'  },
+          { name1: 'Hoodies', topic1: 'Category' ,name2:'Men' , topic2: 'Gender'  },
+        ],
+        [
+          { name1: 'Vests', topic1: 'Category' ,name2:'Men' , topic2: 'Gender'  },
+          { name1: 'Kilts', topic1: 'Category' ,name2:'Men' , topic2: 'Gender'  },
+          { name1: 'Outdoors', topic1: 'Category' ,name2:'Men' , topic2: 'Gender'  },
+          { name1: 'Capes', topic1: 'Category' ,name2:'Men' , topic2: 'Gender'  },
+          { name1: 'Browse All', topic1: 'Category' ,name2:'Men' , topic2: 'Gender'  },
+        ],
+       
+      ],
+    //   accessories: [
+    //     { name: 'Watches', href: '#' },
+    //     { name: 'Boots', href: '#' },
+    //     { name: 'Fanny Packs', href: '#' },
+    //     { name: 'Sunglasses', href: '#' },
+    //     { name: 'Browse All', href: '#' },
+    //   ],
+    //   categories: [
+    //     { name: 'Just Added', href: '#' },
+    //     { name: 'Clearance', href: '#' },
+    //     { name: 'Graphic Tees', href: '#' },
+    //   ],
+    },
+  ],
+  other: [
+    { name: 'Company', href: '#' },
+    { name: 'Stores', href: '#' },
+  ],
+};
+
+export const navigationSecond = {
+ 
+  categories: [
+    {
+        
+      name:'New Arrivals',
+      Men: [
+        [
+          { name1: 'Dress Shirts', topic1: 'Category' ,name2:'Men' , topic2: 'Gender'  },
+          { name1: 'Pants', topic1: 'Category' ,name2:'Men' , topic2: 'Gender'  },
+          { name1: 'Jackets', topic1: 'Category' ,name2:'Men' , topic2: 'Gender'  },
+          { name1: 'T-Shirts', topic1: 'Category' ,name2:'Men' , topic2: 'Gender'  },
+          { name1: 'Jeans', topic1: 'Category' ,name2:'Men' , topic2: 'Gender'  },
+          { name1: 'Hoodies', topic1: 'Category' ,name2:'Men' , topic2: 'Gender'  },
+        ],
+        [
+          { name1: 'Vests', topic1: 'Category' ,name2:'Men' , topic2: 'Gender'  },
+          { name1: 'Kilts', topic1: 'Category' ,name2:'Men' , topic2: 'Gender'  },
+          { name1: 'Outdoors', topic1: 'Category' ,name2:'Men' , topic2: 'Gender'  },
+          { name1: 'Capes', topic1: 'Category' ,name2:'Men' , topic2: 'Gender'  },
+          { name1: 'Browse All', topic1: 'Category' ,name2:'Men' , topic2: 'Gender'  },
+        ],
+      ],
+      Women: [
+        [
+            { name1:'Tops' , topic1: 'Category' ,name2:'Women' , topic2: 'Gender'  },
+            { name1:'Dresses' , topic1: 'Category' ,name2:'Women' , topic2: 'Gender'   },
+            {name1:'Denims' , topic1: 'Category' ,name2:'Women' , topic2: 'Gender'  }  , 
+            { name1:'Work Wear' , topic1: 'Category' ,name2:'Women' , topic2: 'Gender'   },
+            { name1:'Casuals' , topic1: 'Category' ,name2:'Women' , topic2: 'Gender'   },
+            { name1:'Pants' , topic1: 'Category' ,name2:'Women' , topic2: 'Gender'   },
+            { name1:'Linen' , topic1: 'Category' ,name2:'Women' , topic2: 'Gender'   },
+
+        ],
+        [
+            { name1:'Premium Dresses' , topic1: 'Category' ,name2:'Women' , topic2: 'Gender'  },  
+            { name1:' Activewear' , topic1: 'Category' ,name2:'Women' , topic2: 'Gender'  }, 
+            { name1:'Shorts' , topic1: 'Category' ,name2:'Women' , topic2: 'Gender'  }, 
+            { name1:'T-Shirts' , topic1: 'Category' ,name2:'Women' , topic2: 'Gender'  }, 
+            { name1:'Browse All' , topic1: 'Category' ,name2:'Women' , topic2: 'Gender'  }, 
+            { name1:'Crop Tops' , topic1: 'Category' ,name2:'Women' , topic2: 'Gender'  }, 
+            { name1:'Skirts' , topic1: 'Category' ,name2:'Women' , topic2: 'Gender'  }, 
+
+        ],
+       
+      ],
+     
+      
+    
+     
+   
+    },
+  
+   
+  ],
+
+};
 export const navLinks = [
   { path: "/", label: "Home" },
   { path: "/catogeries", label: "Tops" ,topic:"Category"},

@@ -5,6 +5,7 @@ import OrderSummary from "./OrderSummary";
 import Cart from "./Cart";
 import CheckoutPage from "./CheckoutPage";
 import CheckoutTest from "./ChechoutTest";
-// import Catalogue from "./ClothingCataloguePage/Catalogue";
+import OrderSummaryPage from "./OrderSummaryPage";
 import CataloguePage from "./CataloguePage"
-export { Home, Product, Catogeries,OrderSummary,Cart,CheckoutPage,CheckoutTest,CataloguePage};
+
+export { Home, Product, Catogeries,OrderSummary,Cart,CheckoutPage,CheckoutTest,CataloguePage,OrderSummaryPage};

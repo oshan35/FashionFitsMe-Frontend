@@ -18,7 +18,6 @@ import ProductImageCarousel from "./ProductImageCarosel";
 import PriceCardNew from "./PriceCardNew";
 import NavBarNew from "./NavNew";
 
-
 export {
   Button,
   Nav,
@@ -38,5 +37,5 @@ export {
   PaymentGateWayCard,
   ProductImageCarousel,
   PriceCardNew,
-  NavBarNew
+  NavBarNew,
 };

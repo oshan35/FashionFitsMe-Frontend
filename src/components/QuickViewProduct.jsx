@@ -9,6 +9,11 @@ import React, {useEffect} from "react";
 function classNames(...classes) {
   return classes.filter(Boolean).join(" ");
 }
+
+const valuetext = (value) => {
+  return `LKR ${value}`;
+};
+
 //////////////////////////////////////////////////////
 
 //                    reviews are commnted, make product has a attribute REVIEW
@@ -47,9 +52,27 @@ export default function QuickProductView({ open, setOpen, productId }) {
   });
   
   
+  const initialSizes = ['XS', 'S', 'M', 'L', 'XL', 'XXL'];
+
   
   const {image, productName, price, sizes, colors, image_colors,category} = itemData;
   const [isLoading, setIsLoading] = useState(true);
+  const [sizeAvailability, setSizeAvailability] = useState({}); // State to hold size availability
+
+  useEffect(() => {
+    if (itemData.sizes.length > 0) {
+      const initialAvailability = {};
+      itemData.sizes.forEach(sizeData => {
+        const [size, count] = sizeData;
+        console.log("count", size,count)
+        sizeAvailability[size] = count>0 ; // Set availability based on count
+      });
+     // setSizeAvailability(initialAvailability);
+      console.log("size availability ",sizeAvailability)
+
+    }
+  }, [itemData.sizes]);
+  
   
   useEffect(() => {
     setIsLoading(true);
@@ -72,6 +95,10 @@ export default function QuickProductView({ open, setOpen, productId }) {
             setIsLoading(false); 
         });
   }, [productId]); 
+
+  useEffect(() => {
+   console.log("set availability ",sizeAvailability)
+  }, []); 
 
 
   const [selectedColor, setSelectedColor] = useState(colors[0]);
@@ -254,28 +281,27 @@ export default function QuickProductView({ open, setOpen, productId }) {
                               <RadioGroup.Label className="sr-only">
                                 Choose a size
                               </RadioGroup.Label>
-                              <div className="grid grid-cols-4 gap-4">
-                                {sizes.map((size) => (
+                              <div className="grid grid-cols-4 gap-2">
+                                {initialSizes.map(size => (
+                                  
                                   <RadioGroup.Option
-                                    key={size.name}
+                                    key={size}
                                     value={size}
-                                    disabled={!size.inStock}
+                                    disabled={!sizeAvailability[size]} // Disable the button if size is not available
                                     className={({ active }) =>
                                       classNames(
-                                        size.inStock
-                                          ? "cursor-pointer bg-white text-gray-900 shadow-sm"
-                                          : "cursor-not-allowed bg-gray-50 text-gray-200",
+                                        sizeAvailability[size] ? "cursor-pointer bg-white text-gray-900 shadow-sm" : "cursor-not-allowed bg-gray-50 text-gray-200",
                                         active ? "ring-2 ring-indigo-500" : "",
-                                        "group relative flex items-center justify-center rounded-md border py-3 px-4 text-sm font-medium uppercase hover:bg-gray-50 focus:outline-none sm:flex-1"
+                                        "group relative flex items-center justify-center rounded-md border py-2 px-3 text-sm font-medium uppercase hover:bg-gray-50 focus:outline-none sm:flex-1"
                                       )
                                     }
                                   >
                                     {({ active, checked }) => (
                                       <>
                                         <RadioGroup.Label as="span">
-                                          {size.name}
+                                          {size}
                                         </RadioGroup.Label>
-                                        {size.inStock ? (
+                                        {sizeAvailability[size] ? (
                                           <span
                                             className={classNames(
                                               active ? "border" : "border-2",

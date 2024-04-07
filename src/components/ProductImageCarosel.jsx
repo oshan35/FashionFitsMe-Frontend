@@ -5,17 +5,12 @@ import { Button } from "flowbite-react";
 const ProductImageCarousel = ({ image_colors,handleColorClick,image,colors }) => {
   const [currentIndex, setCurrentIndex] = useState(0);
 
-  // const nextImage = () => {
-  //   setCurrentIndex((prevIndex) =>
-  //     prevIndex === images.length - 1 ? 0 : prevIndex + 1
-  //   );
-  // };
-
-  // const prevImage = () => {
-  //   setCurrentIndex((prevIndex) =>
-  //     prevIndex === 0 ? images.length - 1 : prevIndex - 1
-  //   );
-  // };
+  const handleButtonClick = (color,index) => {
+    setCurrentIndex(index)
+    handleColorClick(color)
+    
+  
+    };
 
   return (
     <div className=" relative flex w-auto h-auto">
@@ -25,11 +20,13 @@ const ProductImageCarousel = ({ image_colors,handleColorClick,image,colors }) =>
             key={index}
             // src={image}
             src={`data:image/jpeg;base64,${image_colors[color]}`}    
-                    // alt={Thumbnail ${index + 1}}
-            onClick={() => handleColorClick(color)}
-            className={`h-24 w-24 object-cover rounded-lg mx-1 my-3 cursor-pointer ${
+            onClick={() => handleButtonClick(color,index)}
+            className={`h-20 w-20 object-cover rounded-lg mx-1 my-3 cursor-pointer ${
               index === currentIndex ? "border-2 border-blue-500" : ""
             }`}
+            style={{ objectFit: "cover", objectPosition: "center" }}
+
+
           />
         ))}
       </div>
@@ -46,7 +43,6 @@ const ProductImageCarousel = ({ image_colors,handleColorClick,image,colors }) =>
           <div className="aspect-h-4 aspect-w-3  overflow-hidden rounded-lg lg:block ">
             <img
               src={image}
-            //   alt={Product Image ${currentIndex + 1}}
               className=" w-600px h-600px"
             />
           </div>

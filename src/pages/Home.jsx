@@ -27,12 +27,12 @@ const Home = () => {
       <section className="mt-0 ">
       <MainImage/>
       </section>
-      <section className="padding-x py-10">
-        <ProductContainer id={"tops"} heading={"Adidas"} title={"brand"}/>
+      {/* <section className="padding-x py-10">
+        <ProductContainer id={"tops"} heading={"Women"} title={"brand"}/>
       </section>
       <section className="padding-x py-10">
         <ProductContainer id={"dresses"} heading={"Women"} title={"gender"}  />
-      </section>
+      </section> */}
       <section className="padding">
         <SuperQuality />
       </section>

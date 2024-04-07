@@ -8,149 +8,16 @@ import { txtimg } from "../assets/images";
 import { useLocation } from 'react-router-dom';
 import { redirect, useNavigate } from 'react-router-dom';
 import ProductImageCarousel from "./ProductImageCarosel";
-
-// 217 225 242 395
-
+import NavBarNew from "./NavNew";
 
 
-// useEffect(() => {
-//   console.log('colours',colors)
-//   console.log('category',category)
-// }, [colors]); 
-// const product = {
-//   name: "Basic Tee",
-//   price: "LKR 3500.00",
-//   href: "#",
-//   breadcrumbs: [
-//     { id: 1, name: "Women", href: "#" },
-//     { id: 2, name: "Clothing", href: "#" },
-//   ],
-//   images: [
-//     {
-//       id: 1,
-//       imageSrc:txtimg
-//         ,
-//       imageAlt: "Back of women's Basic Tee in black.",
-//       primary: true,
-//     },
-//     {
-//       id: 2,
-//       imageSrc:
-//         "https://tailwindui.com/img/ecommerce-images/product-page-01-product-shot-01.jpg",
-//       imageAlt: "Side profile of women's Basic Tee in black.",
-//       primary: false,
-//     },
-//     {
-//       id: 3,
-//       imageSrc:
-//         "https://tailwindui.com/img/ecommerce-images/product-page-01-product-shot-02.jpg",
-//       imageAlt: "Front of women's Basic Tee in black.",
-//       primary: false,
-//     },
-//   ],
-//   colors: [
-//     { name: "Black", bgColor: "bg-gray-900", selectedColor: "ring-gray-900" },
-//     {
-//       name: "Heather Grey",
-//       bgColor: "bg-gray-400",
-//       selectedColor: "ring-gray-400",
-//     },
-//   ],
-//   sizes: [
-//     { name: "XXS", inStock: true },
-//     { name: "XS", inStock: true },
-//     { name: "S", inStock: true },
-//     { name: "M", inStock: true },
-//     { name: "L", inStock: true },
-//     { name: "XL", inStock: false },
-//   ],
-//   description: `
-//     <p>The Basic tee is an honest new take on a classic. The tee uses super soft, pre-shrunk cotton for true comfort and a dependable fit. They are hand cut and sewn locally, with a special dye technique that gives each tee it's own look.</p>
-//     <p>Looking to stock your closet? The Basic tee also comes in a 3-pack or 5-pack at a bundle discount.</p>
-//   `,
-//   details: [
-//     "Only the best materials",
-//     "Ethically and locally made",
-//     "Pre-washed and pre-shrunk",
-//     "Machine wash cold with similar colors",
-//   ],
-// };
-// const policies = [
-//   {
-//     name: "International delivery",
-//     icon: GlobeIcon,
-//     description: "Get your order in 2 years",
-//   },
-//   {
-//     name: "Loyalty rewards",
-//     icon: CurrencyDollarIcon,
-//     description: "Don't look at other tees",
-//   },
-// ];
 
-// const relatedProducts = [
-//   {
-//     id: 1,
-//     name: "Basic Tee",
-//     href: "#",
-//     imageSrc:
-//     txtimg,
-//     imageAlt: "Front of men's Basic Tee in white.",
-//     price: "$35",
-//     color: "Aspen White",
-//   },
-//   // More products...
-// ];
-// const footerNavigation = {
-//   products: [
-//     { name: "Bags", href: "#" },
-//     { name: "Tees", href: "#" },
-//     { name: "Objects", href: "#" },
-//     { name: "Home Goods", href: "#" },
-//     { name: "Accessories", href: "#" },
-//   ],
-//   company: [
-//     { name: "Who we are", href: "#" },
-//     { name: "Sustainability", href: "#" },
-//     { name: "Press", href: "#" },
-//     { name: "Careers", href: "#" },
-//     { name: "Terms & Conditions", href: "#" },
-//     { name: "Privacy", href: "#" },
-//   ],
-//   customerService: [
-//     { name: "Contact", href: "#" },
-//     { name: "Shipping", href: "#" },
-//     { name: "Returns", href: "#" },
-//     { name: "Warranty", href: "#" },
-//     { name: "Secure Payments", href: "#" },
-//     { name: "FAQ", href: "#" },
-//     { name: "Find a store", href: "#" },
-//   ],
-// };
-
-const reviews = {
-  average: 3.9,
-  totalCount: 512,
-  featured: [
-    {
-      id: 1,
-      title: "Can't say enough good things",
-      rating: 5,
-      content: `
-        <p>I was really pleased with the overall shopping experience. My order even included a little personal, handwritten note, which delighted me!</p>
-        <p>The product quality is amazing, it looks and feel even better than I had anticipated. Brilliant stuff! I would gladly recommend this store to my friends. And, now that I think of it... I actually have, many times!</p>
-      `,
-      author: "Risako M",
-      date: "May 16, 2021",
-      datetime: "2021-01-06",
-    },
-    // More reviews...
-  ],
-};
 
 export default function ViewProduct({productId}) {
 
- 
+  const initialSizes = ['XXS','XS', 'S', 'M', 'L', 'XL', 'XXL','XXL'];
+  const [sizeAvailability, setSizeAvailability] = useState({}); // State to hold size availability
+
   const [showPrompt, setShowPrompt] = useState(false);
   const navigate = useNavigate();
   
@@ -183,8 +50,77 @@ export default function ViewProduct({productId}) {
     image_colors: {},
     category:''
   });
-  
-  
+  useEffect(() => {
+    if (itemData.sizes.length > 0) {
+      const initialAvailability = {};
+      itemData.sizes.forEach(sizeData => {
+        const [size, count] = sizeData;
+        console.log("count", size,count)
+        sizeAvailability[size] = count>0 ; // Set availability based on count
+      });
+     // setSizeAvailability(initialAvailability);
+      console.log("size availability ",sizeAvailability)
+
+    }
+  }, [itemData.sizes]);
+  const product = {
+    name: "Basic Tee",
+    price: "LKR 3500.00",
+    href: "#",
+    breadcrumbs: [
+      { id: 1, name: "Women", href: "#" },
+      { id: 2, name: "Clothing", href: "#" },
+    ],
+    images: [
+      {
+        id: 1,
+        imageSrc:
+          "https://tailwindui.com/img/ecommerce-images/product-page-01-featured-product-shot.jpg",
+        imageAlt: "Back of women's Basic Tee in black.",
+        primary: true,
+      },
+      {
+        id: 2,
+        imageSrc:
+          "https://tailwindui.com/img/ecommerce-images/product-page-01-product-shot-01.jpg",
+        imageAlt: "Side profile of women's Basic Tee in black.",
+        primary: false,
+      },
+      {
+        id: 3,
+        imageSrc:
+          "https://tailwindui.com/img/ecommerce-images/product-page-01-product-shot-02.jpg",
+        imageAlt: "Front of women's Basic Tee in black.",
+        primary: false,
+      },
+    ],
+    colors: [
+      { name: "Black", bgColor: "bg-gray-900", selectedColor: "ring-gray-900" },
+      {
+        name: "Heather Grey",
+        bgColor: "bg-gray-400",
+        selectedColor: "ring-gray-400",
+      },
+    ],
+    sizes: [
+      { name: "XXS", inStock: true },
+      { name: "XS", inStock: true },
+      { name: "S", inStock: true },
+      { name: "M", inStock: true },
+      { name: "L", inStock: true },
+      { name: "XL", inStock: false },
+    ],
+    description: `
+      <p>The Basic tee is an honest new take on a classic. The tee uses super soft, pre-shrunk cotton for true comfort and a dependable fit. They are hand cut and sewn locally, with a special dye technique that gives each tee it's own look.</p>
+      <p>Looking to stock your closet? The Basic tee also comes in a 3-pack or 5-pack at a bundle discount.</p>
+    `,
+    details: [
+      "Only the best materials",
+      "Ethically and locally made",
+      "Pre-washed and pre-shrunk",
+      "Machine wash cold with similar colors",
+    ],
+  };
   
   const {image, productName, price, sizes, colors, image_colors,category} = itemData;
   const [isLoading, setIsLoading] = useState(true);
@@ -219,293 +155,192 @@ export default function ViewProduct({productId}) {
   const [selectedColor, setSelectedColor] = useState(colors[0]);
   const [selectedSize, setSelectedSize] = useState(sizes[2]);
   return (
-    <main className="mx-auto mt-20 max-w-2xl px-4 pb-16 sm:px-6 sm:pb-24 lg:max-w-7xl lg:px-8">
-      <div className="lg:grid lg:auto-rows-min lg:grid-cols-12 lg:gap-x-8">
-        <div className="lg:col-span-5 lg:col-start-8">
-          <div className="flex justify-between">
-            <h1 className="text-xl font-medium text-gray-900">
-              {productName}
-            </h1>
-            <p className="text-xl font-medium text-gray-900">{price}</p>
-          </div>
-          {/* Reviews */}
-          <div className="mt-4">
-            <h2 className="sr-only">Reviews</h2>
-            <div className="flex items-center">
-              <p className="text-sm text-gray-700">
-                {reviews.average}
-                <span className="sr-only"> out of 5 stars</span>
-              </p>
-              <div className="ml-1 flex items-center">
-                {[0, 1, 2, 3, 4].map((rating) => (
-                  <StarIcon
-                    key={rating}
-                    className={classNames(
-                      reviews.average > rating
-                        ? "text-yellow-400"
-                        : "text-gray-200",
-                      "h-5 w-5 flex-shrink-0"
-                    )}
-                    aria-hidden="true"
-                  />
-                ))}
-              </div>
-              <div aria-hidden="true" className="ml-4 text-sm text-gray-300">
-                ·
-              </div>
-              <div className="ml-4 flex">
-                <a
-                  href="#"
-                  className="text-sm font-medium text-indigo-600 hover:text-indigo-500"
-                >
-                  See all 
-                  {reviews.totalCount} 
-                  reviews
-                </a>
-              </div>
-            </div>
-          </div>
-        </div>
+    <>
+    
 
-        {/* Image gallery */}
-        <div className="mt-8 lg:col-span-7 lg:col-start-1 lg:row-span-3 lg:row-start-1 lg:mt-0 lg:w-full">
-          <h2 className="sr-only">Images</h2>
+<main className="mx-auto mt-20 max-w-2xl px-4 pb-16 sm:px-6 sm:pb-24 lg:max-w-7xl lg:px-8">
+  <div className="lg:grid lg:auto-rows-min lg:grid-cols-12 lg:gap-x-8">
+    <div className="lg:col-span-5 lg:col-start-8">
+      <div className=" justify-between">
+      <h1 className="text-4xl lg:text-5xl font-medium text-gray-900">
+          {productName}
+        </h1>
+        <p className="text-2xl lg:text-3xl font-medium text-gray-900">LKR  {price}</p>
+      </div>
+    
+    
+
+
+    </div>
+
+    {/* Image gallery */}
+    <div className="mt-8 lg:col-span-7 lg:col-start-1 lg:row-span-3 lg:row-start-1 lg:mt-0 lg:w-full">
+      <h2 className="sr-only">Images</h2>
 
 
 
-          <ProductImageCarousel
-            image_colors={image_colors}
-            handleColorClick={handleColorClick}
-            image={image}
-            colors={colors}
-/>
+      <ProductImageCarousel
+        image_colors={image_colors}
+        handleColorClick={handleColorClick}
+        image={image}
+        colors={colors}/>
 
-        </div>
+    </div>
 
-        <div className="mt-8 lg:col-span-5">
-          <form>
-            {/* Color picker */}
-            <div>
-              <h2 className="text-sm font-medium text-gray-900">Color</h2>
+    <div className="mt-8 lg:col-span-5">
+      <form>
+        {/* Color picker */}
+        <div>
+          <h2 className="text-sm font-medium text-gray-900">Color</h2>
 
-              <RadioGroup
-                value={selectedColor}
-                onChange={(color) => handleColorClick(color)}
-                className="mt-2"
+          <RadioGroup
+            value={selectedColor}
+            onChange={(color) => handleColorClick(color)}
+            className="mt-2"
 >
 
-                <RadioGroup.Label className="sr-only">
-                  Choose a color
-                </RadioGroup.Label>
-                <div className="flex items-center space-x-3">
-                  {colors.map((color) => (
-                    <RadioGroup.Option
-                      key={color.name}
-                      value={color}
-                      className={({ active, checked }) =>
-                        classNames(
-                          color.selectedColor,
-                          active && checked ? "ring ring-offset-1" : "",
-                          !active && checked ? "ring-2" : "",
-                          "relative -m-0.5 flex cursor-pointer items-center justify-center rounded-full p-0.5 focus:outline-none"
-                        )
-                      }
-                    >
-                      <RadioGroup.Label as="span" className="sr-only">
-                        {color.name}
-                      </RadioGroup.Label>
-                      <span
-                        aria-hidden="true"
-                        className={classNames(
-                          color.bgColor,
-                          "h-8 w-8 rounded-full border border-black border-opacity-10"
-                        )}
-                      />
-                    </RadioGroup.Option>
-                  ))}
-                </div>
-              </RadioGroup>
-            </div>
-
-            {/* Size picker */}
-            <div className="mt-8">
-              <div className="flex items-center justify-between">
-                <h2 className="text-sm font-medium text-gray-900">Size</h2>
-                <a
-                  href="#"
-                  className="text-sm font-medium text-indigo-600 hover:text-indigo-500"
+            <RadioGroup.Label className="sr-only">
+              Choose a color
+            </RadioGroup.Label>
+            <div className="flex items-center space-x-3">
+              {colors.map((color) => (
+                <RadioGroup.Option
+                  key={color.name}
+                  value={color}
+                  className={({ active, checked }) =>
+                    classNames(
+                      color.selectedColor,
+                      active && checked ? "ring ring-offset-1" : "",
+                      !active && checked ? "ring-2" : "",
+                      "relative -m-0.5 flex cursor-pointer items-center justify-center rounded-full p-0.5 focus:outline-none"
+                    )
+                  }
                 >
-                  See sizing chart
-                </a>
-              </div>
-
-              <RadioGroup
-                value={selectedSize}
-                onChange={setSelectedSize}
-                className="mt-2"
-              >
-                <RadioGroup.Label className="sr-only">
-                  Choose a size
-                </RadioGroup.Label>
-                <div className="grid grid-cols-3 gap-3 sm:grid-cols-6">
-                  {sizes.map((size) => (
-                    <RadioGroup.Option
-                      key={size.name}
-                      value={size}
-                      className={({ active, checked }) =>
-                        classNames(
-                          size.inStock
-                            ? "cursor-pointer focus:outline-none"
-                            : "cursor-not-allowed opacity-25",
-                          active ? "ring-2 ring-indigo-500 ring-offset-2" : "",
-                          checked
-                            ? "border-transparent bg-indigo-600 text-white hover:bg-indigo-700"
-                            : "border-gray-200 bg-white text-gray-900 hover:bg-gray-50",
-                          "flex items-center justify-center rounded-md border py-3 px-3 text-sm font-medium uppercase sm:flex-1"
-                        )
-                      }
-                      disabled={!size.inStock}
-                    >
-                      <RadioGroup.Label as="span">{size}</RadioGroup.Label>
-                    </RadioGroup.Option>
-                  ))}
-                </div>
-              </RadioGroup>
+                  <RadioGroup.Label as="span" className="sr-only">
+                    {color.name}
+                  </RadioGroup.Label>
+                  <span
+                    aria-hidden="true"
+                    className={classNames(
+                      color.bgColor,
+                      "h-8 w-8 rounded-full border border-black border-opacity-10"
+                    )}
+                  />
+                </RadioGroup.Option>
+              ))}
             </div>
+          </RadioGroup>
+        </div>
 
-            <button
-              type="submit"
-              className="mt-6 flex w-full items-center justify-center rounded-md border border-transparent bg-secondary px-8 py-3 text-base font-medium text-white hover:bg-primary hover:text-secondary focus:outline-none focus:ring-2 focus:ring-secondary focus:ring-offset-2"
-              onClick={handleBuyNow}
+        {/* Size picker */}
+        <div className="mt-8">
+          <div className="flex items-center justify-between">
+            <h2 className="text-sm font-medium text-gray-900">Size</h2>
+            <a
+              href="#"
+              className="text-sm font-medium text-indigo-600 hover:text-indigo-500"
             >
-              Buy now
-            </button>
-            {/* <button
-              type="submit"
-              className="mt-6 flex w-full items-center justify-center rounded-md border border-transparent bg-secondary px-8 py-3 text-base font-medium text-white hover:bg-primary hover:text-secondary focus:outline-none focus:ring-2 focus:ring-secondary focus:ring-offset-2"
-              onClick={handleAddToCart}
-           >
-              Add to Cart    
-           </button> */}
+              See sizing chart
+            </a>
+          </div>
+
+          <RadioGroup
+            value={selectedSize}
+            onChange={setSelectedSize}
+            className="mt-4"
+            >
+            <RadioGroup.Label className="sr-only">
+              Choose a size
+            </RadioGroup.Label>
+            <div className="grid grid-cols-3 gap-3 sm:grid-cols-6">
+            {initialSizes.map(size => (
+                <RadioGroup.Option
+                key={size}
+                value={size}
+                disabled={!sizeAvailability[size]}
+                  className={({ active, checked }) =>
+                    classNames(
+                      sizeAvailability[size]
+                        ? "cursor-pointer focus:outline-none"
+                        : "cursor-not-allowed opacity-25",
+                      active ? "ring-2 ring-indigo-500 ring-offset-2" : "",
+                      checked
+                        ? "border-transparent bg-indigo-600 text-white hover:bg-indigo-700"
+                        : "border-gray-200 bg-white text-gray-900 hover:bg-gray-50",
+                      "flex items-center justify-center rounded-md border py-3 px-3 text-sm font-medium uppercase sm:flex-1"
+                    )
+                  }
+                >
+                  <RadioGroup.Label as="span">{size}</RadioGroup.Label>
+                </RadioGroup.Option>
+              ))}
+            </div>
+          </RadioGroup>
+        </div>
+
+        <button
+          type="submit"
+          className="mt-6 flex w-full items-center justify-center rounded-md border border-transparent bg-secondary px-8 py-3 text-base font-medium text-white hover:bg-primary hover:text-secondary focus:outline-none focus:ring-2 focus:ring-secondary focus:ring-offset-2"
+          onClick={handleBuyNow}
+        >
+          Buy now
+        </button>
+        {/* <button
+          type="submit"
+          className="mt-6 flex w-full items-center justify-center rounded-md border border-transparent bg-secondary px-8 py-3 text-base font-medium text-white hover:bg-primary hover:text-secondary focus:outline-none focus:ring-2 focus:ring-secondary focus:ring-offset-2"
+          onClick={handleAddToCart}
+       >
+          Add to Cart    
+       </button> */}
 
 <div>
-      <button
-        type="button"
-        onClick={handleAddToCart}
-        className="mt-6 flex w-full items-center justify-center rounded-md border border-transparent bg-secondary px-8 py-3 text-base font-medium text-white hover:bg-primary hover:text-secondary focus:outline-none focus:ring-2 focus:ring-secondary focus:ring-offset-2"
-      >
-        Add to Cart
-      </button>
+  <button
+    type="button"
+    onClick={handleAddToCart}
+    className="mt-6 flex w-full items-center justify-center rounded-md border border-transparent bg-secondary px-8 py-3 text-base font-medium text-white hover:bg-primary hover:text-secondary focus:outline-none focus:ring-2 focus:ring-secondary focus:ring-offset-2"
+  >
+    Add to Cart
+  </button>
 
-      {showPrompt && (
-        <div className="fixed inset-0 flex items-center justify-center bg-gray-500 bg-opacity-75">
-          <div className="bg-white p-6 rounded-lg">
-            <p className="mb-4 font-bold">What would you like to do?</p>
-            <button
-              className="mr-4 px-4 py-2 bg-primary text-white rounded-md hover:bg-primary-dark"
-              onClick={handleViewCart}
-            >
-              View Cart
-            </button>
-            <button
-              className="px-4 py-2 bg-secondary text-white rounded-md hover:bg-secondary-dark"
-              onClick={handleContinueShopping}
-            >
-              Continue Shopping
-            </button>
-          </div>
-        </div>
-      )}
+  {showPrompt && (
+    <div className="fixed inset-0 flex items-center justify-center bg-gray-500 bg-opacity-75">
+      <div className="bg-white p-6 rounded-lg">
+        <p className="mb-4 font-bold">What would you like to do?</p>
+        <button
+          className="mr-4 px-4 py-2 bg-primary text-white rounded-md hover:bg-primary-dark"
+          onClick={handleViewCart}
+        >
+          View Cart
+        </button>
+        <button
+          className="px-4 py-2 bg-secondary text-white rounded-md hover:bg-secondary-dark"
+          onClick={handleContinueShopping}
+        >
+          Continue Shopping
+        </button>
+      </div>
     </div>
-          </form>
+  )}
+</div>
+      </form>
 
-          {/* Product details */}
-          <div className="mt-10">
-            <h2 className="text-sm font-medium text-gray-900">Description</h2>
+      {/* Product details */}
+      <div className="mt-8">
+        <h2 className="text-sm font-medium text-gray-900">Description</h2>
 
-            <div
-              className="prose prose-sm mt-4 text-gray-500"
-         //     dangerouslySetInnerHTML={{ __html: product.description }}
-         productDescription
-            />
-          </div>
-
-          <div className="mt-8 border-t border-gray-200 pt-8">
-            <h2 className="text-sm font-medium text-gray-900">
-              Fabric &amp; Care
-            </h2>
-
-            <div className="prose prose-sm mt-4 text-gray-500">
-              <ul role="list">
-                {/* {product.details.map((item) => (
-                  <li key={item}>{item}</li>
-                ))} */}
-                productDEtails
-              </ul>
-            </div>
-          </div>
-        </div>
+        <div
+          className="prose prose-sm mt-4 text-gray-500"
+         dangerouslySetInnerHTML={{ __html: product.description }}
+          productDescription
+        />
       </div>
 
-      {/* Reviews */}
-      <section aria-labelledby="reviews-heading" className="mt-16 sm:mt-24">
-        <h2 id="reviews-heading" className="text-lg font-medium text-gray-900">
-          Recent reviews
-        </h2>
+     
+    </div>
+  </div>
 
-        <div className="mt-6 space-y-10 divide-y divide-gray-200 border-b border-t border-gray-200 pb-10">
-          {reviews.featured.map((review) => (
-            <div
-              key={review.id}
-              className="pt-10 lg:grid lg:grid-cols-12 lg:gap-x-8"
-            >
-              <div className="lg:col-span-8 lg:col-start-5 xl:col-span-9 xl:col-start-4 xl:grid xl:grid-cols-3 xl:items-start xl:gap-x-8">
-                <div className="flex items-center xl:col-span-1">
-                  <div className="flex items-center">
-                    {[0, 1, 2, 3, 4].map((rating) => (
-                      <StarIcon
-                        key={rating}
-                        className={classNames(
-                          review.rating > rating
-                            ? "text-yellow-400"
-                            : "text-gray-200",
-                          "h-5 w-5 flex-shrink-0"
-                        )}
-                        aria-hidden="true"
-                      />
-                    ))}
-                  </div>
-                  <p className="ml-3 text-sm text-gray-700">
-                    {review.rating}
-                    <span className="sr-only"> out of 5 stars</span>
-                  </p>
-                </div>
-
-                <div className="mt-4 lg:mt-6 xl:col-span-2 xl:mt-0">
-                  <h3 className="text-sm font-medium text-gray-900">
-                    {review.title}
-                  </h3>
-
-                  <div
-                    className="mt-3 space-y-6 text-sm text-gray-500"
-                    dangerouslySetInnerHTML={{ __html: review.content }}
-                  />
-                </div>
-              </div>
-
-              <div className="mt-6 flex items-center text-sm lg:col-span-4 lg:col-start-1 lg:row-start-1 lg:mt-0 lg:flex-col lg:items-start xl:col-span-3">
-                <p className="font-medium text-gray-900">{review.author}</p>
-                <time
-                  dateTime={review.datetime}
-                  className="ml-4 border-l border-gray-200 pl-4 text-gray-500 lg:ml-0 lg:mt-2 lg:border-0 lg:pl-0"
-                >
-                  {review.date}
-                </time>
-              </div>
-            </div>
-          ))}
-        </div>
-      </section>
-    </main>
+ 
+</main></>
+   
   );
 }

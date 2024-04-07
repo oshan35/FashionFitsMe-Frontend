@@ -1,4 +1,4 @@
-import { Nav, ViewProduct } from "../components";
+import { Nav, ViewProduct ,NavBarNew} from "../components";
 import { Footer } from "../sections";
 import { useParams } from "react-router-dom"; // Import useParams
 const Product = () => {
@@ -7,8 +7,8 @@ const Product = () => {
   return (
 
     <main className="relative">
-      <Nav />
-      <section className="padding-x py-10">
+      <NavBarNew />
+      <section className="">
       <ViewProduct productId={productId} />
       </section>
       <section className=" bg-black padding-x padding-t pb-8">

@@ -239,7 +239,7 @@ export default function Example() {
   const [mobileFiltersOpen, setMobileFiltersOpen] = useState(true)
   const location = useLocation();
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false)
-   
+  const [headertext,setHeadertext]=useState(location.state.label1)
   function classNames(...classes) {
     return classes.filter(Boolean).join(' ')
   }
@@ -357,7 +357,16 @@ const handleDefaultValues = (sectionId, optionValue, isChecked) => {
 };
  
 const handleCheckboxChange = (sectionId, optionValue, isChecked) => {
-  console.log("checkbox changed");
+  console.log("checkbox changed",sectionId);
+  console.log("checkbox changed",optionValue);
+
+
+  if((sectionId==="Category" ||  sectionId==="Gender" || sectionId==="Brand") && isChecked){
+    setHeadertext(optionValue);
+  }
+
+
+
     // Update the checked status of the option in the filters array
     setFilters(prevFilters =>
       prevFilters.map(section =>
@@ -844,7 +853,7 @@ useEffect(() => {
 
         <main className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-0">
           <div className="relative z-10 flex items-baseline justify-between pt-24 pb-6 border-b border-gray-200">
-            <h1 className="text-4xl font-extrabold tracking-tight text-gray-900">New Arrivals</h1>
+            <h1 className="text-4xl font-extrabold tracking-tight text-gray-900">{headertext}</h1>
 
             <div className="flex items-center">
               <Menu as="div" className="relative inline-block text-left">
@@ -914,13 +923,13 @@ useEffect(() => {
               {/* Filters */}
               <form className="hidden lg:block w-1/3 pr-10 pl-0">
                 <h3 className="sr-only">Categories</h3>
-                <ul role="list" className="text-sm font-medium text-gray-900 space-y-4 pb-6 border-b border-gray-200">
+                {/* <ul role="list" className="text-sm font-medium text-gray-900 space-y-4 pb-6 border-b border-gray-200">
                   {subCategories.map((category) => (
                     <li key={category.name}>
                       <a href={category.href}>{category.name}</a>
                     </li>
                   ))}
-                </ul>
+                </ul> */}
 
                 {filters.map((section) => (
                   <Disclosure as="div" key={section.id} className="border-b border-gray-200 py-6">
