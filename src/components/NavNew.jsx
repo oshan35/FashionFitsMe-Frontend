@@ -3,138 +3,11 @@ import { Popover, Transition } from '@headlessui/react'
 import {  ShoppingBagIcon } from '@heroicons/react/outline'
 import { useNavigate } from "react-router-dom";
 import { navigation,navigationSecond } from '../constants';
+import "/node_modules/flag-icons/css/flag-icons.min.css";
 
 import { Dialog, Tab } from '@headlessui/react'
 import { MenuIcon, SearchIcon, ShoppingCartIcon, UserIcon, XIcon } from '@heroicons/react/outline'
 
-// const navigation = {
-//   categories: [
-//     {
-//       name: 'Women',
-//       featured: [
-//         { name: 'Sleep', href: '#' },
-//         { name: 'Swimwear', href: '#' },
-//         { name: 'Underwear', href: '#' },
-//       ],
-//       collection: [
-//         { name: 'Everything', href: '#' },
-//         { name: 'Core', href: '#' },
-//         { name: 'New Arrivals', href: '#' },
-//         { name: 'Sale', href: '#' },
-//       ],
-//       categories: [
-//         { name: 'Basic Tees', href: '#' },
-//         { name: 'Artwork Tees', href: '#' },
-//         { name: 'Bottoms', href: '#' },
-//         { name: 'Underwear', href: '#' },
-//         { name: 'Accessories', href: '#' },
-//       ],
-//       brands: [
-//         { name: 'Full Nelson', href: '#' },
-//         { name: 'My Way', href: '#' },
-//         { name: 'Re-Arranged', href: '#' },
-//         { name: 'Counterfeit', href: '#' },
-//         { name: 'Significant Other', href: '#' },
-//       ],
-//     },
-//     {
-//       name: 'Men',
-//       featured: [
-//         { name: 'Casual', href: '#' },
-//         { name: 'Boxers', href: '#' },
-//         { name: 'Outdoor', href: '#' },
-//       ],
-//       collection: [
-//         { name: 'Everything', href: '#' },
-//         { name: 'Core', href: '#' },
-//         { name: 'New Arrivals', href: '#' },
-//         { name: 'Sale', href: '#' },
-//       ],
-//       categories: [
-//         { name: 'Artwork Tees', href: '#' },
-//         { name: 'Pants', href: '#' },
-//         { name: 'Accessories', href: '#' },
-//         { name: 'Boxers', href: '#' },
-//         { name: 'Basic Tees', href: '#' },
-//       ],
-//       brands: [
-//         { name: 'Significant Other', href: '#' },
-//         { name: 'My Way', href: '#' },
-//         { name: 'Counterfeit', href: '#' },
-//         { name: 'Re-Arranged', href: '#' },
-//         { name: 'Full Nelson', href: '#' },
-//       ],
-//     },
-//   ],
-//   pages: [
-//     { name: 'Company', href: '#' },
-//     { name: 'Stores', href: '#' },
-//   ],
-// }
-// const products = [
-//   {
-//     id: 1,
-//     name: 'Nomad Tumbler',
-//     description:
-//       'This durable and portable insulated tumbler will keep your beverage at the perfect temperature during your next adventure.',
-//     href: '#',
-//     price: '35.00',
-//     status: 'Preparing to ship',
-//     step: 1,
-//     date: 'March 24, 2021',
-//     datetime: '2021-03-24',
-//     address: ['Floyd Miles', '7363 Cynthia Pass', 'Toronto, ON N3Y 4H8'],
-//     email: 'f•••@example.com',
-//     phone: '1•••••••••40',
-//     imageSrc: 'https://tailwindui.com/img/ecommerce-images/confirmation-page-03-product-01.jpg',
-//     imageAlt: 'Insulated bottle with white base and black snap lid.',
-//   },
-//   {
-//     id: 2,
-//     name: 'Minimalist Wristwatch',
-//     description: 'This contemporary wristwatch has a clean, minimalist look and high quality components.',
-//     href: '#',
-//     price: '149.00',
-//     status: 'Shipped',
-//     step: 0,
-//     date: 'March 23, 2021',
-//     datetime: '2021-03-23',
-//     address: ['Floyd Miles', '7363 Cynthia Pass', 'Toronto, ON N3Y 4H8'],
-//     email: 'f•••@example.com',
-//     phone: '1•••••••••40',
-//     imageSrc: 'https://tailwindui.com/img/ecommerce-images/confirmation-page-03-product-02.jpg',
-//     imageAlt:
-//       'Arm modeling wristwatch with black leather band, white watch face, thin watch hands, and fine time markings.',
-//   },
-//   // More products...
-// ]
-// const footerNavigation = {
-//   account: [
-//     { name: 'Manage Account', href: '#' },
-//     { name: 'Saved Items', href: '#' },
-//     { name: 'Orders', href: '#' },
-//     { name: 'Redeem Gift card', href: '#' },
-//   ],
-//   service: [
-//     { name: 'Shipping & Returns', href: '#' },
-//     { name: 'Warranty', href: '#' },
-//     { name: 'FAQ', href: '#' },
-//     { name: 'Find a store', href: '#' },
-//     { name: 'Get in touch', href: '#' },
-//   ],
-//   company: [
-//     { name: 'Who we are', href: '#' },
-//     { name: 'Press', href: '#' },
-//     { name: 'Careers', href: '#' },
-//     { name: 'Terms & Conditions', href: '#' },
-//     { name: 'Privacy', href: '#' },
-//   ],
-//   connect: [
-//     { name: 'Instagram', href: '#' },
-//     { name: 'Pinterest', href: '#' },
-//     { name: 'Twitter', href: '#' },
-//   ],
-// }
 
 function classNames(...classes) {
   return classes.filter(Boolean).join(' ')
@@ -239,12 +112,9 @@ export default function NavBarNew() {
 
               <div className="border-t border-gray-200 py-6 px-4">
                 <a href="#" className="-m-2 p-2 flex items-center">
-                  <img
-                    src="https://tailwindui.com/img/flags/flag-canada.svg"
-                    alt=""
-                    className="w-5 h-auto block flex-shrink-0"
-                  />
-                  <span className="ml-3 block text-base font-medium text-gray-900">CAD</span>
+                <span class="fi fi-lk"></span>
+
+                  <span className="ml-3 block text-base font-medium text-gray-900">LKR</span>
                   <span className="sr-only">, change currency</span>
                 </a>
               </div>
@@ -406,66 +276,48 @@ export default function NavBarNew() {
                       ))}
                     </div>
                   </Popover.Group>
+                  
                 </div>
 
                 {/* Mobile menu and search (lg-) */}
-                <div className="flex-1 flex items-center lg:hidden">
-                  <button
-                    type="button"
-                    className="-ml-2 bg-white p-2 rounded-md text-gray-400"
-                    onClick={() => setOpen(true)}
-                  >
-                    <span className="sr-only">Open menu</span>
-                    <MenuIcon className="h-6 w-6" aria-hidden="true" />
-                  </button>
+                <div className="ml-auto flex items-center">
+                  <div className="hidden lg:flex lg:flex-1 lg:items-center lg:justify-end lg:space-x-6">
+                    <a href="#" className="text-sm font-medium text-gray-700 hover:text-gray-800">
+                      Sign in
+                    </a>
+                    <span className="h-6 w-px bg-gray-200" aria-hidden="true" />
+                    <a href="#" className="text-sm font-medium text-gray-700 hover:text-gray-800">
+                      Create account
+                    </a>
+                  </div>
+
+                  <div className="hidden lg:ml-8 lg:flex">
+                    <a href="#" className="text-gray-700 hover:text-gray-800 flex items-center">
+                    <span class="fi fi-lk"></span>
+
+                      <span className="ml-3 block text-sm font-medium">LKR</span>
+                      <span className="sr-only">, change currency</span>
+                    </a>
+                  </div>
 
                   {/* Search */}
-                  <a href="#" className="ml-2 p-2 text-gray-400 hover:text-gray-500">
-                    <span className="sr-only">Search</span>
-                    <SearchIcon className="w-6 h-6" aria-hidden="true" />
-                  </a>
-                </div>
+                  <div className="flex lg:ml-6">
+                    <a href="#" className="p-2 text-gray-400 hover:text-gray-500">
+                      <span className="sr-only">Search</span>
+                      <SearchIcon className="w-6 h-6" aria-hidden="true" />
+                    </a>
+                  </div>
 
-                {/* Logo (lg-) */}
-                <a href="#" className="lg:hidden">
-                  <span className="sr-only">Workflow</span>
-                  <img
-                    src="https://tailwindui.com/img/logos/workflow-mark.svg?color=indigo&shade=600"
-                    alt=""
-                    className="h-8 w-auto"
-                  />
-                </a>
-
-                <div className="flex-1 flex items-center justify-end">
-                  <div className="flex items-center lg:ml-8">
-                    <div className="flex space-x-8">
-                      <div className="hidden lg:flex">
-                        <a href="#" className="-m-2 p-2 text-gray-400 hover:text-gray-500">
-                          <span className="sr-only">Search</span>
-                          <SearchIcon className="w-6 h-6" aria-hidden="true" />
-                        </a>
-                      </div>
-
-                      <div className="flex">
-                        <a href="#" className="-m-2 p-2 text-gray-400 hover:text-gray-500">
-                          <span className="sr-only">Account</span>
-                          <UserIcon className="w-6 h-6" aria-hidden="true" />
-                        </a>
-                      </div>
-                    </div>
-
-                    <span className="mx-4 h-6 w-px bg-gray-200 lg:mx-6" aria-hidden="true" />
-
-                    <div className="flow-root">
-                      <a href="#" className="group -m-2 p-2 flex items-center">
-                        <ShoppingCartIcon
-                          className="flex-shrink-0 h-6 w-6 text-gray-400 group-hover:text-gray-500"
-                          aria-hidden="true"
-                        />
-                        <span className="ml-2 text-sm font-medium text-gray-700 group-hover:text-gray-800">0</span>
-                        <span className="sr-only">items in cart, view bag</span>
-                      </a>
-                    </div>
+                  {/* Cart */}
+                  <div className="ml-4 flow-root lg:ml-6">
+                    <a href="#" className="group -m-2 p-2 flex items-center">
+                      <ShoppingBagIcon
+                        className="flex-shrink-0 h-6 w-6 text-gray-400 group-hover:text-gray-500"
+                        aria-hidden="true"
+                      />
+                      <span className="ml-2 text-sm font-medium text-gray-700 group-hover:text-gray-800">0</span>
+                      <span className="sr-only">items in cart, view bag</span>
+                    </a>
                   </div>
                 </div>
               </div>

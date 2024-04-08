@@ -9,6 +9,7 @@ import {
   Subscribe,
   SuperQuality,
   MainImage,
+  Brands
 } from "../sections";
 import { useSelectedFilters } from '../Contexts/SelectedFilterContext'
 import OrderSummary from "./OrderSummary";
@@ -33,6 +34,9 @@ const Home = () => {
       <section className="padding-x py-10">
         <ProductContainer id={"dresses"} heading={"Women"} title={"gender"}  />
       </section> */}
+       <section className="padding">
+        <Brands />
+      </section>
       <section className="padding">
         <SuperQuality />
       </section>

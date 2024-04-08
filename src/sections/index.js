@@ -7,7 +7,7 @@ import CustomerReviews from "./CustomerReviews";
 import Subscribe from "./Subscribe";
 import Footer from "./Footer";
 import MainImage from "./MainImage";
-
+import Brands from "./Brands";
 export {
   Hero,
   ProductContainer,
@@ -17,5 +17,6 @@ export {
   CustomerReviews,
   Subscribe,
   Footer,
-  MainImage
+  MainImage,
+  Brands
 };
