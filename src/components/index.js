@@ -1,5 +1,4 @@
 import Button from "./Button";
-import Nav from "./Nav";
 import BannerCard from "./BannerCard";
 import ServiceCard from "./ServiceCard";
 import ReviewCard from "./ReviewCard";
@@ -17,7 +16,7 @@ import PaymentGateWayCard from "./PaymentGatewayCard";
 import ProductImageCarousel from "./ProductImageCarosel";
 import PriceCardNew from "./PriceCardNew";
 import NavBarNew from "./NavNew";
-
+import Nav from "./Nav";
 export {
   Button,
   Nav,

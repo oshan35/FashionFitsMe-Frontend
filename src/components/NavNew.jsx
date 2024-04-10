@@ -28,7 +28,7 @@ export default function NavBarNew() {
   return (
     <div className="bg-white">
 
-<Transition.Root show={open} as={Fragment}>
+    <Transition.Root show={open} as={Fragment}>
         <Dialog as="div" className="fixed inset-0 flex z-40 lg:hidden" onClose={setOpen}>
           <Transition.Child
             as={Fragment}
@@ -84,9 +84,9 @@ export default function NavBarNew() {
                 </div>
                
               </Tab.Group>
-<Tab.Group >
+          <Tab.Group >
 
-</Tab.Group>
+      </Tab.Group>
               <div className="border-t border-gray-200 py-6 px-4 space-y-6">
                 {navigation.pages.map((page) => (
                   <div key={page.name} className="flow-root">
@@ -259,7 +259,7 @@ export default function NavBarNew() {
                                 </div>
                               </div>
                             </Popover.Panel>
-                              </Transition>
+                         </Transition>
                             </>
                           )}
                         </Popover>

@@ -21,8 +21,8 @@ const ProductImageCarousel = ({ image_colors,handleColorClick,image,colors }) =>
             // src={image}
             src={`data:image/jpeg;base64,${image_colors[color]}`}    
             onClick={() => handleButtonClick(color,index)}
-            className={`h-20 w-20 object-cover rounded-lg mx-1 my-3 cursor-pointer ${
-              index === currentIndex ? "border-2 border-blue-500" : ""
+            className={`h-30 w-20 object-cover rounded-lg mx-1 my-3 cursor-pointer ${
+              index === currentIndex ? "border-2 border-black-200" : ""
             }`}
             style={{ objectFit: "cover", objectPosition: "center" }}
 

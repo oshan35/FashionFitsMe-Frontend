@@ -9,6 +9,7 @@ import { useLocation } from 'react-router-dom';
 import { redirect, useNavigate } from 'react-router-dom';
 import ProductImageCarousel from "./ProductImageCarosel";
 import NavBarNew from "./NavNew";
+import Nav from "./Nav";
 
 
 
@@ -155,192 +156,199 @@ export default function ViewProduct({productId}) {
   const [selectedColor, setSelectedColor] = useState(colors[0]);
   const [selectedSize, setSelectedSize] = useState(sizes[2]);
   return (
-    <>
     
+        <div className="bg-gray-50">
+        <Nav/>
 
-<main className="mx-auto mt-20 max-w-2xl px-4 pb-16 sm:px-6 sm:pb-24 lg:max-w-7xl lg:px-8">
-  <div className="lg:grid lg:auto-rows-min lg:grid-cols-12 lg:gap-x-8">
-    <div className="lg:col-span-5 lg:col-start-8">
-      <div className=" justify-between">
-      <h1 className="text-4xl lg:text-5xl font-medium text-gray-900">
-          {productName}
-        </h1>
-        <p className="text-2xl lg:text-3xl font-medium text-gray-900">LKR  {price}</p>
-      </div>
-    
-    
-
-
-    </div>
-
-    {/* Image gallery */}
-    <div className="mt-8 lg:col-span-7 lg:col-start-1 lg:row-span-3 lg:row-start-1 lg:mt-0 lg:w-full">
-      <h2 className="sr-only">Images</h2>
+        <main className="max-w-2xl mx-auto pt-8 pb-24 sm:pt-16 sm:px-6 lg:max-w-7xl lg:px-8">
+        <div className="px-4 space-y-2 sm:px-0 sm:flex sm:items-baseline sm:justify-between sm:space-y-0">
+          <div className="flex sm:items-baseline sm:space-x-4">
+            <div className="lg:grid lg:auto-rows-min lg:grid-cols-12 lg:gap-x-8">
+                <div className="lg:col-span-5 lg:col-start-8">
+                  <div className=" justify-between">
+                  <h1 className="text-2xl lg:text-5xl font-medium text-gray-900">
+                      {productName}
+                    </h1>
+                    <p className="text-xl lg:text-xl font-medium text-gray-900 mt-5">LKR  {price}</p>
+                  </div>
+                
+                
 
 
+                </div>
 
-      <ProductImageCarousel
-        image_colors={image_colors}
-        handleColorClick={handleColorClick}
-        image={image}
-        colors={colors}/>
+            {/* Image gallery */}
+            <div className="mt-8 lg:col-span-7 lg:col-start-1 lg:row-span-3 lg:row-start-1 lg:mt-0 lg:w-full">
+              <h2 className="sr-only">Images</h2>
 
-    </div>
 
-    <div className="mt-8 lg:col-span-5">
-      <form>
-        {/* Color picker */}
+
+              <ProductImageCarousel
+                image_colors={image_colors}
+                handleColorClick={handleColorClick}
+                image={image}
+                colors={colors}/>
+
+            </div>
+
+            <div className="mt-8 lg:col-span-5">
+              <form>
+                {/* Color picker */}
+                <div>
+                  <h2 className="text-sm font-medium text-gray-900">Color</h2>
+
+                  <RadioGroup
+                    value={selectedColor}
+                    onChange={(color) => handleColorClick(color)}
+                    className="mt-2"
+        >
+
+                    <RadioGroup.Label className="sr-only">
+                      Choose a color
+                    </RadioGroup.Label>
+                    <div className="flex items-center space-x-3">
+                      {colors.map((color) => (
+                        <RadioGroup.Option
+                          key={color.name}
+                          value={color}
+                          className={({ active, checked }) =>
+                            classNames(
+                              color.selectedColor,
+                              active && checked ? "ring ring-offset-1" : "",
+                              !active && checked ? "ring-2" : "",
+                              "relative -m-0.5 flex cursor-pointer items-center justify-center rounded-full p-0.5 focus:outline-none"
+                            )
+                          }
+                        >
+                          <RadioGroup.Label as="span" className="sr-only">
+                            {color.name}
+                          </RadioGroup.Label>
+                          <span
+                            aria-hidden="true"
+                            className={classNames(
+                              color.bgColor,
+                              "h-8 w-8 rounded-full border border-black border-opacity-10"
+                            )}
+                          />
+                        </RadioGroup.Option>
+                      ))}
+                    </div>
+                  </RadioGroup>
+                </div>
+
+                {/* Size picker */}
+                <div className="mt-8">
+                  <div className="flex items-center justify-between">
+                    <h2 className="text-sm font-medium text-gray-900">Size</h2>
+                    <a
+                      href="#"
+                      className="text-sm font-medium text-indigo-600 hover:text-indigo-500"
+                    >
+                      See sizing chart
+                    </a>
+                  </div>
+
+                  <RadioGroup
+                    value={selectedSize}
+                    onChange={setSelectedSize}
+                    className="mt-4"
+                    >
+                    <RadioGroup.Label className="sr-only">
+                      Choose a size
+                    </RadioGroup.Label>
+                    <div className="grid grid-cols-3 gap-3 sm:grid-cols-6">
+                    {initialSizes.map(size => (
+                        <RadioGroup.Option
+                        key={size}
+                        value={size}
+                        disabled={!sizeAvailability[size]}
+                          className={({ active, checked }) =>
+                            classNames(
+                              sizeAvailability[size]
+                                ? "cursor-pointer focus:outline-none"
+                                : "cursor-not-allowed opacity-25",
+                              active ? "ring-2 ring-indigo-500 ring-offset-2" : "",
+                              checked
+                                ? "border-transparent bg-indigo-600 text-white hover:bg-indigo-700"
+                                : "border-gray-200 bg-white text-gray-900 hover:bg-gray-50",
+                              "flex items-center justify-center rounded-md border py-3 px-3 text-sm font-medium uppercase sm:flex-1"
+                            )
+                          }
+                        >
+                          <RadioGroup.Label as="span">{size}</RadioGroup.Label>
+                        </RadioGroup.Option>
+                      ))}
+                    </div>
+                  </RadioGroup>
+                </div>
+
+                <button
+                  type="submit"
+                  className="mt-6 flex w-full items-center justify-center rounded-md border border-transparent bg-secondary px-8 py-3 text-base font-medium text-white hover:bg-primary hover:text-secondary focus:outline-none focus:ring-2 focus:ring-secondary focus:ring-offset-2"
+                  onClick={handleBuyNow}
+                >
+                  Buy now
+                </button>
+                {/* <button
+                  type="submit"
+                  className="mt-6 flex w-full items-center justify-center rounded-md border border-transparent bg-secondary px-8 py-3 text-base font-medium text-white hover:bg-primary hover:text-secondary focus:outline-none focus:ring-2 focus:ring-secondary focus:ring-offset-2"
+                  onClick={handleAddToCart}
+              >
+                  Add to Cart    
+              </button> */}
+
         <div>
-          <h2 className="text-sm font-medium text-gray-900">Color</h2>
+          <button
+            type="button"
+            onClick={handleAddToCart}
+            className="mt-6 flex w-full items-center justify-center rounded-md border border-transparent bg-secondary px-8 py-3 text-base font-medium text-white hover:bg-primary hover:text-secondary focus:outline-none focus:ring-2 focus:ring-secondary focus:ring-offset-2"
+          >
+            Add to Cart
+          </button>
 
-          <RadioGroup
-            value={selectedColor}
-            onChange={(color) => handleColorClick(color)}
-            className="mt-2"
->
-
-            <RadioGroup.Label className="sr-only">
-              Choose a color
-            </RadioGroup.Label>
-            <div className="flex items-center space-x-3">
-              {colors.map((color) => (
-                <RadioGroup.Option
-                  key={color.name}
-                  value={color}
-                  className={({ active, checked }) =>
-                    classNames(
-                      color.selectedColor,
-                      active && checked ? "ring ring-offset-1" : "",
-                      !active && checked ? "ring-2" : "",
-                      "relative -m-0.5 flex cursor-pointer items-center justify-center rounded-full p-0.5 focus:outline-none"
-                    )
-                  }
+          {showPrompt && (
+            <div className="fixed inset-0 flex items-center justify-center bg-gray-500 bg-opacity-75">
+              <div className="bg-white p-6 rounded-lg">
+                <p className="mb-4 font-bold">What would you like to do?</p>
+                <button
+                  className="mr-4 px-4 py-2 bg-primary text-white rounded-md hover:bg-primary-dark"
+                  onClick={handleViewCart}
                 >
-                  <RadioGroup.Label as="span" className="sr-only">
-                    {color.name}
-                  </RadioGroup.Label>
-                  <span
-                    aria-hidden="true"
-                    className={classNames(
-                      color.bgColor,
-                      "h-8 w-8 rounded-full border border-black border-opacity-10"
-                    )}
-                  />
-                </RadioGroup.Option>
-              ))}
-            </div>
-          </RadioGroup>
-        </div>
-
-        {/* Size picker */}
-        <div className="mt-8">
-          <div className="flex items-center justify-between">
-            <h2 className="text-sm font-medium text-gray-900">Size</h2>
-            <a
-              href="#"
-              className="text-sm font-medium text-indigo-600 hover:text-indigo-500"
-            >
-              See sizing chart
-            </a>
-          </div>
-
-          <RadioGroup
-            value={selectedSize}
-            onChange={setSelectedSize}
-            className="mt-4"
-            >
-            <RadioGroup.Label className="sr-only">
-              Choose a size
-            </RadioGroup.Label>
-            <div className="grid grid-cols-3 gap-3 sm:grid-cols-6">
-            {initialSizes.map(size => (
-                <RadioGroup.Option
-                key={size}
-                value={size}
-                disabled={!sizeAvailability[size]}
-                  className={({ active, checked }) =>
-                    classNames(
-                      sizeAvailability[size]
-                        ? "cursor-pointer focus:outline-none"
-                        : "cursor-not-allowed opacity-25",
-                      active ? "ring-2 ring-indigo-500 ring-offset-2" : "",
-                      checked
-                        ? "border-transparent bg-indigo-600 text-white hover:bg-indigo-700"
-                        : "border-gray-200 bg-white text-gray-900 hover:bg-gray-50",
-                      "flex items-center justify-center rounded-md border py-3 px-3 text-sm font-medium uppercase sm:flex-1"
-                    )
-                  }
+                  View Cart
+                </button>
+                <button
+                  className="px-4 py-2 bg-secondary text-white rounded-md hover:bg-secondary-dark"
+                  onClick={handleContinueShopping}
                 >
-                  <RadioGroup.Label as="span">{size}</RadioGroup.Label>
-                </RadioGroup.Option>
-              ))}
+                  Continue Shopping
+                </button>
+              </div>
             </div>
-          </RadioGroup>
+          )}
         </div>
+              </form>
 
-        <button
-          type="submit"
-          className="mt-6 flex w-full items-center justify-center rounded-md border border-transparent bg-secondary px-8 py-3 text-base font-medium text-white hover:bg-primary hover:text-secondary focus:outline-none focus:ring-2 focus:ring-secondary focus:ring-offset-2"
-          onClick={handleBuyNow}
-        >
-          Buy now
-        </button>
-        {/* <button
-          type="submit"
-          className="mt-6 flex w-full items-center justify-center rounded-md border border-transparent bg-secondary px-8 py-3 text-base font-medium text-white hover:bg-primary hover:text-secondary focus:outline-none focus:ring-2 focus:ring-secondary focus:ring-offset-2"
-          onClick={handleAddToCart}
-       >
-          Add to Cart    
-       </button> */}
+              {/* Product details */}
+              <div className="mt-8">
+                <h2 className="text-sm font-medium text-gray-900">Description</h2>
 
-<div>
-  <button
-    type="button"
-    onClick={handleAddToCart}
-    className="mt-6 flex w-full items-center justify-center rounded-md border border-transparent bg-secondary px-8 py-3 text-base font-medium text-white hover:bg-primary hover:text-secondary focus:outline-none focus:ring-2 focus:ring-secondary focus:ring-offset-2"
-  >
-    Add to Cart
-  </button>
+                <div
+                  className="prose prose-sm mt-4 text-gray-500"
+                dangerouslySetInnerHTML={{ __html: product.description }}
+                  productDescription
+                />
+              </div>
 
-  {showPrompt && (
-    <div className="fixed inset-0 flex items-center justify-center bg-gray-500 bg-opacity-75">
-      <div className="bg-white p-6 rounded-lg">
-        <p className="mb-4 font-bold">What would you like to do?</p>
-        <button
-          className="mr-4 px-4 py-2 bg-primary text-white rounded-md hover:bg-primary-dark"
-          onClick={handleViewCart}
-        >
-          View Cart
-        </button>
-        <button
-          className="px-4 py-2 bg-secondary text-white rounded-md hover:bg-secondary-dark"
-          onClick={handleContinueShopping}
-        >
-          Continue Shopping
-        </button>
-      </div>
-    </div>
-  )}
-</div>
-      </form>
-
-      {/* Product details */}
-      <div className="mt-8">
-        <h2 className="text-sm font-medium text-gray-900">Description</h2>
-
-        <div
-          className="prose prose-sm mt-4 text-gray-500"
-         dangerouslySetInnerHTML={{ __html: product.description }}
-          productDescription
-        />
-      </div>
-
-     
-    </div>
+            
+            </div>
+            </div>
   </div>
-
+</div>
  
-</main></>
-   
+        </main>
+
+</div>
+
+
   );
 }
