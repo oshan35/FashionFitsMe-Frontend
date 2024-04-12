@@ -6,6 +6,7 @@ import Cart from "./Cart";
 import CheckoutPage from "./CheckoutPage";
 import CheckoutTest from "./ChechoutTest";
 import OrderSummaryPage from "./OrderSummaryPage";
-import CataloguePage from "./CataloguePage"
+import CataloguePage from "./CataloguePage";
+import LoginPage from "./Login";
 
-export { Home, Product, Catogeries,OrderSummary,Cart,CheckoutPage,CheckoutTest,CataloguePage,OrderSummaryPage};
+export { Home, Product, Catogeries,OrderSummary,Cart,CheckoutPage,CheckoutTest,CataloguePage,OrderSummaryPage,LoginPage};

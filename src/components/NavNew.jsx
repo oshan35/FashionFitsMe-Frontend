@@ -23,6 +23,11 @@ export default function NavBarNew() {
         navigate("/catogeries", { state: { label1,label2, topic1,topic2 } }); 
       };
 
+      const handleLoginButtonClick = () => {
+        console.log('clicked button sign in on navbar');
+        navigate("/login"); 
+      };
+
 
 
   return (
@@ -99,12 +104,14 @@ export default function NavBarNew() {
 
               <div className="border-t border-gray-200 py-6 px-4 space-y-6" mr-0>
                 <div className="flow-root">
-                  <a href="#" className="-m-2 p-2 block font-medium text-gray-900">
+                  <a  className="-m-2 p-2 block font-medium text-gray-900"
+                  onClick={() => handleLoginButtonClick()}>
+                   
                     Sign in
                   </a>
                 </div>
                 <div className="flow-root">
-                  <a href="#" className="-m-2 p-2 block font-medium text-gray-900">
+                  <a  className="-m-2 p-2 block font-medium text-gray-900">
                     Create account
                   </a>
                 </div>
@@ -282,7 +289,9 @@ export default function NavBarNew() {
                 {/* Mobile menu and search (lg-) */}
                 <div className="ml-auto flex items-center">
                   <div className="hidden lg:flex lg:flex-1 lg:items-center lg:justify-end lg:space-x-6">
-                    <a href="#" className="text-sm font-medium text-gray-700 hover:text-gray-800">
+                    <a  className="text-sm font-medium text-gray-700 hover:text-gray-800"
+                  onClick={() => handleLoginButtonClick()}>
+
                       Sign in
                     </a>
                     <span className="h-6 w-px bg-gray-200" aria-hidden="true" />

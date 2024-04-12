@@ -16,9 +16,9 @@ import Nav from "./Nav";
 
 export default function ViewProduct({productId}) {
 
-  const initialSizes = ['XXS','XS', 'S', 'M', 'L', 'XL', 'XXL','XXL'];
+  const initialSizes = ['XXS','XS', 'S', 'M', 'L', 'XL', 'XXL','XXXL'];
   const [sizeAvailability, setSizeAvailability] = useState({}); // State to hold size availability
-
+const [customerId, setCustomerId] = useState(null);
   const [showPrompt, setShowPrompt] = useState(false);
   const navigate = useNavigate();
   
@@ -29,7 +29,7 @@ export default function ViewProduct({productId}) {
     navigate('/checkout');
   };
   
-  const handleAddToCart = () => {
+  const handleAddToCart = (productId) => {
     setShowPrompt(true);
   };
   
@@ -155,6 +155,48 @@ export default function ViewProduct({productId}) {
 };
   const [selectedColor, setSelectedColor] = useState(colors[0]);
   const [selectedSize, setSelectedSize] = useState(sizes[2]);
+  // useEffect(() => {
+  //   fetch("http://localhost:5000/customer/getCustomerId")
+  //       .then(response => response.json())
+  //       .then(data => setCustomerId(data.customerId))
+  //       .catch(error => console.error('Error fetching customer ID:', error));
+  // }, []);
+
+  async function getCustomerId() {
+    try {
+        // Retrieve session ID or token from localStorage or sessionStorage
+        const sessionId = localStorage.getItem('sessionData');
+        
+        // Make a GET request to the backend API endpoint, including the session ID in the headers
+        const response = await fetch("http://localhost:5000/customer/getCustomerId", {
+            method: 'GET',
+            headers: {
+                'Content-Type': 'application/json',
+                'Authorization': `Bearer ${sessionId}`, 
+            },
+        });
+
+        // Check if the request was successful
+        if (response.ok) {
+            // Parse the JSON response to get the customer ID
+            const customerId = await response.json();
+            console.log('Customer ID:', customerId);
+            // Handle the customer ID as needed
+        } else {
+            console.error('Failed to get customer ID:', response.status);
+        }
+    } catch (error) {
+        console.error('An error occurred while fetching the customer ID:', error);
+    }
+}
+
+
+getCustomerId();
+
+  
+  useEffect(() => {
+    console.log("customer id",customerId)
+  }, [customerId]);
   return (
     
         <div className="bg-gray-50">

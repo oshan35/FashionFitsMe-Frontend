@@ -3,6 +3,7 @@ import { Home, Product, Catogeries,Cart,CheckoutPage,CheckoutTest, OrderSummary}
 import { CataloguePage ,OrderSummaryPage} from "./pages";
 import { SelectedFiltersProvider } from "./Contexts/SelectedFilterContext";
 import { PriceCardNew } from "./components";
+import {LoginPage} from "./pages"
 const router = createBrowserRouter([
   {
     path: "/",
@@ -29,6 +30,11 @@ const router = createBrowserRouter([
   {
     path: "/checkout",
     element: <CheckoutPage />,
+  },
+
+  {
+    path: "/login",
+    element: <LoginPage />,
   },
 ]);
 

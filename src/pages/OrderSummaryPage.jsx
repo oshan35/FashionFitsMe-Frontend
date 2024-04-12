@@ -164,7 +164,7 @@ export default function OrderSummaryPage() {
         </div>
 
         {/* Products */}
-        <section  className="mt-6">
+        <section aria-labelledby="products-heading" className="mt-6">
           <h2 id="products-heading" className="sr-only">
             Products purchased
           </h2>
