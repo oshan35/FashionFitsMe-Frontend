@@ -21,7 +21,10 @@ export default function ViewProduct({productId}) {
 const [customerId, setCustomerId] = useState(null);
   const [showPrompt, setShowPrompt] = useState(false);
   const navigate = useNavigate();
-  
+  // const [payload, setPayload] = useState({
+  //   productId: productId,
+  //   customerId: null,
+  // });
   function classNames(...classes) {
     return classes.filter(Boolean).join(" ");
   }
@@ -29,10 +32,89 @@ const [customerId, setCustomerId] = useState(null);
     navigate('/checkout');
   };
   
-  const handleAddToCart = (productId) => {
-    setShowPrompt(true);
-  };
-  
+  // const handleAddToCart = (productId,customerId) => {
+  //   setShowPrompt(true);
+
+  // };
+
+//   const handleAddToCart = async (productId, customerId) => {
+//     try {
+//         const apiEndpoint = 'http://localhost:5000/product_shopping_cart/addProducts';
+//         const [payload, setPayload] = useState({
+//           productId: productId,
+//           customerId: null,
+//         });
+//         console.log("payload",payload)
+//         const response = await fetch(apiEndpoint, {
+//             method: 'POST',
+//             headers: {
+//                 'Content-Type': 'application/json',
+//             },
+//             body: JSON.stringify(payload),
+//         });
+
+//         if (response.ok) {
+//             console.log('Item added to cart successfully');
+//             setShowPrompt(true);
+//         } else {
+//             console.error('Failed to add item to cart');
+//         }
+//     } catch (error) {
+//         console.error('An error occurred:', error);
+//     }
+// };
+
+const handleAddToCart = async () => {
+  try {
+      const apiEndpoint = 'http://localhost:5000/product_shopping_cart/addProducts';
+
+      // Create the payload object with productId and customerId
+      const payload = {
+          productId,
+          customerId
+      };
+
+      // Send the POST request with the payload as JSON
+      const response = await fetch(apiEndpoint, {
+          method: 'POST',
+          headers: {
+              'Content-Type': 'application/json'
+          },
+          body: JSON.stringify(payload)
+      });
+
+      // Check the content type of the response
+      const contentType = response.headers.get('Content-Type');
+
+      // Handle the response based on the content type
+      if (response.ok) {
+          // If the response is successful, parse it as JSON and log a success message
+          if (contentType.includes('application/json')) {
+              const data = await response.json();
+              console.log('Item added to cart successfully:', data);
+          } else {
+              // Handle non-JSON responses
+              const text = await response.text();
+              console.log('Item added to cart successfully:', text);
+          }
+          setShowPrompt(true); // Show the prompt for user actions
+      } else {
+          // Handle non-successful responses
+          if (contentType.includes('application/json')) {
+              const errorData = await response.json();
+              console.error(`Failed to add item to cart: ${errorData.message}`);
+          } else {
+              // Handle non-JSON error messages
+              const errorText = await response.text();
+              console.error(`Failed to add item to cart: ${errorText}`);
+          }
+      }
+  } catch (error) {
+      console.error(`An error occurred: ${error.message}`);
+  }
+};
+
+
   const handleViewCart = () => {
     navigate("/cart");
     setShowPrompt(false);
@@ -155,44 +237,59 @@ const [customerId, setCustomerId] = useState(null);
 };
   const [selectedColor, setSelectedColor] = useState(colors[0]);
   const [selectedSize, setSelectedSize] = useState(sizes[2]);
-  // useEffect(() => {
-  //   fetch("http://localhost:5000/customer/getCustomerId")
-  //       .then(response => response.json())
-  //       .then(data => setCustomerId(data.customerId))
-  //       .catch(error => console.error('Error fetching customer ID:', error));
-  // }, []);
+ 
 
-  async function getCustomerId() {
-    try {
-        // Retrieve session ID or token from localStorage or sessionStorage
-        const sessionId = localStorage.getItem('sessionData');
+//   async function getCustomerId() {
+//     try {
+//         const sessionId = localStorage.getItem('sessionData');
         
-        // Make a GET request to the backend API endpoint, including the session ID in the headers
-        const response = await fetch("http://localhost:5000/customer/getCustomerId", {
-            method: 'GET',
-            headers: {
-                'Content-Type': 'application/json',
-                'Authorization': `Bearer ${sessionId}`, 
-            },
-        });
+//         const response = await fetch("http://localhost:5000/customer/getCustomerId", {
+//             method: 'GET',
+//             headers: {
+//                 'Content-Type': 'application/json',
+//                 'Authorization': `Bearer ${sessionId}`, 
+//             },
+//         });
 
-        // Check if the request was successful
-        if (response.ok) {
-            // Parse the JSON response to get the customer ID
-            const customerId = await response.json();
-            console.log('Customer ID:', customerId);
-            // Handle the customer ID as needed
-        } else {
-            console.error('Failed to get customer ID:', response.status);
-        }
+//         if (response.ok) {
+//             const cusId = await response.json();
+//             setCustomerId(cusId);
+//             // console.log('Customer ID:', customerId);
+//         } else {
+//             console.error('Failed to get customer ID:', response.status);
+//         }
+//     } catch (error) {
+//         console.error('An error occurred while fetching the customer ID:', error);
+//     }
+// }
+
+
+//getCustomerId();
+useEffect(() => {
+  // Fetch customerId and set it in payload
+  async function fetchCustomerId() {
+    try {
+      const sessionId = localStorage.getItem('sessionData');
+      const response = await fetch("http://localhost:5000/customer/getCustomerId", {
+        method: 'GET',
+        headers: {
+          'Content-Type': 'application/json',
+          'Authorization': `Bearer ${sessionId}`,
+        },
+      });
+
+      if (response.ok) {
+        const cusId = await response.json();
+        setCustomerId(cusId)      } else {
+        console.error('Failed to get customer ID:', response.status);
+      }
     } catch (error) {
-        console.error('An error occurred while fetching the customer ID:', error);
+      console.error('An error occurred while fetching the customer ID:', error);
     }
-}
+  }
 
-
-getCustomerId();
-
+  fetchCustomerId();
+}, []);
   
   useEffect(() => {
     console.log("customer id",customerId)
@@ -342,7 +439,7 @@ getCustomerId();
         <div>
           <button
             type="button"
-            onClick={handleAddToCart}
+            onClick={() => handleAddToCart(productId, customerId)}
             className="mt-6 flex w-full items-center justify-center rounded-md border border-transparent bg-secondary px-8 py-3 text-base font-medium text-white hover:bg-primary hover:text-secondary focus:outline-none focus:ring-2 focus:ring-secondary focus:ring-offset-2"
           >
             Add to Cart
