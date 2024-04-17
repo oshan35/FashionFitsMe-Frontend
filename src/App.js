@@ -3,10 +3,12 @@ import { Home, Product, Catogeries,Cart,CheckoutPage,CheckoutTest, OrderSummary}
 import { CataloguePage } from "./pages";
 import { SelectedFiltersProvider } from "./Contexts/SelectedFilterContext";
 import { PriceCardNew } from "./components";
+
+
 const router = createBrowserRouter([
   {
     path: "/",
-    element: <CheckoutPage/>,
+    element: <Home/>,
   },
   {
     path: "/product/:productId",
@@ -20,6 +22,8 @@ const router = createBrowserRouter([
     path: "/cart",
     element: <Cart />,
   },
+
+
 ]);
 
 const App = () => {
