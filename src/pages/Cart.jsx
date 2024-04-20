@@ -3,60 +3,63 @@ import { CartItemCard,OrderSummaryCard} from "../components";
 import { CheckIcon, ClockIcon } from '@heroicons/react/solid'
 import { Nav} from "../components";
 
-const products = [
-    {
-      id: 1,
-      name: 'Artwork Tee',
-      href: '#',
-      price: '$32.00',
-      color: 'Mint',
-      size: 'Medium',
-      inStock: true,
-      imageSrc: 'https://tailwindui.com/img/ecommerce-images/checkout-page-03-product-04.jpg',
-      imageAlt: 'Front side of mint cotton t-shirt with wavey lines pattern.',
-    },
-    {
-      id: 2,
-      name: 'Basic Tee',
-      href: '#',
-      price: '$32.00',
-      color: 'Charcoal',
-      inStock: false,
-      leadTime: '7-8 years',
-      size: 'Large',
-      imageSrc: 'https://tailwindui.com/img/ecommerce-images/shopping-cart-page-01-product-02.jpg',
-      imageAlt: 'Front side of charcoal cotton t-shirt.',
-    }
-  ]
 
 
 function Cart({customerId}) {
     const [show, setShow] = useState(false);
-    const [products, setProducts] =useState([]);
+    const [cartProducts, setCartProducts] = useState([]); 
     const [isLoading, setIsLoading] = useState(false);
     const [error, setError] = useState(null);
+    const [subtotal, setSubtotal] = useState(0);
 
     useEffect(() => {
         const fetchProductDetails = async () => {
-          setIsLoading(true);
-          try {
-            const response = await fetch(`http://localhost:8080/customer/cart/${customerId}`);
-            setProducts(response)
-            if (!response.ok) {
-              throw new Error('Could not fetch product details.');
+            setIsLoading(true);
+            try {
+                const response = await fetch(`http://localhost:8080/customer/cart/${customerId}`);
+                if (!response.ok) {
+                    throw new Error('Could not fetch product details.');
+                }
+                const data = await response.json();
+                setCartProducts(data); 
+            } catch (err) {
+                setError(err.message);
+            } finally {
+                setIsLoading(false);
             }
-            const data = await response.json();
-            setProducts(data);
-          } catch (err) {
-            setError(err.message);
-          } finally {
-            setIsLoading(false);
-          }
         };
-    
-        fetchProductDetails();
-    }, []);
 
+        fetchProductDetails();
+    }, [customerId]);
+
+    useEffect(() => {
+        calculateSubtotal();
+    }, [cartProducts]); 
+
+
+    const handleRemoveProduct = (productId) => {
+        const updatedProducts = cartProducts.filter(product => product.productId !== productId);
+        setCartProducts(updatedProducts);
+    };
+
+    const calculateSubtotal = () => {
+        const total = cartProducts.reduce((acc, product) => {
+            let price = product.price;
+            if (typeof price === 'string') {
+               
+                price = parseFloat(price.replace(/[^\d\.]/g, ''));
+            } else if (typeof price !== 'number') {
+               
+                console.error('Unexpected price format:', price);
+                price = 0;
+            }
+       
+            return acc + price;
+        }, 0);
+    
+        
+        setSubtotal(total);
+    };
 
     return (
         <>
@@ -72,12 +75,12 @@ function Cart({customerId}) {
                 </h2>
 
                 <ul role="list" className="border-t border-b border-gray-200 divide-y divide-gray-200">
-                {products.map((product) => (
-                    <li key={product.id} className="flex py-6">
+                {cartProducts.map((product)  => (
+                    <li key={product.productId} className="flex py-6">
                     <div className="flex-shrink-0">
                         <img
-                        src={product.imageSrc}
-                        alt={product.imageAlt}
+                        src={product.image}
+                    
                         className="w-24 h-24 rounded-md object-center object-cover sm:w-32 sm:h-32"
                         />
                     </div>
@@ -86,8 +89,8 @@ function Cart({customerId}) {
                         <div>
                         <div className="flex justify-between">
                             <h4 className="text-sm">
-                            <a href={product.href} className="font-medium text-gray-700 hover:text-gray-800">
-                                {product.name}
+                            <a href={product.image} className="font-medium text-gray-700 hover:text-gray-800">
+                                {product.productName}
                             </a>
                             </h4>
                             <p className="ml-4 text-sm font-medium text-gray-900">{product.price}</p>
@@ -104,10 +107,10 @@ function Cart({customerId}) {
                             <ClockIcon className="flex-shrink-0 h-5 w-5 text-gray-300" aria-hidden="true" />
                             )}
 
-                            <span>{product.inStock ? 'In stock' : `Will ship in ${product.leadTime}`}</span>
+                            <span>{product.inStock ? 'In stock' : `Will ship in ${18}`}</span>
                         </p>
                         <div className="ml-4">
-                            <button type="button" className="text-sm font-medium text-indigo-600 hover:text-indigo-500">
+                            <button type="button" className="text-sm font-medium text-indigo-600 hover:text-indigo-500" onClick={() => handleRemoveProduct(product.productId)}>
                             <span>Remove</span>
                             </button>
                         </div>
@@ -128,7 +131,7 @@ function Cart({customerId}) {
                 <dl className="space-y-4">
                     <div className="flex items-center justify-between">
                     <dt className="text-base font-medium text-gray-900">Subtotal</dt>
-                    <dd className="ml-4 text-base font-medium text-gray-900">$96.00</dd>
+                    <dd className="ml-4 text-base font-medium text-gray-900">${subtotal.toFixed(2)}</dd>
                     </div>
                 </dl>
                 <p className="mt-1 text-sm text-gray-500">Shipping and taxes will be calculated at checkout.</p>
