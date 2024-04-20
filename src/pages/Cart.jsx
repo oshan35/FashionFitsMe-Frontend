@@ -18,7 +18,7 @@ function Cart({customerId}) {
         const fetchProductDetails = async () => {
             setIsLoading(true);
             try {
-                const response = await fetch(`http://localhost:8080/customer/cart/${customerId}`);
+                const response = await fetch(`http://localhost:8080/customer/cart/${1}`);
                 if (!response.ok) {
                     throw new Error('Could not fetch product details.');
                 }
@@ -41,7 +41,7 @@ function Cart({customerId}) {
 
     const handleRemoveProduct = async (productId) => {
         try {
-            const response = await fetch(`http://localhost:8080/customer/cart/${customerId}/remove/${productId}`, {
+            const response = await fetch(`http://localhost:8080/customer/cart/${1}/remove/${productId}`, {
                 method: 'DELETE'
             });
             if (!response.ok) {
@@ -49,7 +49,7 @@ function Cart({customerId}) {
             }
             const deletedProductId = await response.json();
             message.success(`Product with ID ${deletedProductId} was successfully deleted.`);
-            
+
             const updatedProducts = cartProducts.filter(product => product.productId !== productId);
             setCartProducts(updatedProducts);
             calculateSubtotal();
