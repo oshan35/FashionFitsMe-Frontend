@@ -3,6 +3,8 @@ import { QuickProductView } from "../components";
 import { useSelectedFilters } from '../Contexts/SelectedFilterContext'
 import { Spin,Flex, } from 'antd';
 
+
+
 const ProductContainer = ({title, heading, id, isPage }) => {
   const [products, setProducts] = useState([]);
   const [open, setOpen] = useState(false);
