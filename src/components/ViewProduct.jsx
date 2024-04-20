@@ -19,6 +19,8 @@ export default function ViewProduct({productId}) {
   const initialSizes = ['XXS','XS', 'S', 'M', 'L', 'XL', 'XXL','XXXL'];
   const [sizeAvailability, setSizeAvailability] = useState({}); // State to hold size availability
 const [customerId, setCustomerId] = useState(null);
+const [selectedColor, setSelectedColor] = useState(null);
+const [selectedSize, setSelectedSize] = useState(null);
   const [showPrompt, setShowPrompt] = useState(false);
   const navigate = useNavigate();
   // const [payload, setPayload] = useState({
@@ -68,13 +70,14 @@ const handleAddToCart = async () => {
   try {
       const apiEndpoint = 'http://localhost:5000/product_shopping_cart/addProducts';
 
-      // Create the payload object with productId and customerId
       const payload = {
           productId,
-          customerId
+          customerId,
+          selectedColor,
+          selectedSize
       };
 
-      // Send the POST request with the payload as JSON
+
       const response = await fetch(apiEndpoint, {
           method: 'POST',
           headers: {
@@ -83,28 +86,22 @@ const handleAddToCart = async () => {
           body: JSON.stringify(payload)
       });
 
-      // Check the content type of the response
       const contentType = response.headers.get('Content-Type');
 
-      // Handle the response based on the content type
       if (response.ok) {
-          // If the response is successful, parse it as JSON and log a success message
           if (contentType.includes('application/json')) {
               const data = await response.json();
               console.log('Item added to cart successfully:', data);
           } else {
-              // Handle non-JSON responses
               const text = await response.text();
               console.log('Item added to cart successfully:', text);
           }
-          setShowPrompt(true); // Show the prompt for user actions
+          setShowPrompt(true); 
       } else {
-          // Handle non-successful responses
           if (contentType.includes('application/json')) {
               const errorData = await response.json();
               console.error(`Failed to add item to cart: ${errorData.message}`);
           } else {
-              // Handle non-JSON error messages
               const errorText = await response.text();
               console.error(`Failed to add item to cart: ${errorText}`);
           }
@@ -115,14 +112,14 @@ const handleAddToCart = async () => {
 };
 
 
-  const handleViewCart = () => {
-    navigate("/cart");
+const handleViewCart = (customerId) => {
+  console.log("customer id when clicked view cart:",customerId)
+  navigate("/cart", { state: { customerId } });
     setShowPrompt(false);
   };
   
   const handleContinueShopping = () => {
     setShowPrompt(false);
-    // Handle continue shopping logic if needed
   };
   const [itemData, setItemData] = useState({
     image: '',
@@ -139,9 +136,9 @@ const handleAddToCart = async () => {
       itemData.sizes.forEach(sizeData => {
         const [size, count] = sizeData;
         console.log("count", size,count)
-        sizeAvailability[size] = count>0 ; // Set availability based on count
+        sizeAvailability[size] = count>0 ; 
       });
-     // setSizeAvailability(initialAvailability);
+    //  setSizeAvailability(initialAvailability);
       console.log("size availability ",sizeAvailability)
 
     }
@@ -234,9 +231,9 @@ const handleAddToCart = async () => {
   const handleColorClick = (color) => {
     const newImage = `data:image/jpeg;base64,${image_colors[color]}`;
     setItemData({ ...itemData, image: newImage });
+    setSelectedColor(color)
 };
-  const [selectedColor, setSelectedColor] = useState(colors[0]);
-  const [selectedSize, setSelectedSize] = useState(sizes[2]);
+
  
 
 //   async function getCustomerId() {
@@ -266,7 +263,6 @@ const handleAddToCart = async () => {
 
 //getCustomerId();
 useEffect(() => {
-  // Fetch customerId and set it in payload
   async function fetchCustomerId() {
     try {
       const sessionId = localStorage.getItem('sessionData');
@@ -451,7 +447,7 @@ useEffect(() => {
                 <p className="mb-4 font-bold">What would you like to do?</p>
                 <button
                   className="mr-4 px-4 py-2 bg-primary text-white rounded-md hover:bg-primary-dark"
-                  onClick={handleViewCart}
+                  onClick={handleViewCart(customerId)}
                 >
                   View Cart
                 </button>
@@ -464,6 +460,19 @@ useEffect(() => {
               </div>
             </div>
           )}
+
+{selectedColor && selectedSize ? (
+  <button
+    type="submit"
+    className="mt-6 flex w-full items-center justify-center rounded-md border border-transparent bg-secondary px-8 py-3 text-base font-medium text-white hover:bg-primary hover:text-secondary focus:outline-none focus:ring-2 focus:ring-secondary focus:ring-offset-2"
+    onClick={handleBuyNow}
+  >
+    Buy now
+  </button>
+) : (
+  <p className="mt-4 text-red-600">Please select a color and size before proceeding to checkout.</p>
+)}
+
         </div>
               </form>
 
