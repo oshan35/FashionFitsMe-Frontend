@@ -2,6 +2,8 @@ import React, { useEffect, useState } from "react";
 import { CartItemCard,OrderSummaryCard} from "../components";
 import { CheckIcon, ClockIcon } from '@heroicons/react/solid'
 import { Nav} from "../components";
+import { message } from 'antd';
+
 
 
 
@@ -37,9 +39,24 @@ function Cart({customerId}) {
     }, [cartProducts]); 
 
 
-    const handleRemoveProduct = (productId) => {
-        const updatedProducts = cartProducts.filter(product => product.productId !== productId);
-        setCartProducts(updatedProducts);
+    const handleRemoveProduct = async (productId) => {
+        try {
+            const response = await fetch(`http://localhost:8080/customer/cart/${customerId}/remove/${productId}`, {
+                method: 'DELETE'
+            });
+            if (!response.ok) {
+                throw new Error('Failed to delete the product.');
+            }
+            const deletedProductId = await response.json();
+            message.success(`Product with ID ${deletedProductId} was successfully deleted.`);
+            
+            const updatedProducts = cartProducts.filter(product => product.productId !== productId);
+            setCartProducts(updatedProducts);
+            calculateSubtotal();
+            
+        } catch (err) {
+            setError(err.message);
+        }
     };
 
     const calculateSubtotal = () => {
