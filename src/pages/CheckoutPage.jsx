@@ -1,7 +1,8 @@
 
 import { PayAccordion,PaymentGateWayCard } from "../components"
 import { tommyFigure } from "../assets/images"
-import { useState } from 'react'
+import { useState,useEffect } from 'react'
+import { useLocation } from 'react-router-dom';
 
 const products = [
   {
@@ -69,6 +70,8 @@ const products = [
 
 export default function Example() {
 
+  const location = useLocation();
+  const { customerId } = location.state;
   const [email, setEmail] = useState("");
   const [phone, setPhone] = useState("");
   const [termsChecked, setTermsChecked] = useState(false);
@@ -80,7 +83,7 @@ export default function Example() {
   const [shippingDetails, setShippingDetails] = useState({
     company: "",
     address: "",
-    apartment: "",
+    street: "",
     city: "",
     region: "",
     postalCode: "",
@@ -91,7 +94,7 @@ export default function Example() {
     { id: 2, title: 'Express', turnaround: '2–5 business days', price: '$16.00' },
   ];
   const [selectedDeliveryMethod, setSelectedDeliveryMethod] = useState(
-    deliveryMethods[0]
+    deliveryMethods[0].title
   );
   const handleShippingDetailsChange = (e) => {
     const { name, value } = e.target;
@@ -117,12 +120,13 @@ export default function Example() {
     const formData = {
       ...paymentData,
       shippingDetails,
-      selectedDeliveryMethod,
+      selectedDeliveryMethod: selectedDeliveryMethod.title,
+      customerId:customerId
     };
 
     console.log("form data",formData);
 
-    fetch("http://your-backend-api.com/payment", {
+    fetch('http://localhost:5000/payment', {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
@@ -213,18 +217,19 @@ export default function Example() {
             </form>
 
             
-            {termsChecked && (
             <div className="mt-10 ">
              
             <PayAccordion
           shippingDetails={shippingDetails}
-          selectedDeliveryMethod={selectedDeliveryMethod}
+          selectedDeliveryMethod={selectedDeliveryMethod.title}
           onShippingDetailsChange={handleShippingDetailsChange}
           onSelectedDeliveryMethodChange={setSelectedDeliveryMethod}
           deliveryMethods={deliveryMethods}
+          disabled={!termsChecked}
+
         />
             </div>
-            )}
+         
             <div className="mt-10">
                
             

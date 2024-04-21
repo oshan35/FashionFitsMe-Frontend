@@ -26,7 +26,7 @@ function classNames(...classes) {
   return classes.filter(Boolean).join(' ')
 }
 
-export default function RadioGroupShipping() {
+export default function RadioGroupShipping({disabled}) {
   const [selected, setSelected] = useState(settings[0])
 
   return (
@@ -37,6 +37,8 @@ export default function RadioGroupShipping() {
           <RadioGroup.Option
             key={setting.name}
             value={setting}
+            disabled={  disabled}
+
             className={({ checked }) =>
               classNames(
                 settingIdx === 0 ? 'rounded-tl-md rounded-tr-md' : '',

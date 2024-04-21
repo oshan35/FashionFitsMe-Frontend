@@ -35,7 +35,8 @@ export function PayAccordion({
   selectedDeliveryMethod, 
   onShippingDetailsChange, 
   onSelectedDeliveryMethodChange,
-  deliveryMethods
+  deliveryMethods,
+  disabled
 }) {
 
   const [open, setOpen] = React.useState(0);
@@ -54,7 +55,8 @@ export function PayAccordion({
         <section  className="mt-5 mb-3">
               <label  className="text-m font-medium text-gray-500 mb-5">
               All transactions are secure and encrypted.              </label>
-              <RadioGroupShipping/>
+              <RadioGroupShipping   disabled={  disabled}
+/>
 
 
             </section>
@@ -77,7 +79,8 @@ export function PayAccordion({
                 value={shippingDetails.company}
                 onChange={onShippingDetailsChange}
                className="block w-full border-gray-300 rounded-md shadow-sm focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
-                    />
+               disabled={  disabled}
+               />
                   </div>
                 </div>
 
@@ -94,23 +97,24 @@ export function PayAccordion({
                       onChange={onShippingDetailsChange}
                       autoComplete="street-address"
                       className="block w-full border-gray-300 rounded-md shadow-sm focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
-                    />
+                      disabled={  disabled}
+                      />
                   </div>
                 </div>
 
                 <div className="sm:col-span-3">
                   <label htmlFor="apartment" className="block text-sm font-medium text-gray-500">
-                    Apartment, suite, etc.
-                  </label>
+Street                  </label>
                   <div className="mt-1">
                     <input
                       type="text"
-                      id="apartment"
-                      name="apartment"
-                      value={shippingDetails.apartment}
+                      id="street"
+                      name="street"
+                      value={shippingDetails.street}
                       onChange={onShippingDetailsChange}
                       className="block w-full border-gray-300 rounded-md shadow-sm focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
-                    />
+                      disabled={  disabled}
+                      />
                   </div>
                 </div>
 
@@ -127,7 +131,8 @@ export function PayAccordion({
                       onChange={onShippingDetailsChange}
                       autoComplete="address-level2"
                       className="block w-full border-gray-300 rounded-md shadow-sm focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
-                    />
+                      disabled={  disabled}
+                      />
                   </div>
                 </div>
 
@@ -144,7 +149,8 @@ export function PayAccordion({
                       onChange={onShippingDetailsChange}
                       autoComplete="address-level1"
                       className="block w-full border-gray-300 rounded-md shadow-sm focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
-                    />
+                      disabled={  disabled}
+                      />
                   </div>
                 </div>
 
@@ -160,6 +166,7 @@ export function PayAccordion({
                       value={shippingDetails.postalCode}
                       onChange={onShippingDetailsChange}
                       autoComplete="postalCode"
+                      disabled={  disabled}
 
                       className="block w-full border-gray-300 rounded-md shadow-sm focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
                     />
@@ -176,6 +183,8 @@ export function PayAccordion({
                 <div className="mt-4 grid grid-cols-1 gap-y-6 sm:grid-cols-2 sm:gap-x-4">
                   {deliveryMethods.map((deliveryMethod) => (
                     <RadioGroup.Option
+                    disabled={  disabled}
+
                       key={deliveryMethod.id}
                       value={deliveryMethod}
                       className={({ checked, active }) =>
