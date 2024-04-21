@@ -1,6 +1,8 @@
 
 import { PayAccordion,PaymentGateWayCard } from "../components"
 import { tommyFigure } from "../assets/images"
+import { useState } from 'react'
+
 const products = [
   {
     id: 1,
@@ -66,6 +68,82 @@ const products = [
 ]
 
 export default function Example() {
+
+  const [email, setEmail] = useState("");
+  const [phone, setPhone] = useState("");
+  const [termsChecked, setTermsChecked] = useState(false);
+
+  const handleEmailChange = (e) => setEmail(e.target.value);
+  const handlePhoneChange = (e) => setPhone(e.target.value);
+  const handleTermsChange = (e) => setTermsChecked(e.target.checked);
+
+  const [shippingDetails, setShippingDetails] = useState({
+    company: "",
+    address: "",
+    apartment: "",
+    city: "",
+    region: "",
+    postalCode: "",
+  });
+
+  const deliveryMethods = [
+    { id: 1, title: 'Standard', turnaround: '4–10 business days', price: '$5.00' },
+    { id: 2, title: 'Express', turnaround: '2–5 business days', price: '$16.00' },
+  ];
+  const [selectedDeliveryMethod, setSelectedDeliveryMethod] = useState(
+    deliveryMethods[0]
+  );
+  const handleShippingDetailsChange = (e) => {
+    const { name, value } = e.target;
+    setShippingDetails((prevDetails) => ({
+      ...prevDetails,
+      [name]: value,
+    }));
+  };
+
+ 
+  
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    if (!termsChecked) {
+      alert("Please agree to the terms and conditions.");
+      return;
+    }
+    const paymentData = {
+      email,
+      phone,
+    };
+
+    const formData = {
+      ...paymentData,
+      shippingDetails,
+      selectedDeliveryMethod,
+    };
+
+    console.log("form data",formData);
+
+    fetch("http://your-backend-api.com/payment", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify(formData),
+    })
+      .then((response) => {
+        if (response.ok) {
+          // Handle success
+          console.log("Payment details sent successfully");
+        } else {
+          // Handle errors
+          console.error("Failed to send payment details:", response.status);
+        }
+      })
+      .catch((error) => {
+        console.error("An error occurred while sending payment details:", error);
+      });
+  };
+
+
   return (
     <div className="bg-white">
       <div className="max-w-7xl mx-auto px-4 pt-4 pb-16 sm:px-6 sm:pt-8 sm:pb-24 lg:px-8 xl:px-2 xl:pt-14">
@@ -74,11 +152,8 @@ export default function Example() {
         <div className="max-w-lg mx-auto grid grid-cols-1 gap-x-8 gap-y-16 lg:max-w-none lg:grid-cols-2">
         <div className="max-w-lg mx-auto w-full">
             
-
-           
-
             <form className="mt-6">
-              <h2 className="text-lg font-large text-black-900">Contact information</h2>
+              <h2 className="text-lg font-medium text-gray-900">Contact information</h2>
 
               <div className="mt-6">
                 <label htmlFor="email-address" className="block text-sm font-medium text-gray-700">
@@ -90,6 +165,7 @@ export default function Example() {
                     id="email-address"
                     name="email-address"
                     autoComplete="email"
+                    onChange={handleEmailChange}
                     className="block w-full border-gray-300 rounded-md shadow-sm focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
                   />
                 </div>
@@ -104,6 +180,7 @@ export default function Example() {
                     type="text"
                     name="phone"
                     id="phone"
+                    onChange={handlePhoneChange}
                     autoComplete="tel"
                     className="block w-full border-gray-300 rounded-md shadow-sm focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
                   />
@@ -117,7 +194,8 @@ export default function Example() {
                     name="terms"
                     type="checkbox"
                     className="h-4 w-4 border-gray-300 rounded text-indigo-600 focus:ring-indigo-500"
-                  />
+                    onChange={handleTermsChange}
+                 />
                 </div>
                 <label htmlFor="terms" className="text-sm text-gray-500">
                   I have read the terms and conditions and agree to the sale of my personal information to the highest
@@ -125,45 +203,37 @@ export default function Example() {
                 </label>
               </div>
 
-              <button
+              {/* <button
                 type="submit"
-                disabled
+                disabled={!termsChecked}
                 className="mt-6 w-full bg-indigo-600 border border-transparent rounded-md shadow-sm py-2 px-4 text-sm font-medium text-white hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500 disabled:bg-gray-100 disabled:text-gray-500 disabled:cursor-not-allowed"
               >
                 Continue
-              </button>
+              </button> */}
             </form>
 
-            <div className="mt-10 border-t border-b border-gray-200 divide-y divide-gray-200">
+            
+            {termsChecked && (
+            <div className="mt-10 ">
              
-              <PayAccordion/>
-
+            <PayAccordion
+          shippingDetails={shippingDetails}
+          selectedDeliveryMethod={selectedDeliveryMethod}
+          onShippingDetailsChange={handleShippingDetailsChange}
+          onSelectedDeliveryMethodChange={setSelectedDeliveryMethod}
+          deliveryMethods={deliveryMethods}
+        />
             </div>
-            {/* <PaymentGateWayCard/> */}
+            )}
             <div className="mt-10">
-                {/* <h3 className="text-lg font-medium text-gray-900">Billing information</h3>
-
-                <div className="mt-6 flex items-center">
-                  <input
-                    id="same-as-shipping"
-                    name="same-as-shipping"
-                    type="checkbox"
-                    defaultChecked
-                    className="h-4 w-4 border-gray-300 rounded text-indigo-600 focus:ring-indigo-500"
-                  />
-                  <div className="ml-2">
-                    <label htmlFor="same-as-shipping" className="text-sm font-medium text-gray-900">
-                      Same as shipping information
-                    </label>
-                  </div>
-                </div> */}
-             
-
+               
+            
               <div className="mt-10 flex justify-end pt-6 ">
                 <button
                   type="submit"
                   className="bg-indigo-600 border border-transparent rounded-md shadow-sm py-2 px-4 text-sm font-medium text-white hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-offset-gray-50 focus:ring-indigo-500"
-                >
+                  onClick={handleSubmit}
+                  >
                   Pay now
                 </button>
               </div>

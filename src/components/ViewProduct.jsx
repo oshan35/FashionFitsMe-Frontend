@@ -22,51 +22,28 @@ const [customerId, setCustomerId] = useState(null);
 const [selectedColor, setSelectedColor] = useState(null);
 const [selectedSize, setSelectedSize] = useState(null);
   const [showPrompt, setShowPrompt] = useState(false);
+  const [showColorSizePrompt, setShowColorSizePrompt] = useState(false);
+  const [showColorSizePromptBuy, setShowColorSizePromptBuy] = useState(false);
+
+  const [showTimeoutPrompt, setShowTimeoutPrompt] = useState(false);
   const navigate = useNavigate();
-  // const [payload, setPayload] = useState({
-  //   productId: productId,
-  //   customerId: null,
-  // });
+ 
   function classNames(...classes) {
     return classes.filter(Boolean).join(" ");
   }
-  const handleBuyNow = () => {
+  const handleBuyNow = async () => {
+    if (!selectedColor || !selectedSize) {
+      setShowColorSizePromptBuy(true);
+    }else {
     navigate('/checkout');
+    }
   };
   
-  // const handleAddToCart = (productId,customerId) => {
-  //   setShowPrompt(true);
-
-  // };
-
-//   const handleAddToCart = async (productId, customerId) => {
-//     try {
-//         const apiEndpoint = 'http://localhost:5000/product_shopping_cart/addProducts';
-//         const [payload, setPayload] = useState({
-//           productId: productId,
-//           customerId: null,
-//         });
-//         console.log("payload",payload)
-//         const response = await fetch(apiEndpoint, {
-//             method: 'POST',
-//             headers: {
-//                 'Content-Type': 'application/json',
-//             },
-//             body: JSON.stringify(payload),
-//         });
-
-//         if (response.ok) {
-//             console.log('Item added to cart successfully');
-//             setShowPrompt(true);
-//         } else {
-//             console.error('Failed to add item to cart');
-//         }
-//     } catch (error) {
-//         console.error('An error occurred:', error);
-//     }
-// };
-
 const handleAddToCart = async () => {
+  if (!selectedColor || !selectedSize) {
+    setShowColorSizePrompt(true);
+  }else {
+
   try {
       const apiEndpoint = 'http://localhost:5000/product_shopping_cart/addProducts';
 
@@ -109,6 +86,7 @@ const handleAddToCart = async () => {
   } catch (error) {
       console.error(`An error occurred: ${error.message}`);
   }
+}
 };
 
 
@@ -143,68 +121,100 @@ const handleViewCart = (customerId) => {
 
     }
   }, [itemData.sizes]);
-  const product = {
-    name: "Basic Tee",
-    price: "LKR 3500.00",
-    href: "#",
-    breadcrumbs: [
-      { id: 1, name: "Women", href: "#" },
-      { id: 2, name: "Clothing", href: "#" },
-    ],
-    images: [
-      {
-        id: 1,
-        imageSrc:
-          "https://tailwindui.com/img/ecommerce-images/product-page-01-featured-product-shot.jpg",
-        imageAlt: "Back of women's Basic Tee in black.",
-        primary: true,
-      },
-      {
-        id: 2,
-        imageSrc:
-          "https://tailwindui.com/img/ecommerce-images/product-page-01-product-shot-01.jpg",
-        imageAlt: "Side profile of women's Basic Tee in black.",
-        primary: false,
-      },
-      {
-        id: 3,
-        imageSrc:
-          "https://tailwindui.com/img/ecommerce-images/product-page-01-product-shot-02.jpg",
-        imageAlt: "Front of women's Basic Tee in black.",
-        primary: false,
-      },
-    ],
-    colors: [
-      { name: "Black", bgColor: "bg-gray-900", selectedColor: "ring-gray-900" },
-      {
-        name: "Heather Grey",
-        bgColor: "bg-gray-400",
-        selectedColor: "ring-gray-400",
-      },
-    ],
-    sizes: [
-      { name: "XXS", inStock: true },
-      { name: "XS", inStock: true },
-      { name: "S", inStock: true },
-      { name: "M", inStock: true },
-      { name: "L", inStock: true },
-      { name: "XL", inStock: false },
-    ],
-    description: `
-      <p>The Basic tee is an honest new take on a classic. The tee uses super soft, pre-shrunk cotton for true comfort and a dependable fit. They are hand cut and sewn locally, with a special dye technique that gives each tee it's own look.</p>
-      <p>Looking to stock your closet? The Basic tee also comes in a 3-pack or 5-pack at a bundle discount.</p>
-    `,
-    details: [
-      "Only the best materials",
-      "Ethically and locally made",
-      "Pre-washed and pre-shrunk",
-      "Machine wash cold with similar colors",
-    ],
+
+  const mapBackendToFrontendColors = (backendColors) => {
+    const colorMappings = {
+      Red: { name: 'Red', bgColor: 'bg-red-700', selectedColor: 'ring-red-500' },
+      Green: { name: 'Green', bgColor: 'bg-green-700', selectedColor: 'ring-green-500' },
+      Blue: { name: 'Blue', bgColor: 'bg-blue-700', selectedColor: 'ring-blue-500' },
+      Brown:   { name: 'Brown', bgColor: 'bg-brown-700', selectedColor: 'ring-brown-500' },
+      Black:    { name: 'Black', bgColor: 'bg-black-700', selectedColor: 'ring-black-500' },
+      Orange:    { name: 'Orange', bgColor: 'bg-orange-700', selectedColor: 'ring-orange-500' },
+      Grey:    { name: 'Grey', bgColor: 'bg-gray-700', selectedColor: 'ring-gray-500' },
+      White:    { name: 'White', bgColor: 'bg-white-700', selectedColor: 'ring-white-500' },
+      Navy:    { name: 'Navy', bgColor: 'bg-navy-700', selectedColor: 'ring-navy-500' },
+      Yellow: { name: 'Yellow', bgColor: 'bg-yellow-700', selectedColor: 'ring-yellow-500' },
+      Pink:    { name: 'Pink', bgColor: 'bg-pink-700', selectedColor: 'ring-pink-500' },
+      Purple:    { name: 'Purple', bgColor: 'bg-purple-700', selectedColor: 'ring-purple-500' },
+      Cream:    { name: 'Cream', bgColor: 'bg-cream-700', selectedColor: 'ring-cream-500' },
+      Multicolour:    { name: 'Multicolour', bgColor: 'bg-multicolour-700', selectedColor: 'ring-multicolour-500' }
+
+
+    };
+  
+    return backendColors.map((backendColor) => {
+      console.log("backend colour:",backendColor)
+      const frontendColor = colorMappings[backendColor];
+      console.log("frontendColor:",frontendColor)
+
+      return frontendColor ? frontendColor : null;
+    }).filter(Boolean);
   };
   
-  const {image, productName, price, sizes, colors, image_colors,category} = itemData;
-  const [isLoading, setIsLoading] = useState(true);
+
+
   
+  //   price: "LKR 3500.00",
+  //   href: "#",
+  //   breadcrumbs: [
+  //     { id: 1, name: "Women", href: "#" },
+  //     { id: 2, name: "Clothing", href: "#" },
+  //   ],
+  //   images: [
+  //     {
+  //       id: 1,
+  //       imageSrc:
+  //         "https://tailwindui.com/img/ecommerce-images/product-page-01-featured-product-shot.jpg",
+  //       imageAlt: "Back of women's Basic Tee in black.",
+  //       primary: true,
+  //     },
+  //     {
+  //       id: 2,
+  //       imageSrc:
+  //         "https://tailwindui.com/img/ecommerce-images/product-page-01-product-shot-01.jpg",
+  //       imageAlt: "Side profile of women's Basic Tee in black.",
+  //       primary: false,
+  //     },
+  //     {
+  //       id: 3,
+  //       imageSrc:
+  //         "https://tailwindui.com/img/ecommerce-images/product-page-01-product-shot-02.jpg",
+  //       imageAlt: "Front of women's Basic Tee in black.",
+  //       primary: false,
+  //     },
+  //   ],
+  //   colors: [
+  //     { name: "Black", bgColor: "bg-gray-900", selectedColor: "ring-gray-900" },
+  //     {
+  //       name: "Heather Grey",
+  //       bgColor: "bg-gray-400",
+  //       selectedColor: "ring-gray-400",
+  //     },
+  //   ],
+  //   sizes: [
+  //     { name: "XXS", inStock: true },
+  //     { name: "XS", inStock: true },
+  //     { name: "S", inStock: true },
+  //     { name: "M", inStock: true },
+  //     { name: "L", inStock: true },
+  //     { name: "XL", inStock: false },
+  //   ],
+  //   description: `
+  //     <p>The Basic tee is an honest new take on a classic. The tee uses super soft, pre-shrunk cotton for true comfort and a dependable fit. They are hand cut and sewn locally, with a special dye technique that gives each tee it's own look.</p>
+  //     <p>Looking to stock your closet? The Basic tee also comes in a 3-pack or 5-pack at a bundle discount.</p>
+  //   `,
+  //   details: [
+  //     "Only the best materials",
+  //     "Ethically and locally made",
+  //     "Pre-washed and pre-shrunk",
+  //     "Machine wash cold with similar colors",
+  //   ],
+  // };
+  
+  const {image, productName, price, sizes, colors, image_colors,category,description} = itemData;
+  const [isLoading, setIsLoading] = useState(true);
+  const frontendColors = mapBackendToFrontendColors(itemData.colors);
+
   useEffect(() => {
     setIsLoading(true);
   
@@ -229,39 +239,13 @@ const handleViewCart = (customerId) => {
   }, [productId]); 
 
   const handleColorClick = (color) => {
+    console.log("selected colourrrrr",color)
     const newImage = `data:image/jpeg;base64,${image_colors[color]}`;
     setItemData({ ...itemData, image: newImage });
     setSelectedColor(color)
 };
 
- 
 
-//   async function getCustomerId() {
-//     try {
-//         const sessionId = localStorage.getItem('sessionData');
-        
-//         const response = await fetch("http://localhost:5000/customer/getCustomerId", {
-//             method: 'GET',
-//             headers: {
-//                 'Content-Type': 'application/json',
-//                 'Authorization': `Bearer ${sessionId}`, 
-//             },
-//         });
-
-//         if (response.ok) {
-//             const cusId = await response.json();
-//             setCustomerId(cusId);
-//             // console.log('Customer ID:', customerId);
-//         } else {
-//             console.error('Failed to get customer ID:', response.status);
-//         }
-//     } catch (error) {
-//         console.error('An error occurred while fetching the customer ID:', error);
-//     }
-// }
-
-
-//getCustomerId();
 useEffect(() => {
   async function fetchCustomerId() {
     try {
@@ -336,16 +320,16 @@ useEffect(() => {
                     value={selectedColor}
                     onChange={(color) => handleColorClick(color)}
                     className="mt-2"
-        >
+                   >
 
                     <RadioGroup.Label className="sr-only">
                       Choose a color
                     </RadioGroup.Label>
                     <div className="flex items-center space-x-3">
-                      {colors.map((color) => (
+                      {frontendColors.map((color) => (
                         <RadioGroup.Option
                           key={color.name}
-                          value={color}
+                          value={color.name}
                           className={({ active, checked }) =>
                             classNames(
                               color.selectedColor,
@@ -417,20 +401,35 @@ useEffect(() => {
                   </RadioGroup>
                 </div>
 
-                <button
-                  type="submit"
-                  className="mt-6 flex w-full items-center justify-center rounded-md border border-transparent bg-secondary px-8 py-3 text-base font-medium text-white hover:bg-primary hover:text-secondary focus:outline-none focus:ring-2 focus:ring-secondary focus:ring-offset-2"
-                  onClick={handleBuyNow}
-                >
-                  Buy now
-                </button>
-                {/* <button
-                  type="submit"
-                  className="mt-6 flex w-full items-center justify-center rounded-md border border-transparent bg-secondary px-8 py-3 text-base font-medium text-white hover:bg-primary hover:text-secondary focus:outline-none focus:ring-2 focus:ring-secondary focus:ring-offset-2"
-                  onClick={handleAddToCart}
-              >
-                  Add to Cart    
-              </button> */}
+                <div>
+          <button
+            type="button"
+            onClick={() => handleBuyNow(productId, customerId)}
+            className="mt-6 flex w-full items-center justify-center rounded-md border border-transparent bg-secondary px-8 py-3 text-base font-medium text-white hover:bg-primary hover:text-secondary focus:outline-none focus:ring-2 focus:ring-secondary focus:ring-offset-2"
+          >
+            Buy Now
+          </button>
+              {showColorSizePromptBuy && (
+                <div className="fixed inset-0 flex items-center justify-center bg-gray-500 bg-opacity-35">
+                  <div className="bg-white p-6 rounded-lg flex flex-col items-center">
+                    <p className="font-medium text-xl">        Please select a color and size before proceeding.
+ </p>
+                    <button
+                      onClick={() => setShowColorSizePromptBuy(false)}
+                      className=" mt-10 px-14 py-2 bg-secondary text-white rounded-md hover:bg-primary-dark focus:outline-none"
+                    >
+                      OK
+                    </button>
+                  </div>
+                </div>
+              )}
+
+     
+
+
+
+        </div>
+
 
         <div>
           <button
@@ -440,38 +439,41 @@ useEffect(() => {
           >
             Add to Cart
           </button>
+              {showColorSizePrompt && (
+                <div className="fixed inset-0 flex items-center justify-center bg-gray-500 bg-opacity-35">
+                  <div className="bg-white p-6 rounded-lg flex flex-col items-center">
+                    <p className="font-medium text-xl">Please choose color & size to add the product to cart.</p>
+                    <button
+                      onClick={() => setShowColorSizePrompt(false)}
+                      className=" mt-10 px-14 py-2 bg-secondary text-white rounded-md hover:bg-primary-dark focus:outline-none"
+                    >
+                      OK
+                    </button>
+                  </div>
+                </div>
+              )}
 
-          {showPrompt && (
-            <div className="fixed inset-0 flex items-center justify-center bg-gray-500 bg-opacity-75">
-              <div className="bg-white p-6 rounded-lg">
-                <p className="mb-4 font-bold">What would you like to do?</p>
-                <button
-                  className="mr-4 px-4 py-2 bg-primary text-white rounded-md hover:bg-primary-dark"
-                  onClick={handleViewCart(customerId)}
-                >
-                  View Cart
-                </button>
-                <button
-                  className="px-4 py-2 bg-secondary text-white rounded-md hover:bg-secondary-dark"
-                  onClick={handleContinueShopping}
-                >
-                  Continue Shopping
-                </button>
+            {showPrompt && (
+              <div className="fixed inset-0 flex items-center justify-center bg-gray-500 bg-opacity-75">
+                <div className="bg-white p-6 rounded-lg">
+                  <p className="mb-4 font-bold">What would you like to do?</p>
+                  <button
+                    className="mr-4 px-4 py-2 bg-primary text-white rounded-md hover:bg-primary-dark"
+                    onClick={handleViewCart(customerId)}
+                  >
+                    View Cart
+                  </button>
+                  <button
+                    className="px-4 py-2 bg-secondary text-white rounded-md hover:bg-secondary-dark"
+                    onClick={handleContinueShopping}
+                  >
+                    Continue Shopping
+                  </button>
+                </div>
               </div>
-            </div>
-          )}
+            )}
 
-{selectedColor && selectedSize ? (
-  <button
-    type="submit"
-    className="mt-6 flex w-full items-center justify-center rounded-md border border-transparent bg-secondary px-8 py-3 text-base font-medium text-white hover:bg-primary hover:text-secondary focus:outline-none focus:ring-2 focus:ring-secondary focus:ring-offset-2"
-    onClick={handleBuyNow}
-  >
-    Buy now
-  </button>
-) : (
-  <p className="mt-4 text-red-600">Please select a color and size before proceeding to checkout.</p>
-)}
+
 
         </div>
               </form>
@@ -482,7 +484,7 @@ useEffect(() => {
 
                 <div
                   className="prose prose-sm mt-4 text-gray-500"
-                dangerouslySetInnerHTML={{ __html: product.description }}
+                dangerouslySetInnerHTML={{ __html: description }}
                   productDescription
                 />
               </div>

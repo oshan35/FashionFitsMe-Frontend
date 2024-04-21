@@ -32,7 +32,7 @@ export default function RadioGroupShipping() {
   return (
     <RadioGroup value={selected} onChange={setSelected}>
       <RadioGroup.Label className="sr-only">Privacy setting</RadioGroup.Label>
-      <div className="bg-white rounded-md -space-y-px">
+      <div className="bg-white rounded-md -space-y-px mt-3">
         {settings.map((setting, settingIdx) => (
           <RadioGroup.Option
             key={setting.name}
