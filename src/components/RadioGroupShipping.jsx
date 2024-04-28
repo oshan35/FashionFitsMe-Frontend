@@ -30,7 +30,8 @@ export default function RadioGroupShipping({disabled}) {
   const [selected, setSelected] = useState(settings[0])
 
   return (
-    <RadioGroup value={selected} onChange={setSelected}>
+    <RadioGroup value={selected} onChange={setSelected}   className={`mt-5 ${disabled ? 'opacity-50 pointer-events-none' : ''}`}
+    >
       <RadioGroup.Label className="sr-only">Privacy setting</RadioGroup.Label>
       <div className="bg-white rounded-md -space-y-px mt-3">
         {settings.map((setting, settingIdx) => (

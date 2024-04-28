@@ -68,7 +68,7 @@ export function PayAccordion({
               
               <div className="mt-6 grid grid-cols-1 gap-y-6 gap-x-4 sm:grid-cols-3">
                 <div className="sm:col-span-3">
-                  <label htmlFor="company" className="block text-sm font-medium text-gray-500">
+                  <label htmlFor="company" className={`block text-sm font-medium text-gray-500 ${disabled ? 'opacity-50 cursor-not-allowed' : ''}`}>
                     Company
                   </label>
                   <div className="mt-1">
@@ -78,14 +78,14 @@ export function PayAccordion({
                 name="company"
                 value={shippingDetails.company}
                 onChange={onShippingDetailsChange}
-               className="block w-full border-gray-300 rounded-md shadow-sm focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
-               disabled={  disabled}
+                className={`block w-full border-gray-300 rounded-md shadow-sm focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm ${disabled ? 'opacity-50 cursor-not-allowed' : ''}`}
+                disabled={  disabled}
                />
                   </div>
                 </div>
 
                 <div className="sm:col-span-3">
-                  <label htmlFor="address" className="block text-sm font-medium text-gray-500">
+                  <label htmlFor="address" className={`block text-sm font-medium text-gray-500 ${disabled ? 'opacity-50 cursor-not-allowed' : ''}`}>
                     Address
                   </label>
                   <div className="mt-1">
@@ -96,14 +96,14 @@ export function PayAccordion({
                       value={shippingDetails.address}
                       onChange={onShippingDetailsChange}
                       autoComplete="street-address"
-                      className="block w-full border-gray-300 rounded-md shadow-sm focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
+                      className={`block w-full border-gray-300 rounded-md shadow-sm focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm ${disabled ? 'opacity-50 cursor-not-allowed' : ''}`}
                       disabled={  disabled}
                       />
                   </div>
                 </div>
 
                 <div className="sm:col-span-3">
-                  <label htmlFor="apartment" className="block text-sm font-medium text-gray-500">
+                  <label htmlFor="apartment" className={`block text-sm font-medium text-gray-500 ${disabled ? 'opacity-50 cursor-not-allowed' : ''}`}>
 Street                  </label>
                   <div className="mt-1">
                     <input
@@ -112,14 +112,14 @@ Street                  </label>
                       name="street"
                       value={shippingDetails.street}
                       onChange={onShippingDetailsChange}
-                      className="block w-full border-gray-300 rounded-md shadow-sm focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
+                      className={`block w-full border-gray-300 rounded-md shadow-sm focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm ${disabled ? 'opacity-50 cursor-not-allowed' : ''}`}
                       disabled={  disabled}
                       />
                   </div>
                 </div>
 
                 <div>
-                  <label htmlFor="city" className="block text-sm font-medium text-gray-500">
+                  <label htmlFor="city" className={`block text-sm font-medium text-gray-500 ${disabled ? 'opacity-50 cursor-not-allowed' : ''}`}>
                     City
                   </label>
                   <div className="mt-1">
@@ -130,14 +130,14 @@ Street                  </label>
                       value={shippingDetails.city}
                       onChange={onShippingDetailsChange}
                       autoComplete="address-level2"
-                      className="block w-full border-gray-300 rounded-md shadow-sm focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
+                      className={`block w-full border-gray-300 rounded-md shadow-sm focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm ${disabled ? 'opacity-50 cursor-not-allowed' : ''}`}
                       disabled={  disabled}
                       />
                   </div>
                 </div>
 
                 <div>
-                  <label htmlFor="region" className="block text-sm font-medium text-gray-500">
+                  <label htmlFor="region" className={`block text-sm font-medium text-gray-500 ${disabled ? 'opacity-50 cursor-not-allowed' : ''}`}>
                     State / Province
                   </label>
                   <div className="mt-1">
@@ -148,14 +148,14 @@ Street                  </label>
                       value={shippingDetails.region}
                       onChange={onShippingDetailsChange}
                       autoComplete="address-level1"
-                      className="block w-full border-gray-300 rounded-md shadow-sm focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
+                      className={`block w-full border-gray-300 rounded-md shadow-sm focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm ${disabled ? 'opacity-50 cursor-not-allowed' : ''}`}
                       disabled={  disabled}
                       />
                   </div>
                 </div>
 
                 <div>
-                  <label htmlFor="postalCode" className="block text-sm font-medium text-gray-500">
+                  <label htmlFor="postalCode"className={`block text-sm font-medium text-gray-500 ${disabled ? 'opacity-50 cursor-not-allowed' : ''}`}>
                     Postal code
                   </label>
                   <div className="mt-1">
@@ -166,9 +166,9 @@ Street                  </label>
                       value={shippingDetails.postalCode}
                       onChange={onShippingDetailsChange}
                       autoComplete="postalCode"
+                      
                       disabled={  disabled}
-
-                      className="block w-full border-gray-300 rounded-md shadow-sm focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
+                      className={`block w-full border-gray-300 rounded-md shadow-sm focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm ${disabled ? 'opacity-50 cursor-not-allowed' : ''}`}
                     />
                   </div>
                 </div>
@@ -177,7 +177,9 @@ Street                  </label>
            
         <div className="mt-1  pt-1">
       
-              <RadioGroup className="mt-5  " value={selectedDeliveryMethod} onChange={handleDeliveryMethodChange}>
+              <RadioGroup
+  className={`mt-5 ${disabled ? 'opacity-50 pointer-events-none' : ''}`}
+  value={selectedDeliveryMethod} onChange={handleDeliveryMethodChange}>
                 <RadioGroup.Label className="text-lg font-medium text-gray-900 ">Delivery method</RadioGroup.Label>
 
                 <div className="mt-4 grid grid-cols-1 gap-y-6 sm:grid-cols-2 sm:gap-x-4">
@@ -189,10 +191,11 @@ Street                  </label>
                       value={deliveryMethod}
                       className={({ checked, active }) =>
                         classNames(
-                          checked ? 'border-transparent' : 'border-gray-300',
-                          active ? 'ring-2 ring-indigo-500' : '',
-                          'relative bg-white border rounded-lg shadow-sm p-4 flex cursor-pointer focus:outline-none'
-                        )
+                          checked ? ' bg-indigo-600 border-transparent' : '',
+                          active ? 'ring-2 ring-offset-2 ring-indigo-500' : '',
+                          'relative bg-white border rounded-lg  p-4 flex cursor-pointer focus:outline-none'
+
+                          )
                       }
                     >
                       {({ checked, active }) => (

@@ -1,80 +1,87 @@
 
-import { PayAccordion,PaymentGateWayCard } from "../components"
+import { PayAccordion,PaymentGateWayCard,NavBarNew } from "../components"
 import { tommyFigure } from "../assets/images"
 import { useState,useEffect } from 'react'
-import { useLocation } from 'react-router-dom';
+import { useLocation } from 'react-router-dom'
+// const products = [
+//   {
+//     id: 1,
+//     name: "Women's Basic Tee",
+//     href: '#',
+//     price: '$32.00',
+//     color: 'Gray',
+//     size: 'S',
+//     imageSrc: tommyFigure ,
+//     imageAlt: "Front of women's basic tee in heather gray.",
+//   },
+//   {
+//     id: 1,
+//     name: "Women's Basic Tee",
+//     href: '#',
+//     price: '$32.00',
+//     color: 'Gray',
+//     size: 'S',
+//     imageSrc: tommyFigure ,
+//     imageAlt: "Front of women's basic tee in heather gray.",
+//   },
+//   {
+//     id: 1,
+//     name: "Women's Basic Tee",
+//     href: '#',
+//     price: '$32.00',
+//     color: 'Gray',
+//     size: 'S',
+//     imageSrc:  tommyFigure ,
+//     imageAlt: "Front of women's basic tee in heather gray.",
+//   },
+//   {
+//     id: 1,
+//     name: "Women's Basic Tee",
+//     href: '#',
+//     price: '$32.00',
+//     color: 'Gray',
+//     size: 'S',
+//     imageSrc: tommyFigure ,
+//     imageAlt: "Front of women's basic tee in heather gray.",
+//   },
+//   {
+//     id: 1,
+//     name: "Women's Basic Tee",
+//     href: '#',
+//     price: '$32.00',
+//     color: 'Gray',
+//     size: 'S',
+//     imageSrc: tommyFigure ,
+//     imageAlt: "Front of women's basic tee in heather gray.",
+//   },
+//   {
+//     id: 1,
+//     name: "Women's Basic Tee",
+//     href: '#',
+//     price: '$32.00',
+//     color: 'Gray',
+//     size: 'S',
+//     imageSrc:  tommyFigure ,
+//     imageAlt: "Front of women's basic tee in heather gray.",
+//   },
+//   // More products...
+// ]
 
-const products = [
-  {
-    id: 1,
-    name: "Women's Basic Tee",
-    href: '#',
-    price: '$32.00',
-    color: 'Gray',
-    size: 'S',
-    imageSrc: tommyFigure ,
-    imageAlt: "Front of women's basic tee in heather gray.",
-  },
-  {
-    id: 1,
-    name: "Women's Basic Tee",
-    href: '#',
-    price: '$32.00',
-    color: 'Gray',
-    size: 'S',
-    imageSrc: tommyFigure ,
-    imageAlt: "Front of women's basic tee in heather gray.",
-  },
-  {
-    id: 1,
-    name: "Women's Basic Tee",
-    href: '#',
-    price: '$32.00',
-    color: 'Gray',
-    size: 'S',
-    imageSrc:  tommyFigure ,
-    imageAlt: "Front of women's basic tee in heather gray.",
-  },
-  {
-    id: 1,
-    name: "Women's Basic Tee",
-    href: '#',
-    price: '$32.00',
-    color: 'Gray',
-    size: 'S',
-    imageSrc: tommyFigure ,
-    imageAlt: "Front of women's basic tee in heather gray.",
-  },
-  {
-    id: 1,
-    name: "Women's Basic Tee",
-    href: '#',
-    price: '$32.00',
-    color: 'Gray',
-    size: 'S',
-    imageSrc: tommyFigure ,
-    imageAlt: "Front of women's basic tee in heather gray.",
-  },
-  {
-    id: 1,
-    name: "Women's Basic Tee",
-    href: '#',
-    price: '$32.00',
-    color: 'Gray',
-    size: 'S',
-    imageSrc:  tommyFigure ,
-    imageAlt: "Front of women's basic tee in heather gray.",
-  },
-  // More products...
-]
-
-export default function Example() {
+export default function Checkout() {
 
   const location = useLocation();
   const { customerId } = location.state;
   const [email, setEmail] = useState("");
   const [phone, setPhone] = useState("");
   const [termsChecked, setTermsChecked] = useState(false);
+  const [cartProducts, setCartProducts] = useState([]); 
+  const [subtotal, setSubtotal] = useState(0);
+  const [taxes, setTexes] = useState(0);
+  const [shipping, setShipping] = useState(0);
+  const [total, setTotal] = useState(0);
+
+  const [isLoading, setIsLoading] = useState(false);
+  const [error, setError] = useState(null);
 
   const handleEmailChange = (e) => setEmail(e.target.value);
   const handlePhoneChange = (e) => setPhone(e.target.value);
@@ -88,10 +95,80 @@ export default function Example() {
     region: "",
     postalCode: "",
   });
+  useEffect(() => {
+    const fetchProductDetails = async () => {
+        setIsLoading(true);
+        try {
+            const response = await fetch(`http://localhost:5000/customer/cart/${customerId}`);
+            if (!response.ok) {
+                throw new Error('Could not fetch product details.');
+            }
+            const data = await response.json();
+            setCartProducts(data); 
+        } catch (err) {
+            setError(err.message);
+        } finally {
+            setIsLoading(false);
+        }
+    };
+
+    fetchProductDetails();
+}, [customerId]);
+
+useEffect(() => {
+    calculateSubtotal();
+}, [cartProducts]); 
+
+
+const handleSelectedDeliveryMethodChange = (method) => {
+  setSelectedDeliveryMethod(method);
+  if (method.title === 'Standard') {
+
+    setShipping(300); 
+  } else if (method.title === 'Express') {
+    setShipping(800);
+  }
+  else{
+    console.log(method)
+
+  }
+};
+const handleRemoveProduct = (productId) => {
+    const updatedProducts = cartProducts.filter(product => product.productId !== productId);
+    setCartProducts(updatedProducts);
+};
+
+const calculateSubtotal = () => {
+    const total = cartProducts.reduce((acc, product) => {
+        let price = product.price;
+        if (typeof price === 'string') {
+           
+            price = parseFloat(price.replace(/[^\d\.]/g, ''));
+        } else if (typeof price !== 'number') {
+           
+            console.error('Unexpected price format:', price);
+            price = 0;
+        }
+   
+        return acc + price;
+    }, 0);
+
+    
+    setSubtotal(total);
+    const calculatedTaxes = total * 0.1;
+    setTexes(calculatedTaxes);
+};
+const calculateTotal = () => {
+  const total = subtotal + taxes + shipping;
+  setTotal(total);
+};
+useEffect(() => {
+  calculateTotal();
+}, [subtotal, taxes, shipping]);
 
   const deliveryMethods = [
-    { id: 1, title: 'Standard', turnaround: '4–10 business days', price: '$5.00' },
-    { id: 2, title: 'Express', turnaround: '2–5 business days', price: '$16.00' },
+    { id: 1, title: 'Standard', turnaround: '4–10 business days', price: 'LKR 300.00' },
+    { id: 2, title: 'Express', turnaround: '2–5 business days', price: 'LKR 800.00' },
   ];
   const [selectedDeliveryMethod, setSelectedDeliveryMethod] = useState(
     deliveryMethods[0].title
@@ -121,7 +198,8 @@ export default function Example() {
       ...paymentData,
       shippingDetails,
       selectedDeliveryMethod: selectedDeliveryMethod.title,
-      customerId:customerId
+      customerId:customerId,
+      total:total
     };
 
     console.log("form data",formData);
@@ -150,14 +228,16 @@ export default function Example() {
 
   return (
     <div className="bg-white">
+            <NavBarNew />
+
       <div className="max-w-7xl mx-auto px-4 pt-4 pb-16 sm:px-6 sm:pt-8 sm:pb-24 lg:px-8 xl:px-2 xl:pt-14">
         <h1 className="sr-only">Checkout</h1>
 
-        <div className="max-w-lg mx-auto grid grid-cols-1 gap-x-8 gap-y-16 lg:max-w-none lg:grid-cols-2">
+        <div className="max-w-lg mx-auto grid grid-cols-1 gap-x-8 gap-y-10 lg:max-w-none lg:grid-cols-2">
         <div className="max-w-lg mx-auto w-full">
             
-            <form className="mt-6">
-              <h2 className="text-lg font-medium text-gray-900">Contact information</h2>
+            <form className="mt-1">
+              <h1 className="text-2xl font-medium text-gray-900">Contact information</h1>
 
               <div className="mt-6">
                 <label htmlFor="email-address" className="block text-sm font-medium text-gray-700">
@@ -223,7 +303,7 @@ export default function Example() {
           shippingDetails={shippingDetails}
           selectedDeliveryMethod={selectedDeliveryMethod.title}
           onShippingDetailsChange={handleShippingDetailsChange}
-          onSelectedDeliveryMethodChange={setSelectedDeliveryMethod}
+          onSelectedDeliveryMethodChange={handleSelectedDeliveryMethodChange}
           deliveryMethods={deliveryMethods}
           disabled={!termsChecked}
 
@@ -244,36 +324,37 @@ export default function Example() {
               </div>
               </div>
           </div>
-          <div className="max-w-lg mx-auto w-full">
-            <h2 className="sr-only">Order summary</h2>
+          <div className="max-w-lg mx-auto w-full mt-1">
+          <h2 className="text-2xl font-medium text-gray-900">Order Summary</h2>
 
-            <div className="flow-root  overflow-y-auto overflow-x-hidden" id="scroll" style={{ maxHeight: '400px', overflowY: 'auto',scrollbarWidth: ' thin' }}>
+            <div className="flow-root  overflow-y-auto overflow-x-hidden mt-10" id="scroll" style={{ maxHeight: '600px', overflowY: 'auto',scrollbarWidth: ' thin' }}>
               <ul role="list" className="-my-6 divide-y divide-gray-200">
-                {products.map((product) => (
-                  <li key={product.id} className="py-6 flex space-x-6">
+                {cartProducts.map((product) => (
+                  <li key={product.productId}  className="py-6 flex space-x-6">
                     <img
-                      src={product.imageSrc}
-                      alt={product.imageAlt}
-                      className="flex-none w-24 h-24 object-center object-cover bg-gray-100 rounded-md"
+                        src={`data:image/jpeg;base64,${product.image}`}
+                        alt={product.imageAlt}
+                      className="flex-none w-20 h-35 object-center object-cover bg-gray-100 rounded-md"
                     />
                     <div className="flex-auto">
                       <div className="space-y-1 sm:flex sm:items-start sm:justify-between sm:space-x-6">
                         <div className="flex-auto text-sm font-medium space-y-1">
                           <h3 className="text-gray-900">
-                            <a href={product.href}>{product.name}</a>
+                            <a href={product.href}>         {product.productName}
+</a>
                           </h3>
-                          <p className=" text-gray-900">{product.price}</p>
-                          <p className="hidden text-gray-500 sm:block">{product.color}</p>
+                          <p className=" text-gray-900 ">LKR{product.price}</p>
+                          <p className="hidden text-gray-500 sm:block mt-2">{product.color}</p>
                           <p className="hidden text-gray-500 sm:block">{product.size}</p>
                         </div>
                         <div className="flex-none flex space-x-4 pr-3">
-                          <button type="button" className="text-sm font-medium text-indigo-600 hover:text-indigo-500">
+                          {/* <button type="button" className="text-sm font-medium text-indigo-600 hover:text-indigo-500">
                             Edit
-                          </button>
+                          </button> */}
                           <div className="flex border-l border-gray-300 pl-4 pr-3">
-                            <button type="button" className="text-sm font-medium text-indigo-600 hover:text-indigo-500">
+                            {/* <button type="button" className="text-sm font-medium text-indigo-600 hover:text-indigo-500">
                               Remove
-                            </button>
+                            </button> */}
                           </div>
                         </div>
                       </div>
@@ -286,19 +367,19 @@ export default function Example() {
             <dl className="text-sm font-medium text-gray-500 mt-10 space-y-6">
               <div className="flex justify-between">
                 <dt>Subtotal</dt>
-                <dd className="text-gray-900">$104.00</dd>
+                <dd className="text-gray-900">{subtotal}</dd>
               </div>
               <div className="flex justify-between">
                 <dt>Taxes</dt>
-                <dd className="text-gray-900">$8.32</dd>
+                <dd className="text-gray-900">{taxes}</dd>
               </div>
               <div className="flex justify-between">
                 <dt>Shipping</dt>
-                <dd className="text-gray-900">$14.00</dd>
+                <dd className="text-gray-900">{shipping}</dd>
               </div>
               <div className="flex justify-between border-t border-gray-200 text-gray-900 pt-6">
                 <dt className="text-base">Total</dt>
-                <dd className="text-base">$126.32</dd>
+                <dd className="text-base">{total}</dd>
               </div>
             </dl>
           </div>
