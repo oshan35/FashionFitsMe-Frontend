@@ -3,6 +3,9 @@ import { PayAccordion,PaymentGateWayCard,NavBarNew } from "../components"
 import { tommyFigure } from "../assets/images"
 import { useState,useEffect } from 'react'
 import { useLocation } from 'react-router-dom'
+import { useNavigate } from 'react-router-dom';
+
+import buttonText from "@material-tailwind/react/theme/components/button/buttonText";
 // const products = [
 //   {
 //     id: 1,
@@ -68,6 +71,7 @@ import { useLocation } from 'react-router-dom'
 // ]
 
 export default function Checkout() {
+  const navigate = useNavigate();
 
   const location = useLocation();
   const { customerId } = location.state;
@@ -75,10 +79,11 @@ export default function Checkout() {
   const [phone, setPhone] = useState("");
   const [termsChecked, setTermsChecked] = useState(false);
   const [cartProducts, setCartProducts] = useState([]); 
-  const [subtotal, setSubtotal] = useState(0);
+  const [subTotal, setSubtotal] = useState(0);
   const [taxes, setTexes] = useState(0);
   const [shipping, setShipping] = useState(0);
   const [total, setTotal] = useState(0);
+  const [buttonText, setButtonText] = useState("Pay Now");
 
   const [isLoading, setIsLoading] = useState(false);
   const [error, setError] = useState(null);
@@ -89,7 +94,7 @@ export default function Checkout() {
 
   const [shippingDetails, setShippingDetails] = useState({
     company: "",
-    address: "",
+    addressName: "",
     street: "",
     city: "",
     region: "",
@@ -159,12 +164,12 @@ const calculateSubtotal = () => {
     setTexes(calculatedTaxes);
 };
 const calculateTotal = () => {
-  const total = subtotal + taxes + shipping;
+  const total = subTotal + taxes + shipping;
   setTotal(total);
 };
 useEffect(() => {
   calculateTotal();
-}, [subtotal, taxes, shipping]);
+}, [subTotal, taxes, shipping]);
 
   const deliveryMethods = [
     { id: 1, title: 'Standard', turnaround: '4–10 business days', price: 'LKR 300.00' },
@@ -199,7 +204,11 @@ useEffect(() => {
       shippingDetails,
       selectedDeliveryMethod: selectedDeliveryMethod.title,
       customerId:customerId,
-      total:total
+      subTotal:subTotal,
+      taxes:taxes,
+      shipping:shipping,
+      total:total,
+
     };
 
     console.log("form data",formData);
@@ -215,6 +224,7 @@ useEffect(() => {
         if (response.ok) {
           // Handle success
           console.log("Payment details sent successfully");
+          navigate("/orderSummary");
         } else {
           // Handle errors
           console.error("Failed to send payment details:", response.status);
@@ -305,6 +315,7 @@ useEffect(() => {
           onShippingDetailsChange={handleShippingDetailsChange}
           onSelectedDeliveryMethodChange={handleSelectedDeliveryMethodChange}
           deliveryMethods={deliveryMethods}
+          setButtonText={setButtonText}
           disabled={!termsChecked}
 
         />
@@ -319,7 +330,7 @@ useEffect(() => {
                   className="bg-indigo-600 border border-transparent rounded-md shadow-sm py-2 px-4 text-sm font-medium text-white hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-offset-gray-50 focus:ring-indigo-500"
                   onClick={handleSubmit}
                   >
-                  Pay now
+                  {buttonText}
                 </button>
               </div>
               </div>
@@ -367,7 +378,7 @@ useEffect(() => {
             <dl className="text-sm font-medium text-gray-500 mt-10 space-y-6">
               <div className="flex justify-between">
                 <dt>Subtotal</dt>
-                <dd className="text-gray-900">{subtotal}</dd>
+                <dd className="text-gray-900">{subTotal}</dd>
               </div>
               <div className="flex justify-between">
                 <dt>Taxes</dt>

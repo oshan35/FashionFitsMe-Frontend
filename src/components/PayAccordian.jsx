@@ -36,7 +36,8 @@ export function PayAccordion({
   onShippingDetailsChange, 
   onSelectedDeliveryMethodChange,
   deliveryMethods,
-  disabled
+  disabled,
+  setButtonText
 }) {
 
   const [open, setOpen] = React.useState(0);
@@ -55,8 +56,7 @@ export function PayAccordion({
         <section  className="mt-5 mb-3">
               <label  className="text-m font-medium text-gray-500 mb-5">
               All transactions are secure and encrypted.              </label>
-              <RadioGroupShipping   disabled={  disabled}
-/>
+              <RadioGroupShipping   disabled={  disabled} setButtonText={setButtonText}/>
 
 
             </section>
@@ -91,9 +91,9 @@ export function PayAccordion({
                   <div className="mt-1">
                     <input
                       type="text"
-                      id="address"
-                      name="address"
-                      value={shippingDetails.address}
+                      id="addressName"
+                      name="addressName"
+                      value={shippingDetails.addressName}
                       onChange={onShippingDetailsChange}
                       autoComplete="street-address"
                       className={`block w-full border-gray-300 rounded-md shadow-sm focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm ${disabled ? 'opacity-50 cursor-not-allowed' : ''}`}

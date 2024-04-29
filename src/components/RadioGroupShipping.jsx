@@ -1,19 +1,3 @@
-/*
-  This example requires Tailwind CSS v2.0+ 
-  
-  This example requires some changes to your config:
-  
-  ```
-  // tailwind.config.js
-  module.exports = {
-    // ...
-    plugins: [
-      // ...
-      require('@tailwindcss/forms'),
-    ],
-  }
-  ```
-*/
 import { useState } from 'react'
 import { RadioGroup } from '@headlessui/react'
 
@@ -26,11 +10,23 @@ function classNames(...classes) {
   return classes.filter(Boolean).join(' ')
 }
 
-export default function RadioGroupShipping({disabled}) {
-  const [selected, setSelected] = useState(settings[0])
 
+
+export default function RadioGroupShipping({disabled,setButtonText}) {
+  const [selected, setSelected] = useState(settings[0])
+ 
+  
+  const handleOnChange = (selectedOption) => {
+    setSelected(selectedOption);
+    if (selectedOption.name === "Payment VISA/MASTER/UNION PAY") {
+      setButtonText("Pay Now");
+    } else if (selectedOption.name === "Cash On Delivery") {
+      setButtonText("Complete order");
+    }
+  };
   return (
-    <RadioGroup value={selected} onChange={setSelected}   className={`mt-5 ${disabled ? 'opacity-50 pointer-events-none' : ''}`}
+    <RadioGroup value={selected}       onChange={handleOnChange}
+    className={`mt-5 ${disabled ? 'opacity-50 pointer-events-none' : ''}`}
     >
       <RadioGroup.Label className="sr-only">Privacy setting</RadioGroup.Label>
       <div className="bg-white rounded-md -space-y-px mt-3">
