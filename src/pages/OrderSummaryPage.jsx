@@ -3,71 +3,15 @@ import { Fragment, useState } from 'react'
 import { Dialog, Popover, Tab, Transition } from '@headlessui/react'
 import { MenuIcon, SearchIcon, ShoppingCartIcon, UserIcon, XIcon } from '@heroicons/react/outline'
 import { NavBarNew } from '../components'
+import { useEffect } from 'react'
+import { useLocation, useParams } from 'react-router-dom';
+
 const currencies = ['CAD', 'USD', 'AUD', 'EUR', 'GBP']
-// const navigation = {
-//   categories: [
-//     {
-//       name: 'Women',
-//       featured: [
-//         { name: 'Sleep', href: '#' },
-//         { name: 'Swimwear', href: '#' },
-//         { name: 'Underwear', href: '#' },
-//       ],
-//       collection: [
-//         { name: 'Everything', href: '#' },
-//         { name: 'Core', href: '#' },
-//         { name: 'New Arrivals', href: '#' },
-//         { name: 'Sale', href: '#' },
-//       ],
-//       categories: [
-//         { name: 'Basic Tees', href: '#' },
-//         { name: 'Artwork Tees', href: '#' },
-//         { name: 'Bottoms', href: '#' },
-//         { name: 'Underwear', href: '#' },
-//         { name: 'Accessories', href: '#' },
-//       ],
-//       brands: [
-//         { name: 'Full Nelson', href: '#' },
-//         { name: 'My Way', href: '#' },
-//         { name: 'Re-Arranged', href: '#' },
-//         { name: 'Counterfeit', href: '#' },
-//         { name: 'Significant Other', href: '#' },
-//       ],
-//     },
-//     {
-//       name: 'Men',
-//       featured: [
-//         { name: 'Casual', href: '#' },
-//         { name: 'Boxers', href: '#' },
-//         { name: 'Outdoor', href: '#' },
-//       ],
-//       collection: [
-//         { name: 'Everything', href: '#' },
-//         { name: 'Core', href: '#' },
-//         { name: 'New Arrivals', href: '#' },
-//         { name: 'Sale', href: '#' },
-//       ],
-//       categories: [
-//         { name: 'Artwork Tees', href: '#' },
-//         { name: 'Pants', href: '#' },
-//         { name: 'Accessories', href: '#' },
-//         { name: 'Boxers', href: '#' },
-//         { name: 'Basic Tees', href: '#' },
-//       ],
-//       brands: [
-//         { name: 'Significant Other', href: '#' },
-//         { name: 'My Way', href: '#' },
-//         { name: 'Counterfeit', href: '#' },
-//         { name: 'Re-Arranged', href: '#' },
-//         { name: 'Full Nelson', href: '#' },
-//       ],
-//     },
-//   ],
-//   pages: [
-//     { name: 'Company', href: '#' },
-//     { name: 'Stores', href: '#' },
-//   ],
-// }
+
+
+
+
+
 const products = [
   {
     id: 1,
@@ -138,7 +82,45 @@ function classNames(...classes) {
 }
 
 export default function OrderSummaryPage() {
+  const location = useLocation();
+
   const [open, setOpen] = useState(false)
+  const [orderDetails, setOrderDetails] = useState([]); 
+  const [orderId, setOrderId] = useState(location.state.orderId);
+
+  const [error, setError] = useState(null);
+
+   
+
+  useEffect(() => {
+    console.log("order Id sent",orderId)
+    const fetchOrderDetails = async () => {
+        try {
+            const response = await fetch('http://localhost:5000/orders/getOrder', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify({ orderId: orderId })
+              });
+            if (!response.ok) {
+                throw new Error('Could not fetch product details.');
+            }
+            const data = await response.json();
+            console.log('Received order',data);
+            setOrderDetails(data); 
+        } catch (err) {
+            setError(err.message);
+        } 
+    };
+  
+    fetchOrderDetails();
+}, []);
+
+useEffect(() => {
+  console.log("order Details setting",orderDetails.products)
+  
+}, [orderDetails]);
 
   return (
     <div className="bg-gray-50">
@@ -170,27 +152,26 @@ export default function OrderSummaryPage() {
           </h2>
 
           <div className="space-y-8">
-            {products.map((product) => (
+          {orderDetails.products.map((item, index) => (
               <div
-                key={product.id}
-                className="bg-white border-t border-b border-gray-200 shadow-sm sm:border sm:rounded-lg"
+              key={index}
+              className="bg-white border-t border-b border-gray-200 shadow-sm sm:border sm:rounded-lg"
               >
                 <div className="py-6 px-4 sm:px-6 lg:grid lg:grid-cols-12 lg:gap-x-8 lg:p-8">
                   <div className="sm:flex lg:col-span-7">
                     <div className="flex-shrink-0 w-full aspect-w-1 aspect-h-1 rounded-lg overflow-hidden sm:aspect-none sm:w-40 sm:h-40">
                       <img
-                        src={product.imageSrc}
-                        alt={product.imageAlt}
-                        className="w-full h-full object-center object-cover sm:w-full sm:h-full"
-                      />
+                        src={`data:image/jpeg;base64,${item.product.image}`}
+                        className="flex-none w-30 h-full object-center object-cover bg-gray-100 rounded-md"
+                        />
                     </div>
 
                     <div className="mt-6 sm:mt-0 sm:ml-6">
                       <h3 className="text-base font-medium text-gray-900">
-                        <a href={product.href}>{product.name}</a>
+                        <a >{item.product.product.productName}</a>
                       </h3>
-                      <p className="mt-2 text-sm font-medium text-gray-900">${product.price}</p>
-                      <p className="mt-3 text-sm text-gray-500">{product.description}</p>
+                      <p className="mt-2 text-sm font-medium text-gray-900">${item.product.product.price}</p>
+                      <p className="mt-3 text-sm text-gray-500">{item.product.product.description}</p>
                     </div>
                   </div>
 
@@ -199,16 +180,16 @@ export default function OrderSummaryPage() {
                       <div>
                         <dt className="font-medium text-gray-900">Delivery address</dt>
                         <dd className="mt-3 text-gray-500">
-                          <span className="block">{product.address[0]}</span>
-                          <span className="block">{product.address[1]}</span>
-                          <span className="block">{product.address[2]}</span>
+                          <span className="block">{item.deliveryAddress.addressName}</span>
+                          <span className="block">{item.deliveryAddress.street}</span>
+                          <span className="block">{item.deliveryAddress.city}</span>
                         </dd>
                       </div>
                       <div>
                         <dt className="font-medium text-gray-900">Shipping updates</dt>
                         <dd className="mt-3 text-gray-500 space-y-3">
-                          <p>{product.email}</p>
-                          <p>{product.phone}</p>
+                          <p>{item.email}</p>
+                          <p>{item.phone}</p>
                           <button type="button" className="font-medium text-indigo-600 hover:text-indigo-500">
                             Edit
                           </button>

@@ -213,7 +213,7 @@ useEffect(() => {
 
     console.log("form data",formData);
 
-    fetch('http://localhost:5000/payment', {
+    fetch("http://localhost:5000/payment", {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
@@ -224,14 +224,29 @@ useEffect(() => {
         if (response.ok) {
           // Handle success
           console.log("Payment details sent successfully");
-          navigate("/orderSummary");
+          return response.json(); // Parse response body as JSON
         } else {
           // Handle errors
-          console.error("Failed to send payment details:", response.status);
+          console.error(
+            "Failed to send payment details:",
+            response.status
+          );
+          throw new Error("Failed to send payment details");
         }
       })
+      .then((data) => {
+        // Assuming data contains the saved order ID
+        const orderId = data;
+        console.log("order id at navigation",orderId)
+        navigate("/orderSummary", { state: { orderId } }); 
+
+      })
       .catch((error) => {
-        console.error("An error occurred while sending payment details:", error);
+        console.error(
+          "An error occurred while sending payment details:",
+          error
+        );
+        // Handle error
       });
   };
 
