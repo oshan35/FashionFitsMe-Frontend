@@ -3,52 +3,13 @@ import { Fragment, useState } from 'react'
 import { Dialog, Popover, Tab, Transition } from '@headlessui/react'
 import { MenuIcon, SearchIcon, ShoppingCartIcon, UserIcon, XIcon } from '@heroicons/react/outline'
 import { NavBarNew } from '../components'
+import { Footer } from '../sections'
 import { useEffect } from 'react'
 import { useLocation, useParams } from 'react-router-dom';
 
 const currencies = ['CAD', 'USD', 'AUD', 'EUR', 'GBP']
 
 
-
-
-
-const products = [
-  {
-    id: 1,
-    name: 'Nomad Tumbler',
-    description:
-      'This durable and portable insulated tumbler will keep your beverage at the perfect temperature during your next adventure.',
-    href: '#',
-    price: '35.00',
-    status: 'Preparing to ship',
-    step: 1,
-    date: 'March 24, 2021',
-    datetime: '2021-03-24',
-    address: ['Floyd Miles', '7363 Cynthia Pass', 'Toronto, ON N3Y 4H8'],
-    email: 'f•••@example.com',
-    phone: '1•••••••••40',
-    imageSrc: 'https://tailwindui.com/img/ecommerce-images/confirmation-page-03-product-01.jpg',
-    imageAlt: 'Insulated bottle with white base and black snap lid.',
-  },
-  {
-    id: 2,
-    name: 'Minimalist Wristwatch',
-    description: 'This contemporary wristwatch has a clean, minimalist look and high quality components.',
-    href: '#',
-    price: '149.00',
-    status: 'Shipped',
-    step: 0,
-    date: 'March 23, 2021',
-    datetime: '2021-03-23',
-    address: ['Floyd Miles', '7363 Cynthia Pass', 'Toronto, ON N3Y 4H8'],
-    email: 'f•••@example.com',
-    phone: '1•••••••••40',
-    imageSrc: 'https://tailwindui.com/img/ecommerce-images/confirmation-page-03-product-02.jpg',
-    imageAlt:
-      'Arm modeling wristwatch with black leather band, white watch face, thin watch hands, and fine time markings.',
-  },
-  // More products...
-]
 const footerNavigation = {
   account: [
     { name: 'Manage Account', href: '#' },
@@ -83,9 +44,10 @@ function classNames(...classes) {
 
 export default function OrderSummaryPage() {
   const location = useLocation();
-
+  const [orderDate,setOrderDate]=useState(null);
   const [open, setOpen] = useState(false)
   const [orderDetails, setOrderDetails] = useState([]); 
+  const [products,setProducts]= useState([]); 
   const [orderId, setOrderId] = useState(location.state.orderId);
 
   const [error, setError] = useState(null);
@@ -115,12 +77,29 @@ export default function OrderSummaryPage() {
     };
   
     fetchOrderDetails();
-}, []);
+}, [orderId]);
 
 useEffect(() => {
-  console.log("order Details setting",orderDetails.products)
-  
+  if (orderDetails.products) {
+    setProducts(orderDetails.products);
+  }
+  if (orderDetails.orderDate) {
+    setOrderDate(orderDetails.orderDate);
+  }
 }, [orderDetails]);
+
+let formattedDate = '';
+if (orderDate) {
+  const date = new Date(orderDate);
+  if (!isNaN(date)) {
+    const options = { year: 'numeric', month: 'long', day: 'numeric' };
+    formattedDate = new Intl.DateTimeFormat('en-US', options).format(date);
+  } else {
+    console.error('Invalid date:', orderDate);
+  }
+}
+
+console.log(formattedDate);
 
   return (
     <div className="bg-gray-50">
@@ -129,15 +108,13 @@ useEffect(() => {
       <main className="max-w-2xl mx-auto pt-8 pb-24 sm:pt-16 sm:px-6 lg:max-w-7xl lg:px-8">
         <div className="px-4 space-y-2 sm:px-0 sm:flex sm:items-baseline sm:justify-between sm:space-y-0">
           <div className="flex sm:items-baseline sm:space-x-4">
-            <h1 className="text-2xl font-extrabold tracking-tight text-gray-900 sm:text-3xl">Order #54879</h1>
-            <a href="#" className="hidden text-sm font-medium text-indigo-600 hover:text-indigo-500 sm:block">
-              View invoice<span aria-hidden="true"> &rarr;</span>
-            </a>
+            <h1 className="text-2xl font-extrabold tracking-tight text-gray-900 sm:text-3xl">Order #{orderId}</h1>
+           
           </div>
           <p className="text-sm text-gray-600">
-            Order placed{' '}
-            <time dateTime="2021-03-22" className="font-medium text-gray-900">
-              March 22, 2021
+            Order placed {'  '} 
+            <time dateTime="2021-03-22" className="font-medium text-black-900">
+              { formattedDate}
             </time>
           </p>
           <a href="#" className="text-sm font-medium text-indigo-600 hover:text-indigo-500 sm:hidden">
@@ -152,7 +129,7 @@ useEffect(() => {
           </h2>
 
           <div className="space-y-8">
-          {orderDetails.products.map((item, index) => (
+          {orderDetails && orderDetails.products && orderDetails.products.map((item, index) => (
               <div
               key={index}
               className="bg-white border-t border-b border-gray-200 shadow-sm sm:border sm:rounded-lg"
@@ -180,9 +157,9 @@ useEffect(() => {
                       <div>
                         <dt className="font-medium text-gray-900">Delivery address</dt>
                         <dd className="mt-3 text-gray-500">
-                          <span className="block">{item.deliveryAddress.addressName}</span>
-                          <span className="block">{item.deliveryAddress.street}</span>
-                          <span className="block">{item.deliveryAddress.city}</span>
+                          <span className="block mb-2">{item.deliveryAddress.addressName}</span>
+                          <span className="block mb-2">{item.deliveryAddress.street}</span>
+                          <span className="block mb-2">{item.deliveryAddress.city}</span>
                         </dd>
                       </div>
                       <div>
@@ -190,9 +167,9 @@ useEffect(() => {
                         <dd className="mt-3 text-gray-500 space-y-3">
                           <p>{item.email}</p>
                           <p>{item.phone}</p>
-                          <button type="button" className="font-medium text-indigo-600 hover:text-indigo-500">
+                          {/* <button type="button" className="font-medium text-indigo-600 hover:text-indigo-500">
                             Edit
-                          </button>
+                          </button> */}
                         </dd>
                       </div>
                     </dl>
@@ -215,132 +192,40 @@ useEffect(() => {
               <div>
                 <dt className="font-medium text-gray-900">Billing address</dt>
                 <dd className="mt-3 text-gray-500">
-                  <span className="block">Floyd Miles</span>
-                  <span className="block">7363 Cynthia Pass</span>
-                  <span className="block">Toronto, ON N3Y 4H8</span>
+                  <span className="block mb-2">{orderDetails && orderDetails.deliveryAddress && orderDetails.deliveryAddress.company}</span>
+                  <span className="block mb-2">{orderDetails && orderDetails.deliveryAddress && orderDetails.deliveryAddress.street}</span>
+                  <span className="block mb-2">{orderDetails && orderDetails.deliveryAddress && orderDetails.deliveryAddress.city}, {orderDetails.deliveryAddress && orderDetails.deliveryAddress.region} Province</span>
+                  <span className="block mb-2">Sri Lanka</span>
+
+               
                 </dd>
               </div>
-              <div>
-                <dt className="font-medium text-gray-900">Payment information</dt>
-                <div className="mt-3">
-                  <dd className="-ml-4 -mt-4 flex flex-wrap">
-                    <div className="ml-4 mt-4 flex-shrink-0">
-                      <svg
-                        aria-hidden="true"
-                        width={36}
-                        height={24}
-                        viewBox="0 0 36 24"
-                        xmlns="http://www.w3.org/2000/svg"
-                        className="h-6 w-auto"
-                      >
-                        <rect width={36} height={24} rx={4} fill="#224DBA" />
-                        <path
-                          d="M10.925 15.673H8.874l-1.538-6c-.073-.276-.228-.52-.456-.635A6.575 6.575 0 005 8.403v-.231h3.304c.456 0 .798.347.855.75l.798 4.328 2.05-5.078h1.994l-3.076 7.5zm4.216 0h-1.937L14.8 8.172h1.937l-1.595 7.5zm4.101-5.422c.057-.404.399-.635.798-.635a3.54 3.54 0 011.88.346l.342-1.615A4.808 4.808 0 0020.496 8c-1.88 0-3.248 1.039-3.248 2.481 0 1.097.969 1.673 1.653 2.02.74.346 1.025.577.968.923 0 .519-.57.75-1.139.75a4.795 4.795 0 01-1.994-.462l-.342 1.616a5.48 5.48 0 002.108.404c2.108.057 3.418-.981 3.418-2.539 0-1.962-2.678-2.077-2.678-2.942zm9.457 5.422L27.16 8.172h-1.652a.858.858 0 00-.798.577l-2.848 6.924h1.994l.398-1.096h2.45l.228 1.096h1.766zm-2.905-5.482l.57 2.827h-1.596l1.026-2.827z"
-                          fill="#fff"
-                        />
-                      </svg>
-                      <p className="sr-only">Visa</p>
-                    </div>
-                    <div className="ml-4 mt-4">
-                      <p className="text-gray-900">Ending with 4242</p>
-                      <p className="text-gray-600">Expires 02 / 24</p>
-                    </div>
-                  </dd>
-                </div>
-              </div>
+             
             </dl>
 
             <dl className="mt-8 divide-y divide-gray-200 text-sm lg:mt-0 lg:col-span-5">
+             
               <div className="pb-4 flex items-center justify-between">
                 <dt className="text-gray-600">Subtotal</dt>
-                <dd className="font-medium text-gray-900">$72</dd>
+                <dd className="font-medium text-gray-900">LKR { orderDetails.subTotal}</dd>
               </div>
               <div className="py-4 flex items-center justify-between">
                 <dt className="text-gray-600">Shipping</dt>
-                <dd className="font-medium text-gray-900">$5</dd>
+                <dd className="font-medium text-gray-900">LKR { orderDetails.shipping}</dd>
               </div>
               <div className="py-4 flex items-center justify-between">
                 <dt className="text-gray-600">Tax</dt>
-                <dd className="font-medium text-gray-900">$6.16</dd>
+                <dd className="font-medium text-gray-900">LKR { orderDetails.taxes}</dd>
               </div>
               <div className="pt-4 flex items-center justify-between">
                 <dt className="font-medium text-gray-900">Order total</dt>
-                <dd className="font-medium text-indigo-600">$83.16</dd>
+                <dd className="font-medium text-indigo-600">LKR { orderDetails.total}</dd>
               </div>
             </dl>
           </div>
         </section>
       </main>
 
-      <footer aria-labelledby="footer-heading" className="bg-white border-t border-gray-200">
-        <h2 id="footer-heading" className="sr-only">
-          Footer
-        </h2>
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="py-20 grid grid-cols-2 gap-8 sm:gap-y-0 sm:grid-cols-2 lg:grid-cols-4">
-            <div className="grid grid-cols-1 gap-y-10 lg:col-span-2 lg:grid-cols-2 lg:gap-y-0 lg:gap-x-8">
-              <div>
-                <h3 className="text-sm font-medium text-gray-900">Account</h3>
-                <ul role="list" className="mt-6 space-y-6">
-                  {footerNavigation.account.map((item) => (
-                    <li key={item.name} className="text-sm">
-                      <a href={item.href} className="text-gray-500 hover:text-gray-600">
-                        {item.name}
-                      </a>
-                    </li>
-                  ))}
-                </ul>
-              </div>
-              <div>
-                <h3 className="text-sm font-medium text-gray-900">Service</h3>
-                <ul role="list" className="mt-6 space-y-6">
-                  {footerNavigation.service.map((item) => (
-                    <li key={item.name} className="text-sm">
-                      <a href={item.href} className="text-gray-500 hover:text-gray-600">
-                        {item.name}
-                      </a>
-                    </li>
-                  ))}
-                </ul>
-              </div>
-            </div>
-            <div className="grid grid-cols-1 gap-y-10 lg:col-span-2 lg:grid-cols-2 lg:gap-y-0 lg:gap-x-8">
-              <div>
-                <h3 className="text-sm font-medium text-gray-900">Company</h3>
-                <ul role="list" className="mt-6 space-y-6">
-                  {footerNavigation.company.map((item) => (
-                    <li key={item.name} className="text-sm">
-                      <a href={item.href} className="text-gray-500 hover:text-gray-600">
-                        {item.name}
-                      </a>
-                    </li>
-                  ))}
-                </ul>
-              </div>
-              <div>
-                <h3 className="text-sm font-medium text-gray-900">Connect</h3>
-                <ul role="list" className="mt-6 space-y-6">
-                  {footerNavigation.connect.map((item) => (
-                    <li key={item.name} className="text-sm">
-                      <a href={item.href} className="text-gray-500 hover:text-gray-600">
-                        {item.name}
-                      </a>
-                    </li>
-                  ))}
-                </ul>
-              </div>
-            </div>
-          </div>
-
-          <div className="border-t border-gray-100 py-10 sm:flex sm:items-center sm:justify-between">
-            <div className="flex items-center justify-center text-sm text-gray-500">
-              <p>Shipping to Canada ($CAD)</p>
-              <p className="ml-3 border-l border-gray-200 pl-3">English</p>
-            </div>
-            <p className="mt-6 text-sm text-gray-500 text-center sm:mt-0">&copy; 2021 Clothing Company, Ltd.</p>
-          </div>
-        </div>
-      </footer>
     </div>
   )
 }

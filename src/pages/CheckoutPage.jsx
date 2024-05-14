@@ -6,69 +6,7 @@ import { useLocation } from 'react-router-dom'
 import { useNavigate } from 'react-router-dom';
 
 import buttonText from "@material-tailwind/react/theme/components/button/buttonText";
-// const products = [
-//   {
-//     id: 1,
-//     name: "Women's Basic Tee",
-//     href: '#',
-//     price: '$32.00',
-//     color: 'Gray',
-//     size: 'S',
-//     imageSrc: tommyFigure ,
-//     imageAlt: "Front of women's basic tee in heather gray.",
-//   },
-//   {
-//     id: 1,
-//     name: "Women's Basic Tee",
-//     href: '#',
-//     price: '$32.00',
-//     color: 'Gray',
-//     size: 'S',
-//     imageSrc: tommyFigure ,
-//     imageAlt: "Front of women's basic tee in heather gray.",
-//   },
-//   {
-//     id: 1,
-//     name: "Women's Basic Tee",
-//     href: '#',
-//     price: '$32.00',
-//     color: 'Gray',
-//     size: 'S',
-//     imageSrc:  tommyFigure ,
-//     imageAlt: "Front of women's basic tee in heather gray.",
-//   },
-//   {
-//     id: 1,
-//     name: "Women's Basic Tee",
-//     href: '#',
-//     price: '$32.00',
-//     color: 'Gray',
-//     size: 'S',
-//     imageSrc: tommyFigure ,
-//     imageAlt: "Front of women's basic tee in heather gray.",
-//   },
-//   {
-//     id: 1,
-//     name: "Women's Basic Tee",
-//     href: '#',
-//     price: '$32.00',
-//     color: 'Gray',
-//     size: 'S',
-//     imageSrc: tommyFigure ,
-//     imageAlt: "Front of women's basic tee in heather gray.",
-//   },
-//   {
-//     id: 1,
-//     name: "Women's Basic Tee",
-//     href: '#',
-//     price: '$32.00',
-//     color: 'Gray',
-//     size: 'S',
-//     imageSrc:  tommyFigure ,
-//     imageAlt: "Front of women's basic tee in heather gray.",
-//   },
-//   // More products...
-// ]
+
 
 export default function Checkout() {
   const navigate = useNavigate();
@@ -92,6 +30,9 @@ export default function Checkout() {
   const handlePhoneChange = (e) => setPhone(e.target.value);
   const handleTermsChange = (e) => setTermsChecked(e.target.checked);
 
+  useEffect(() => {
+    console.log("custmer id at checkout page:",customerId);
+  }, []);
   const [shippingDetails, setShippingDetails] = useState({
     company: "",
     addressName: "",
@@ -100,6 +41,7 @@ export default function Checkout() {
     region: "",
     postalCode: "",
   });
+
   useEffect(() => {
     const fetchProductDetails = async () => {
         setIsLoading(true);
@@ -222,11 +164,9 @@ useEffect(() => {
     })
       .then((response) => {
         if (response.ok) {
-          // Handle success
           console.log("Payment details sent successfully");
-          return response.json(); // Parse response body as JSON
+          return response.json(); 
         } else {
-          // Handle errors
           console.error(
             "Failed to send payment details:",
             response.status
@@ -235,7 +175,6 @@ useEffect(() => {
         }
       })
       .then((data) => {
-        // Assuming data contains the saved order ID
         const orderId = data;
         console.log("order id at navigation",orderId)
         navigate("/orderSummary", { state: { orderId } }); 
@@ -246,7 +185,6 @@ useEffect(() => {
           "An error occurred while sending payment details:",
           error
         );
-        // Handle error
       });
   };
 
