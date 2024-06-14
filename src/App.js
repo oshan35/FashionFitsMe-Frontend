@@ -6,7 +6,6 @@ import Catalogue from './pages/ClothingCataloguePage/Catalogue';
 import PriceCard from './components/pricecard/pricecard';
 import Footer from './components/footer/Footer';
 import HomePage from './pages/HomePage/Homepage';
-import PriceCard from './components/pricecard/pricecard';
 import DescriptionPage from './pages/DescriptionPage/DescriptionPage';
 
 import TestImage from './asserts/TestImage-Price-card.jpeg'
