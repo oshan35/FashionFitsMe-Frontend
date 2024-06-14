@@ -1,8 +1,23 @@
 import { copyrightSign } from "../assets/icons";
 import { footerLogo } from "../assets/images";
 import { footerLinks, socialMedia } from "../constants";
+import { useNavigate } from "react-router-dom";
+import { footerNavigation } from '../constants';
 
 const Footer = () => {
+  const navigate = useNavigate();
+
+  const handleNavbarrButtonClick = (label1,label2, topic1,topic2) => {
+    console.log('clicked button on navbar');
+    navigate("/catogeries", { state: { label1,label2, topic1,topic2 } }); 
+  };
+
+
+
+
+
+
+
   return (
     <footer className="max-container">
       <div className="flex justify-between items-start gap-20 flex-wrap max-lg:flex-col">
@@ -21,6 +36,7 @@ const Footer = () => {
             store. Find Your perfect Size In Store. Get Rewards
           </p>
           <div className="flex items-center gap-5 mt-8">
+
             {socialMedia.map((icon) => (
               <div
                 className="flex justify-center items-center w-12 h-12 bg-white rounded-full"
@@ -33,23 +49,45 @@ const Footer = () => {
         </div>
 
         <div className="flex flex-1 justify-between lg:gap-10 gap-20 flex-wrap">
-          {footerLinks.map((section) => (
-            <div key={section.title}>
+          {footerNavigation.categories.map((category) => (
+            <div key={category.name}>
               <h4 className="font-montserrat text-2xl leading-normal font-medium mb-6 text-white">
-                {section.title}
+                {category.name}
               </h4>
               <ul>
-                {section.links.map((link) => (
+                {category.categories[0].map((item, idx) => (
                   <li
                     className="mt-3 font-montserrat text-base leading-normal text-white-400 hover:text-slate-gray"
-                    key={link.name}
+                    key={idx}
                   >
-                    <a href={link.link}>{link.name}</a>
-                  </li>
+<a 
+                   onClick={() => handleNavbarrButtonClick(item.name1,item.name2, item.topic1,item.topic2)} className="hover:text-gray-800 cursor-pointer">
+                    {item.name1}
+                    </a>                 
+                     </li>
                 ))}
               </ul>
             </div>
           ))}
+          {footerLinks.map((section) => (
+      <div key={section.title}>
+        <h4 className="font-montserrat text-2xl leading-normal font-medium mb-6 text-white">
+          {section.title}
+        </h4>
+        <ul>
+          {section.links.map((item, idx) => (
+            <li
+              className="mt-3 font-montserrat text-base leading-normal text-white-400 hover:text-slate-gray"
+              key={idx}
+            >
+              <a href={item.link} className="hover:text-gray-800 cursor-pointer">
+                {item.name}
+              </a>
+            </li>
+          ))}
+        </ul>
+      </div>
+    ))}
         </div>
       </div>
 

@@ -29,14 +29,18 @@ const [selectedSize, setSelectedSize] = useState(null);
   function classNames(...classes) {
     return classes.filter(Boolean).join(" ");
   }
+
+
   const handleBuyNow = async (customerId) => {
     if (!selectedColor || !selectedSize) {
       setShowColorSizePromptBuy(true);
     }else {
+      handleAddToCart();
       navigate('/checkout', { state: { customerId } });
     }
   };
   
+
 const handleAddToCart = async () => {
   if (!selectedColor || !selectedSize) {
     setShowColorSizePrompt(true);
@@ -66,6 +70,7 @@ const handleAddToCart = async () => {
       if (response.ok) {
           if (contentType.includes('application/json')) {
               const data = await response.json();
+              handleViewCart(customerId);
               console.log('Item added to cart successfully:', data);
           } else {
               const text = await response.text();
@@ -94,6 +99,7 @@ const handleViewCart = (customerId) => {
     setShowPrompt(false);
   };
   
+
   const handleContinueShopping = () => {
     setShowPrompt(false);
   };
@@ -165,7 +171,6 @@ const handleViewCart = (customerId) => {
         .then(response => response.json())
         .then(data => {
           console.log("sizes",sizes);
-            // Update the itemData state with the fetched data
             setItemData({
                 ...data,
                 image: `data:image/jpeg;base64,${data.image}`
@@ -345,8 +350,7 @@ useEffect(() => {
                 </div>
 
                 <div>
-          <button
-            type="button"
+          <button  type="button"
             onClick={() => handleBuyNow(customerId)}
             className="mt-6 flex w-full items-center justify-center rounded-md border border-transparent bg-secondary px-8 py-3 text-base font-medium text-white hover:bg-primary hover:text-secondary focus:outline-none focus:ring-2 focus:ring-secondary focus:ring-offset-2"
           >
@@ -356,7 +360,7 @@ useEffect(() => {
                 <div className="fixed inset-0 flex items-center justify-center bg-gray-500 bg-opacity-35">
                   <div className="bg-white p-6 rounded-lg flex flex-col items-center">
                     <p className="font-medium text-xl">        Please select a color and size before proceeding.
- </p>
+                    </p>
                     <button
                       onClick={() => setShowColorSizePromptBuy(false)}
                       className=" mt-10 px-14 py-2 bg-secondary text-white rounded-md hover:bg-primary-dark focus:outline-none"

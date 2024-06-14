@@ -14,32 +14,37 @@ const valuetext = (value) => {
   return `LKR ${value}`;
 };
 
-//////////////////////////////////////////////////////
 
-//                    reviews are commnted, make product has a attribute REVIEW
-/////////////////////////////////////////////////////////////////////////////
-///////////////////////////
 export default function QuickProductView({ open, setOpen, productId }) {
 
-  const reviews = {
-    average: 3.9,
-    totalCount: 512,
-    featured: [
-      {
-        id: 1,
-        title: "Can't say enough good things",
-        rating: 5,
-        content: `
-          <p>I was really pleased with the overall shopping experience. My order even included a little personal, handwritten note, which delighted me!</p>
-          <p>The product quality is amazing, it looks and feel even better than I had anticipated. Brilliant stuff! I would gladly recommend this store to my friends. And, now that I think of it... I actually have, many times!</p>
-        `,
-        author: "Risako M",
-        date: "May 16, 2021",
-        datetime: "2021-01-06",
-      },
-      // More reviews...
-    ],
-  }
+  const mapBackendToFrontendColors = (backendColors) => {
+    const colorMappings = {
+      Red: { name: 'Red', bgColor: 'bg-red-700', selectedColor: 'ring-red-500' },
+      Green: { name: 'Green', bgColor: 'bg-green-700', selectedColor: 'ring-green-500' },
+      Blue: { name: 'Blue', bgColor: 'bg-blue-700', selectedColor: 'ring-blue-500' },
+      Brown:   { name: 'Brown', bgColor: 'bg-brown-700', selectedColor: 'ring-brown-500' },
+      Black:    { name: 'Black', bgColor: 'bg-black-700', selectedColor: 'ring-black-500' },
+      Orange:    { name: 'Orange', bgColor: 'bg-orange-700', selectedColor: 'ring-orange-500' },
+      Grey:    { name: 'Grey', bgColor: 'bg-gray-700', selectedColor: 'ring-gray-500' },
+      White:    { name: 'White', bgColor: 'bg-white-700', selectedColor: 'ring-white-500' },
+      Navy:    { name: 'Navy', bgColor: 'bg-navy-700', selectedColor: 'ring-navy-500' },
+      Yellow: { name: 'Yellow', bgColor: 'bg-yellow-700', selectedColor: 'ring-yellow-500' },
+      Pink:    { name: 'Pink', bgColor: 'bg-pink-700', selectedColor: 'ring-pink-500' },
+      Purple:    { name: 'Purple', bgColor: 'bg-purple-700', selectedColor: 'ring-purple-500' },
+      Cream:    { name: 'Cream', bgColor: 'bg-cream-700', selectedColor: 'ring-cream-500' },
+      Multicolour:    { name: 'Multicolour', bgColor: 'bg-multicolour-700', selectedColor: 'ring-multicolour-500' }
+
+
+    };
+  
+    return backendColors.map((backendColor) => {
+      console.log("backend colour:",backendColor)
+      const frontendColor = colorMappings[backendColor];
+      console.log("frontendColor:",frontendColor)
+
+      return frontendColor ? frontendColor : null;
+    }).filter(Boolean);
+  };
 
   const [itemData, setItemData] = useState({
     image: '',
@@ -54,7 +59,8 @@ export default function QuickProductView({ open, setOpen, productId }) {
   
   const initialSizes = ['XS', 'S', 'M', 'L', 'XL', 'XXL'];
 
-  
+  const frontendColors = mapBackendToFrontendColors(itemData.colors);
+
   const {image, productName, price, sizes, colors, image_colors,category} = itemData;
   const [isLoading, setIsLoading] = useState(true);
   const [sizeAvailability, setSizeAvailability] = useState({}); // State to hold size availability
@@ -196,38 +202,33 @@ export default function QuickProductView({ open, setOpen, productId }) {
                               <RadioGroup.Label className="sr-only">
                                 Choose a color
                               </RadioGroup.Label>
-                              <span className="flex items-center space-x-3">
-                                {colors.map((color) => (
-                                  <RadioGroup.Option
-                                    key={color.name}
-                                    value={color}
-                                    className={({ active, checked }) =>
-                                      classNames(
-                                        color.selectedClass,
-                                        active && checked
-                                          ? "ring ring-offset-1"
-                                          : "",
-                                        !active && checked ? "ring-2" : "",
-                                        "relative -m-0.5 flex cursor-pointer items-center justify-center rounded-full p-0.5 focus:outline-none"
-                                      )
-                                    }
-                                  >
-                                    <RadioGroup.Label
-                                      as="span"
-                                      className="sr-only"
-                                    >
-                                      {color.name}
-                                    </RadioGroup.Label>
-                                    <span
-                                      aria-hidden="true"
-                                      className={classNames(
-                                        color.class,
-                                        "h-8 w-8 rounded-full border border-black border-opacity-10"
-                                      )}
-                                    />
-                                  </RadioGroup.Option>
-                                ))}
-                              </span>
+                              <div className="flex items-center space-x-3">
+                      {frontendColors.map((color) => (
+                        <RadioGroup.Option
+                          key={color.name}
+                          value={color.name}
+                          className={({ active, checked }) =>
+                            classNames(
+                              color.selectedColor,
+                              active && checked ? "ring ring-offset-1" : "",
+                              !active && checked ? "ring-2" : "",
+                              "relative -m-0.5 flex cursor-pointer items-center justify-center rounded-full p-0.5 focus:outline-none"
+                            )
+                          }
+                        >
+                          <RadioGroup.Label as="span" className="sr-only">
+                            {color.name}
+                          </RadioGroup.Label>
+                          <span
+                            aria-hidden="true"
+                            className={classNames(
+                              color.bgColor,
+                              "h-8 w-8 rounded-full border border-black border-opacity-10"
+                            )}
+                          />
+                        </RadioGroup.Option>
+                      ))}
+                    </div>
                             </RadioGroup>
                           </div>
 

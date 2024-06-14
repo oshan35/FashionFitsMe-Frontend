@@ -1,4 +1,4 @@
-import { Fragment, useState } from 'react'
+import { Fragment, useState ,useEffect} from 'react'
 import { Popover, Transition } from '@headlessui/react'
 import {  ShoppingBagIcon } from '@heroicons/react/outline'
 import { useNavigate } from "react-router-dom";
@@ -16,6 +16,32 @@ const currencies = ['CAD', 'USD', 'AUD', 'EUR', 'GBP']
 
 export default function NavBarNew() {
     const navigate = useNavigate();
+    const [customerId, setCustomerId] = useState(null);
+
+    useEffect(() => {
+      async function fetchCustomerId() {
+        try {
+          const sessionId = localStorage.getItem('sessionData');
+          const response = await fetch("http://localhost:5000/customer/getCustomerId", {
+            method: 'GET',
+            headers: {
+              'Content-Type': 'application/json',
+              'Authorization': `Bearer ${sessionId}`,
+            },
+          });
+    
+          if (response.ok) {
+            const cusId = await response.json();
+            setCustomerId(cusId)      } else {
+            console.error('Failed to get customer ID:', response.status);
+          }
+        } catch (error) {
+          console.error('An error occurred while fetching the customer ID:', error);
+        }
+      }
+    
+      fetchCustomerId();
+    }, []);
     const [open, setOpen] = useState(false)
 
     const handleNavbarrButtonClick = (label1,label2, topic1,topic2) => {
@@ -28,7 +54,10 @@ export default function NavBarNew() {
         navigate("/login"); 
       };
 
-
+      const handleCartClick = () => {
+        console.log('clicked cart icon on navbar');
+        navigate("/cart", { state: { customerId } }); 
+      };
 
   return (
     <div className="bg-white">
@@ -319,12 +348,13 @@ export default function NavBarNew() {
 
                   {/* Cart */}
                   <div className="ml-4 flow-root lg:ml-6">
-                    <a href="#" className="group -m-2 p-2 flex items-center">
+                    <a  className="group -m-2 p-2 flex items-center"                         onClick={handleCartClick}
+>
                       <ShoppingBagIcon
                         className="flex-shrink-0 h-6 w-6 text-gray-400 group-hover:text-gray-500"
                         aria-hidden="true"
                       />
-                      <span className="ml-2 text-sm font-medium text-gray-700 group-hover:text-gray-800">0</span>
+                      <span className="ml-2 text-sm font-medium text-gray-700 group-hover:text-gray-800"></span>
                       <span className="sr-only">items in cart, view bag</span>
                     </a>
                   </div>

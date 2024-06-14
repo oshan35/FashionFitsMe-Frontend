@@ -15,10 +15,10 @@ const SpecialOffer = () => {
         />
       </div>
       <div className="flex flex-1 flex-col">
-        <h2 className="text-4xl font-palanquin font-bold">
+        {/* <h2 className="text-4xl font-palanquin font-bold">
           <span className="text-secondary">Special </span>
           Offer
-        </h2>
+        </h2> */}
         <p className="mt-4 info-text">
           Embark on a shopping journey that redefines your experience with
           unbeatable deals. From premier selections to incredible savings, we

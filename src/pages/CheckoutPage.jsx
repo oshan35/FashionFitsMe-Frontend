@@ -4,7 +4,7 @@ import { tommyFigure } from "../assets/images"
 import { useState,useEffect } from 'react'
 import { useLocation } from 'react-router-dom'
 import { useNavigate } from 'react-router-dom';
-
+import { Footer } from "../sections";
 import buttonText from "@material-tailwind/react/theme/components/button/buttonText";
 
 
@@ -353,6 +353,9 @@ useEffect(() => {
        
             
       </div>
+      <section className=" bg-black padding-x padding-t pb-8">
+        <Footer />
+      </section> 
     </div>
   )
 }
