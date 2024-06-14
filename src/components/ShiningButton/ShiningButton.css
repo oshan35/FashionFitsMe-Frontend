@@ -1,0 +1,39 @@
+.shining-button {
+    position: relative;
+    display: inline-block;
+    padding: 0;
+    border: none;
+    border-radius: 10px;
+    background-color: transparent; /* Ensure button background is invisible */
+    font-size: 16px;
+    cursor: pointer;
+    overflow: hidden;
+  }
+  
+  .shining-button span {
+    position: relative;
+    display: inline-block;
+    padding: 10px 20px;
+    color: #FFF; /* Bright text color for better glow effect */
+    font-size: inherit;
+    cursor: pointer;
+    overflow: hidden;
+    animation: glow-move 2s linear infinite; /* Looping glow effect */
+  }
+  
+  @keyframes glow-move {
+    0%, 100% {
+      color: #FFF; /* Bright text color */
+      text-shadow: 
+        -30px 0 10px rgba(255, 255, 255, 0.5), 
+        30px 0 10px rgba(255, 255, 255, 0.5);
+    }
+    50% {
+      color: #FFFFE0; /* Light yellow color for peak glow effect */
+      text-shadow: 
+        0 0 20px rgba(255, 255, 255, 1), 
+        0 0 30px rgba(255, 255, 255, 1), 
+        0 0 40px rgba(255, 255, 255, 1);
+    }
+  }
+  
