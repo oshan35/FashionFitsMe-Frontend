@@ -1,0 +1,14 @@
+version: '3.8'
+
+services:
+  frontend:
+    image: tnehara831/fashionfitsme-frontend:latest
+    ports:
+      - "3000:80"  # Map container's port 80 to host's port 3000
+    environment:
+      NODE_ENV: production
+
+networks:
+  default:
+    name: fashionfitsme-network
+    driver: bridge
