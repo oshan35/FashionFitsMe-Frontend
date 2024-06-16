@@ -17,7 +17,7 @@ COPY . .
 RUN npm run build
 
 # Stage 2: Serve the app with nginx
-FROM nginx:alpine
+FROM nginx:latest
 
 # Copy the build output to nginx's html directory
 COPY --from=build /app/build /usr/share/nginx/html
@@ -25,7 +25,7 @@ COPY --from=build /app/build /usr/share/nginx/html
 # Copy the nginx configuration file
 COPY nginx.conf /etc/nginx/nginx.conf
 
-# Expose port 3000
+# Expose port 80
 EXPOSE 3000
 
 # Start nginx
