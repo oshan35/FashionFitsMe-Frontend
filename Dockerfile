@@ -23,10 +23,10 @@ FROM nginx:latest
 COPY --from=build /app/build /usr/share/nginx/html
 
 # Copy the nginx configuration file
-COPY nginx.conf /etc/nginx/nginx.conf
+COPY nginx.conf /etc/nginx/sites-enabled/
 
 # Expose port 80
-EXPOSE 3000
+EXPOSE 80
 
 # Start nginx
 CMD ["nginx", "-g", "daemon off;"]
