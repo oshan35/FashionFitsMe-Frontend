@@ -21,11 +21,11 @@ jobs:
 
       - name: Pull Docker Compose frontend image
         run: |
-          docker-compose -f FashionFitsMe/docker-compose.yml pull frontend
+          docker-compose -f /FashionFitsMe/docker-compose.yml pull frontend
 
       - name: Start frontend container in detached mode
         run: |
-          docker-compose -f FashionFitsMe/docker-compose.yml up -d frontend
+          docker-compose -f /FashionFitsMe/docker-compose.yml up -d frontend
 
       - name: (Optional) Verify frontend container status (if needed)
         run: |
