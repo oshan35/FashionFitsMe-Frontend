@@ -1,0 +1,33 @@
+name: CD Pipeline
+
+on:
+  workflow_run:
+    workflows: ["CI Pipeline"]
+    types:
+      - completed
+
+jobs:
+  deploy:  
+
+    runs-on: self-hosted
+
+    steps:
+      # - name: Connect to EC2 (replace with your actual connection method)
+        
+      #   uses: aws/aws-actions/ec2-instance-connect@v1
+      #   with:
+      #     instance-id: <YOUR_EC2_INSTANCE_ID>  # Replace with your instance ID
+      #     region: <YOUR_AWS_REGION>          # Replace with your AWS region
+
+      - name: Pull Docker Compose frontend image
+        run: |
+          docker-compose -f FashionFitsMe/docker-compose.yml pull frontend
+
+      - name: Start frontend container in detached mode
+        run: |
+          docker-compose -f FashionFitsMe/docker-compose.yml up -d frontend
+
+      - name: (Optional) Verify frontend container status (if needed)
+        run: |
+          docker ps | grep frontend  # Check if frontend container is running
+
