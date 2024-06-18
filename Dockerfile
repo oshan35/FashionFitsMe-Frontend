@@ -1,9 +1,6 @@
 # Stage 1: Build the React app
 FROM node:16 AS build
 
-# Install yarn
-RUN npm install -g yarn
-
 # Set working directory
 WORKDIR /app
 
