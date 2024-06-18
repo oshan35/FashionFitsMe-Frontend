@@ -1,3 +1,11 @@
+.main-catalogue-container{
+  gap:0px;
+}
+.catalogue-filter-container{
+  margin-left: 25px;
+  
+}
+
 .rectangular-button {
     border: 1px solid #000;
     height: 45px;
@@ -52,5 +60,7 @@
     padding: 20px;
     /* background-color: blueviolet; */
     justify-items: center;
-    gap:3px
+    height:fit-content;
+    gap:10px;
+    
   }

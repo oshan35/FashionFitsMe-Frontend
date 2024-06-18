@@ -1,0 +1,67 @@
+.sign-up-container{
+  
+  height: auto;
+  width:100%; 
+  position: relative;
+  
+}
+.textbox{
+  font-size: 45px;
+ 
+}
+.textbox input::placeholder {
+  font-size: 18px; /* Adjust the font size as needed */
+  
+}
+
+
+.loginform {
+    margin: 0 auto;
+    background-color: black;
+    padding: 50px;
+
+}
+.sign-up-item{
+  margin-top: 78px;
+}
+
+.login-form {  
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    /* background-color: black; */
+    /* padding: 20px; */
+    height:400px
+
+    
+  }
+  .login-form-forgot {
+    float: right;
+  }
+  .ant-col-rtl .login-form-forgot {
+    float: left;
+  }
+  .login-form-button {
+    width: 120px;
+    background-color: rgba(58, 58, 58, 1);
+    height: 40px;
+  }
+
+  .login-form .textbox {
+    width: 400px;
+    height: 50px;
+    border-radius: 0px;
+    border-color: lightgray;
+
+  }
+
+  .heading {
+    color: white;
+    font-weight: bold;
+    font-size: medium;
+    margin:0 0 20px 0;
+  }
+
+
+  

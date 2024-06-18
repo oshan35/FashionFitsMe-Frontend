@@ -1,30 +1,53 @@
-import logo from './logo.svg';
-import React from 'react';
-import './App.css';
-import Navbar from './components/navbar/navbar';
-import Catalogue from './pages/ClothingCataloguePage/Catalogue';
-import PriceCard from './components/pricecard/pricecard';
-import Footer from './components/footer/Footer';
-import HomePage from './pages/HomePage/Homepage';
-import DescriptionPage from './pages/DescriptionPage/DescriptionPage';
+import { createBrowserRouter, RouterProvider } from "react-router-dom";
+import { Home, Product, Catogeries,Cart,CheckoutPage,CheckoutTest, OrderSummary} from "./pages";
+import { CataloguePage ,OrderSummaryPage} from "./pages";
+import { SelectedFiltersProvider } from "./Contexts/SelectedFilterContext";
+import { PriceCardNew } from "./components";
+import {LoginPage} from "./pages"
+const router = createBrowserRouter([
+  {
+    path: "/",
+    element: <Home/>,
+  },
+  {
+    path: "/product/:productId",
+    element: <Product />,
+  },
+  {
+    path: "/catogeries",
+    element: <CataloguePage />,
+  },
+  {
+    path: "/cart",
+    element: <Cart />,
+  },
 
-import TestImage from './asserts/TestImage-Price-card.jpeg'
+  {
+    path: "/orderSummary",
+    element: <OrderSummaryPage />,
+  },
 
-function App() {
-  const itemData = {
-    image: TestImage, 
-    name: 'Example Item Name Example Item Name Example Item Name Example Item Name Example Item Name Example Item Name Example Item Name',
-    price: '100',
-  
-  };
+  {
+    path: "/checkout",
+    element: <CheckoutPage />,
+  },
+
+  {
+    path: "/login",
+    element: <LoginPage />,
+  },
+]);
+
+const App = () => {
   return (
     <>
-    <DescriptionPage
-      
-    />
-    </>
-  );
+    <SelectedFiltersProvider>
+     <RouterProvider router={router} />;
+  </SelectedFiltersProvider></>
 
-}
+  )
+ 
+ 
+};
 
 export default App;
