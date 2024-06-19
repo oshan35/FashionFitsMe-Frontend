@@ -9,7 +9,63 @@ import { useLocation } from 'react-router-dom';
 import { redirect, useNavigate } from 'react-router-dom';
 import ProductImageCarousel from "./ProductImageCarosel";
 import NavBarNew from "./NavNew";
+import CustomDrawer from "./bodymodelRender/Drawer";
 import Nav from "./Nav";
+
+
+const dummy_prod = {
+  "price": 120.00,
+  "sizes": [
+      [
+          "M",
+          50
+      ]
+  ],
+  "colors": [
+      "Black"
+  ],
+  "reviews": [
+      {
+          "reviewId": "RV001",
+          "customer": {
+              "customerId": 1,
+              "firstName": "John",
+              "lastName": "Doe",
+              "country": "USA",
+              "username": "johndoe",
+              "password": "password123",
+              "cart": {
+                  "cartId": 1,
+                  "totalAmount": 200.00,
+                  "purchaseStatus": true,
+                  "discountAmount": 10.00
+              }
+          },
+          "product": {
+              "productId": "PR001",
+              "brand": {
+                  "brandId": "BR001",
+                  "brandName": "Nike"
+              },
+              "productName": "Running Shoes",
+              "price": 120.00,
+              "productCategory": "Footwear",
+              "gender": "Unisex",
+              "description": null
+          },
+          "rating": 4.5,
+          "description": "Great product, would recommend!"
+      }
+  ],
+  "image": "",
+  "category": "Footwear",
+  "image_colors": {
+      "Black": ""
+  },
+  "description": null,
+  "productId": "PR001",
+  "productName": "Running Shoes"
+}
 
 
 export default function ViewProduct({productId}) {
@@ -163,27 +219,30 @@ const handleViewCart = (customerId) => {
   const {image, productName, price, sizes, colors, image_colors,category,description} = itemData;
   const [isLoading, setIsLoading] = useState(true);
   const frontendColors = mapBackendToFrontendColors(itemData.colors);
+  const [isDrawerOpen, setIsDrawerOpen] = useState(false);
+
 
   useEffect(() => {
     setIsLoading(true);
+    setItemData(dummy_prod);
   
-    fetch(`http://localhost:5000/products/getProductInformation?productId=${productId}`)
-        .then(response => response.json())
-        .then(data => {
-          console.log("sizes",sizes);
-            setItemData({
-                ...data,
-                image: `data:image/jpeg;base64,${data.image}`
-            });
-            console.log('loaded data at view product',data);
-            setIsLoading(false); 
+    // fetch(`http://localhost:5000/products/getProductInformation?productId=${productId}`)
+    //     .then(response => response.json())
+    //     .then(data => {
+    //       console.log("sizes",sizes);
+    //         setItemData({
+    //             ...data,
+    //             image: `data:image/jpeg;base64,${data.image}`
+    //         });
+    //         console.log('loaded data at view product',data);
+    //         setIsLoading(false); 
             
   
-        })
-        .catch(error => {
-            console.error('Error fetching product information:', error);
-            setIsLoading(false); 
-        });
+    //     })
+    //     .catch(error => {
+    //         console.error('Error fetching product information:', error);
+    //         setIsLoading(false); 
+    //     });
   }, [productId]); 
 
   const handleColorClick = (color) => {
@@ -350,6 +409,17 @@ useEffect(() => {
                 </div>
 
                 <div>
+          <button  type="button"
+            onClick={() => setIsDrawerOpen(true)}
+            className="mt-6 flex w-full items-center justify-center rounded-md border border-transparent bg-secondary px-8 py-3 text-base font-medium text-white hover:bg-primary hover:text-secondary focus:outline-none focus:ring-2 focus:ring-secondary focus:ring-offset-2"
+          >
+            FitOn
+          </button>  
+          <CustomDrawer isOpen={isDrawerOpen} onClose={() => setIsDrawerOpen(false)}>
+            {/* Add content for the drawer here */}
+            <p>Drawer Content</p>
+          </CustomDrawer>
+              
           <button  type="button"
             onClick={() => handleBuyNow(customerId)}
             className="mt-6 flex w-full items-center justify-center rounded-md border border-transparent bg-secondary px-8 py-3 text-base font-medium text-white hover:bg-primary hover:text-secondary focus:outline-none focus:ring-2 focus:ring-secondary focus:ring-offset-2"

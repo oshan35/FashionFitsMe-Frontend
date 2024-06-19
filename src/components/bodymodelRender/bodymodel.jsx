@@ -1,76 +1,49 @@
-import React, { useState, useEffect, useRef } from 'react';
+import React, { useEffect, useRef } from 'react';
 import * as THREE from 'three';
 import { OBJLoader } from 'three/examples/jsm/loaders/OBJLoader';
 
-const ModelViewer = () => {
+const BodyModel = ({ url }) => {
   const mountRef = useRef(null);
-  const [objFile, setObjFile] = useState(null);
 
   useEffect(() => {
-    if (!objFile) return;
-
     const scene = new THREE.Scene();
-    scene.background = new THREE.Color(0xdddddd);
+    scene.background = new THREE.Color(0xffffff); // Set background to white
 
-    const camera = new THREE.PerspectiveCamera(75, window.innerWidth / window.innerHeight, 0.1, 1000);
-    camera.position.z = 5;
-
+    const camera = new THREE.PerspectiveCamera(75, 400 / 400, 0.1, 1000);
     const renderer = new THREE.WebGLRenderer();
-    renderer.setSize(window.innerWidth, window.innerHeight);
-    mountRef.current.appendChild(renderer.domElement);
-
-    const ambientLight = new THREE.AmbientLight(0x404040);
-    scene.add(ambientLight);
-
-    const directionalLight = new THREE.DirectionalLight(0xffffff, 1);
-    directionalLight.position.set(0, 1, 2);
-    scene.add(directionalLight);
+    renderer.setSize(400, 400); // Set the size of the renderer
+    if (mountRef.current) {
+      mountRef.current.appendChild(renderer.domElement);
+    }
 
     const loader = new OBJLoader();
     loader.load(
-      objFile,
+      url,
       (object) => {
         scene.add(object);
+        animate();
       },
-      (xhr) => {
-        console.log((xhr.loaded / xhr.total) * 100 + '% loaded');
-      },
+      undefined,
       (error) => {
         console.error('An error happened', error);
       }
     );
 
-    const animate = function () {
+    camera.position.z = 5;
+
+    const animate = () => {
       requestAnimationFrame(animate);
       renderer.render(scene, camera);
     };
 
-    animate();
-
     return () => {
-      mountRef.current.removeChild(renderer.domElement);
+      if (mountRef.current) {
+        mountRef.current.removeChild(renderer.domElement);
+      }
     };
-  }, [objFile]);
+  }, [url]);
 
-  const handleFileChange = (event) => {
-    const file = event.target.files[0];
-    if (!file) {
-      return;
-    }
-
-    const reader = new FileReader();
-    reader.readAsDataURL(file);
-    reader.onloadend = () => {
-      setObjFile(reader.result);
-    };
-  };
-
-  return (
-    <div>
-      <input type="file" onChange={handleFileChange} accept=".obj" />
-      <div ref={mountRef} />
-    </div>
-  );
+  return <div ref={mountRef} />;
 };
 
-export default ModelViewer;
+export default BodyModel;
