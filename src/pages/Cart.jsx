@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { CartItemCard,OrderSummaryCard} from "../components";
 import { CheckIcon, ClockIcon } from '@heroicons/react/solid'
-import { Nav} from "../components";
+import { NavBarNew} from "../components";
 import { useNavigate } from 'react-router-dom';
 import { Link } from 'react-router-dom';
 import { Footer } from "../sections";
@@ -104,14 +104,14 @@ function Cart() {
 
     return (
         <>
-        <Nav/>
+        <NavBarNew/>
         <div className="bg-white">
         <div className="max-w-2xl mx-auto py-16 px-4 sm:py-24 sm:px-6 lg:px-0">
             <h1 className="text-3xl font-extrabold text-center tracking-tight text-gray-900 sm:text-4xs">Shopping Cart</h1>
 
             <form className="mt-12">
             <section aria-labelledby="cart-heading">
-                <h2 id="cart-heading" className="sr-only">
+                <h2 id="cart-heading" className="">
                 Items in your shopping cart
                 </h2>
 

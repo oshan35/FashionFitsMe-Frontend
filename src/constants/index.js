@@ -105,23 +105,104 @@ export const filterValues = [
 export const navigation = {
   featured: [
     {
-      name: 'New Arrivals',
-      href: '#',
-      imageSrc: 'https://tailwindui.com/img/ecommerce-images/product-page-04-detail-product-shot-01.jpg',
-      imageAlt: 'Drawstring top with elastic loop closure and textured interior padding.',
-    },
-    {
-      name: 'Artwork Tees',
-      href: '#',
-      imageSrc: 'https://tailwindui.com/img/ecommerce-images/category-page-02-image-card-06.jpg',
-      imageAlt:
-        'Three shirts in gray, white, and blue arranged on table with same line drawing of hands and shapes overlapping on front of shirt.',
-    },
+     
+    
+      name:' Collections',
+      Men: [
+        [
+          { name1: 'Dress Shirts', topic1: 'Category' ,name2:'Men' , topic2: 'Gender'  },
+          { name1: 'Pants', topic1: 'Category' ,name2:'Men' , topic2: 'Gender'  },
+          { name1: 'Jackets', topic1: 'Category' ,name2:'Men' , topic2: 'Gender'  },
+          { name1: 'T-Shirts', topic1: 'Category' ,name2:'Men' , topic2: 'Gender'  },
+          { name1: 'Jeans', topic1: 'Category' ,name2:'Men' , topic2: 'Gender'  },
+          { name1: 'Hoodies', topic1: 'Category' ,name2:'Men' , topic2: 'Gender'  },
+        ],
+        [
+          { name1: 'Vests', topic1: 'Category' ,name2:'Men' , topic2: 'Gender'  },
+          { name1: 'Kilts', topic1: 'Category' ,name2:'Men' , topic2: 'Gender'  },
+          { name1: 'Outdoors', topic1: 'Category' ,name2:'Men' , topic2: 'Gender'  },
+          { name1: 'Capes', topic1: 'Category' ,name2:'Men' , topic2: 'Gender'  },
+          { name1: 'Browse All', topic1: 'Category' ,name2:'Men' , topic2: 'Gender'  },
+        ],
+      ],
+      Women: [
+        [
+            { name1:'Tops' , topic1: 'Category' ,name2:'Women' , topic2: 'Gender'  },
+            { name1:'Dresses' , topic1: 'Category' ,name2:'Women' , topic2: 'Gender'   },
+            {name1:'Denims' , topic1: 'Category' ,name2:'Women' , topic2: 'Gender'  }  , 
+            { name1:'Work Wear' , topic1: 'Category' ,name2:'Women' , topic2: 'Gender'   },
+            { name1:'Casuals' , topic1: 'Category' ,name2:'Women' , topic2: 'Gender'   },
+            { name1:'Pants' , topic1: 'Category' ,name2:'Women' , topic2: 'Gender'   },
+            { name1:'Linen' , topic1: 'Category' ,name2:'Women' , topic2: 'Gender'   },
+
+        ],
+        [
+            { name1:'Premium Dresses' , topic1: 'Category' ,name2:'Women' , topic2: 'Gender'  },  
+            { name1:' Activewear' , topic1: 'Category' ,name2:'Women' , topic2: 'Gender'  }, 
+            { name1:'Shorts' , topic1: 'Category' ,name2:'Women' , topic2: 'Gender'  }, 
+            { name1:'T-Shirts' , topic1: 'Category' ,name2:'Women' , topic2: 'Gender'  }, 
+            { name1:'Browse All' , topic1: 'Category' ,name2:'Women' , topic2: 'Gender'  }, 
+            { name1:'Crop Tops' , topic1: 'Category' ,name2:'Women' , topic2: 'Gender'  }, 
+            { name1:'Skirts' , topic1: 'Category' ,name2:'Women' , topic2: 'Gender'  }, 
+
+        ],
+       
+      ],
+
+     
+    }
   ],
   pages: [
-    { name: 'Company', href: '#' },
-    { name: 'Stores', href: '#' },
+    {
+     
+    
+      name:'New Arrivals',
+      Men: [
+        [
+          { name1: 'Dress Shirts', topic1: 'Category' ,name2:'Men' , topic2: 'Gender'  },
+          { name1: 'Pants', topic1: 'Category' ,name2:'Men' , topic2: 'Gender'  },
+          { name1: 'Jackets', topic1: 'Category' ,name2:'Men' , topic2: 'Gender'  },
+          { name1: 'T-Shirts', topic1: 'Category' ,name2:'Men' , topic2: 'Gender'  },
+          { name1: 'Jeans', topic1: 'Category' ,name2:'Men' , topic2: 'Gender'  },
+          { name1: 'Hoodies', topic1: 'Category' ,name2:'Men' , topic2: 'Gender'  },
+        ],
+        [
+          { name1: 'Vests', topic1: 'Category' ,name2:'Men' , topic2: 'Gender'  },
+          { name1: 'Kilts', topic1: 'Category' ,name2:'Men' , topic2: 'Gender'  },
+          { name1: 'Outdoors', topic1: 'Category' ,name2:'Men' , topic2: 'Gender'  },
+          { name1: 'Capes', topic1: 'Category' ,name2:'Men' , topic2: 'Gender'  },
+          { name1: 'Browse All', topic1: 'Category' ,name2:'Men' , topic2: 'Gender'  },
+        ],
+      ],
+      Women: [
+        [
+            { name1:'Tops' , topic1: 'Category' ,name2:'Women' , topic2: 'Gender'  },
+            { name1:'Dresses' , topic1: 'Category' ,name2:'Women' , topic2: 'Gender'   },
+            {name1:'Denims' , topic1: 'Category' ,name2:'Women' , topic2: 'Gender'  }  , 
+            { name1:'Work Wear' , topic1: 'Category' ,name2:'Women' , topic2: 'Gender'   },
+            { name1:'Casuals' , topic1: 'Category' ,name2:'Women' , topic2: 'Gender'   },
+            { name1:'Pants' , topic1: 'Category' ,name2:'Women' , topic2: 'Gender'   },
+            { name1:'Linen' , topic1: 'Category' ,name2:'Women' , topic2: 'Gender'   },
+
+        ],
+        [
+            { name1:'Premium Dresses' , topic1: 'Category' ,name2:'Women' , topic2: 'Gender'  },  
+            { name1:' Activewear' , topic1: 'Category' ,name2:'Women' , topic2: 'Gender'  }, 
+            { name1:'Shorts' , topic1: 'Category' ,name2:'Women' , topic2: 'Gender'  }, 
+            { name1:'T-Shirts' , topic1: 'Category' ,name2:'Women' , topic2: 'Gender'  }, 
+            { name1:'Browse All' , topic1: 'Category' ,name2:'Women' , topic2: 'Gender'  }, 
+            { name1:'Crop Tops' , topic1: 'Category' ,name2:'Women' , topic2: 'Gender'  }, 
+            { name1:'Skirts' , topic1: 'Category' ,name2:'Women' , topic2: 'Gender'  }, 
+
+        ],
+       
+      ],
+
+     
+    }
+   
   ],
+  
   categories: [
     {
         

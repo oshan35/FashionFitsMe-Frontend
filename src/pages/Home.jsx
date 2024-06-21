@@ -23,17 +23,12 @@ const Home = () => {
     <main className="">
      
       <section className="ml-10 ">
-      <NavBarNew />    
+        <NavBarNew />    
         </section>
       <section className="mt-0 ">
       <MainImage/>
       </section>
-      {/* <section className="padding-x py-10">
-        <ProductContainer id={"tops"} heading={"Women"} title={"brand"}/>
-      </section>
-      <section className="padding-x py-10">
-        <ProductContainer id={"dresses"} heading={"Women"} title={"gender"}  />
-      </section> */}
+      
        <section className="padding">
         <Brands />
       </section>
@@ -46,12 +41,7 @@ const Home = () => {
       <section className="padding">
         <SpecialOffer />
       </section>
-      {/* <section className="bg-pale-blue padding">
-        <CustomerReviews />
-      </section>
-      <section className="padding-x sm:py-32 py-16 w-full">
-        <Subscribe />
-      </section> */}
+      
       <section className=" bg-black padding-x padding-t pb-8">
         <Footer />
       </section>

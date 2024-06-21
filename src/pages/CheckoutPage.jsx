@@ -193,11 +193,10 @@ useEffect(() => {
     <div className="bg-white">
             <NavBarNew />
 
-      <div className="max-w-7xl mx-auto px-4 pt-4 pb-16 sm:px-6 sm:pt-8 sm:pb-24 lg:px-8 xl:px-2 xl:pt-14">
-        <h1 className="sr-only">Checkout</h1>
+      <div className="max-w-8xl mx-auto px-4 pt-4 pb-16 sm:px-6 sm:pt-8 sm:pb-24 lg:px-8 xl:px-2 xl:pt-14">
 
-        <div className="max-w-lg mx-auto grid grid-cols-1 gap-x-8 gap-y-10 lg:max-w-none lg:grid-cols-2">
-        <div className="max-w-lg mx-auto w-full">
+        <div className="max-w-lg mx-auto grid grid-cols-1  gap-y-10 lg:max-w-none lg:grid-cols-2">
+          <div className="max-w-lg mx-auto w-full">
             
             <form className="mt-1">
               <h1 className="text-2xl font-medium text-gray-900">Contact information</h1>
@@ -288,6 +287,7 @@ useEffect(() => {
               </div>
               </div>
           </div>
+          
           <div className="max-w-lg mx-auto w-full mt-1">
           <h2 className="text-2xl font-medium text-gray-900">Order Summary</h2>
 
