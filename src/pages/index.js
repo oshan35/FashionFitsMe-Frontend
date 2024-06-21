@@ -8,5 +8,7 @@ import CheckoutTest from "./ChechoutTest";
 import OrderSummaryPage from "./OrderSummaryPage";
 import CataloguePage from "./CataloguePage";
 import LoginPage from "./Login";
+import SignupPage from "./Signup";
 
-export { Home, Product, Catogeries,OrderSummary,Cart,CheckoutPage,CheckoutTest,CataloguePage,OrderSummaryPage,LoginPage};
+
+export { Home, Product, Catogeries,OrderSummary,Cart,CheckoutPage,CheckoutTest,CataloguePage,OrderSummaryPage,LoginPage,SignupPage};

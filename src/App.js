@@ -3,7 +3,7 @@ import { Home, Product, Catogeries,Cart,CheckoutPage,CheckoutTest, OrderSummary}
 import { CataloguePage ,OrderSummaryPage} from "./pages";
 import { SelectedFiltersProvider } from "./Contexts/SelectedFilterContext";
 import { PriceCardNew } from "./components";
-import {LoginPage} from "./pages"
+import {LoginPage,SignupPage} from "./pages"
 const router = createBrowserRouter([
   {
     path: "/",
@@ -36,6 +36,11 @@ const router = createBrowserRouter([
     path: "/login",
     element: <LoginPage/>,
   },
+
+  {
+    path: "/signup",
+    element: <SignupPage/>,
+  }
 ]);
 
 const App = () => {

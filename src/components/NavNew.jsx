@@ -54,7 +54,9 @@ export default function NavBarNew() {
         console.log('clicked button sign in on navbar');
         navigate("/login"); 
       };
-
+      const handleSignButtonClick = () => {
+        navigate("/signup"); 
+      };
       const handleCartClick = () => {
         console.log('clicked cart icon on navbar');
         navigate("/cart", { state: { customerId } }); 
@@ -141,8 +143,10 @@ export default function NavBarNew() {
                   </a>
                 </div>
                 <div className="flow-root">
-                  <a  className="-m-2 p-2 block font-medium text-gray-900">
+                  <a  className="-m-2 p-2 block font-medium text-gray-900"
+                    onClick={handleSignButtonClick}>
                     Create account
+
                   </a>
                 </div>
               </div>
@@ -547,8 +551,10 @@ export default function NavBarNew() {
                       Sign in
                     </a>
                     <span className="h-6 w-px bg-gray-200" aria-hidden="true" />
-                    <a href="/login" className="text-sm font-medium text-gray-700 hover:text-gray-800">
+                    <a  className="text-sm font-medium text-gray-700 hover:text-gray-800"
+                      onClick={handleSignButtonClick}>
                       Create account
+
                     </a>
                   </div>
 
@@ -565,7 +571,7 @@ export default function NavBarNew() {
                   <div className="flex lg:ml-6">
                   <a  className="group -m-2 p-2 flex items-center"    
                       onClick={handleCartClick}
->
+                      >
                       <ShoppingBagIcon
                         className="flex-shrink-0 h-6 w-6 text-gray-400 group-hover:text-gray-500"
                         aria-hidden="true"

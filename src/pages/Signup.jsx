@@ -4,9 +4,12 @@ import { LockOutlined, UserOutlined } from "@ant-design/icons";
 import { NavBarNew } from "../components";
 import { Footer } from "../sections";
 import { useNavigate } from "react-router-dom"; 
-const LoginPage = () => {
+
+const SignupPage = () => {
   const navigate = useNavigate();
   const [formData, setFormData] = useState({
+    firstname:"",
+    lastname:"",
     username: "",
     password: ""
   });
@@ -14,8 +17,8 @@ const LoginPage = () => {
   const onFinish = async () => {
     try {
       
-    const response = await fetch("http://34.222.253.72:5000/customer/login", {
-        method: "POST",
+        const response = await fetch('http://localhost:5000/customer/signup', {
+            method: "POST",
         headers: {
           "Content-Type": "application/json"
         },
@@ -24,7 +27,7 @@ const LoginPage = () => {
       navigate("/"); 
       if (response.ok) {
         const sessionData = await response.json();
-        localStorage.setItem('sessionData', sessionData.sessionId); // Use the key "sessionId" from the JSON object
+        localStorage.setItem('sessionData', sessionData.sessionId); 
         console.log('User registered and session data stored:', sessionData);
     } else {
         const errorText = await response.text();
@@ -50,8 +53,8 @@ const LoginPage = () => {
           <div className="sm:mx-auto sm:w-full sm:max-w-md">
            
           <h2 className="mt-6 text-center text-3xl font-bold text-gray-500 letter-spaced-5px" >
-            CUSTOMER  LOGIN
-          </h2>
+            CREATE ACCOUNT    
+         </h2>
 
           <hr />
 
@@ -65,6 +68,37 @@ const LoginPage = () => {
                 initialValues={{ remember: true }}
                 onFinish={onFinish}
               >
+                 <div>
+                  <label htmlFor="firstname" className="block text-sm font-medium text-gray-700">
+                    First name
+                  </label>
+                  <div className="mt-1">
+                    <input
+                      id="firstname"
+                      name="firstname"
+                      type="firstname"
+                      required
+                      className="appearance-none h-15 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm placeholder-gray-400 focus:outline-none focus:ring-gray-500 focus:border-gray-500 sm:text-sm"
+                      onChange={handleChange}
+                    />
+                  </div>
+                </div>
+
+                <div>
+                  <label htmlFor="lastname" className="block text-sm font-medium text-gray-700">
+                    Lastname
+                  </label>
+                  <div className="mt-1">
+                    <input
+                      id="lastname"
+                      name="lastname"
+                      type="lastname"
+                      required
+                      className="appearance-none h-15 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm placeholder-gray-400 focus:outline-none focus:ring-gray-500 focus:border-gray-500 sm:text-sm"
+                      onChange={handleChange}
+                    />
+                  </div>
+                </div>
                 <div>
                   <label htmlFor="email" className="block text-sm font-medium text-gray-700">
                     Email address
@@ -98,11 +132,11 @@ const LoginPage = () => {
                     />
                   </div>
                 </div>
-
+               
                 <div>
                   <button
                     type="submit"
-                    className="w-full flex justify-center py-2 px-4 border border-transparent rounded-md shadow-sm text-sm font-medium text-white bg-gray-600 hover:bg-black focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-iborder-gray-500"
+                    className="w-full flex justify-center py-2 px-4 border border-transparent rounded-md shadow-sm text-sm font-medium text-white bg-gray-600 hover:bg-black focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500"
                   >
                     Sign in
                   </button>
@@ -120,4 +154,4 @@ const LoginPage = () => {
   );
 };
 
-export default LoginPage;
+export default SignupPage;
