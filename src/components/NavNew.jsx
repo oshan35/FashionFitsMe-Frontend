@@ -135,7 +135,7 @@ export default function NavBarNew() {
               <div className="border-t border-gray-200 py-6 px-4 space-y-6" mr-0>
                 <div className="flow-root">
                   <a  className="-m-2 p-2 block font-medium text-gray-900"
-                  onClick={() => handleLoginButtonClick()}>
+                  onClick={handleLoginButtonClick}>
                    
                     Sign in
                   </a>
@@ -542,7 +542,7 @@ export default function NavBarNew() {
                   <div className="hidden lg:flex lg:flex-1 lg:items-center lg:justify-end lg:space-x-6">
                     <a href=""
                     className="text-sm font-medium text-gray-700 hover:text-gray-800"
-                      onClick={() => handleLoginButtonClick()}>
+                      onClick={handleLoginButtonClick}>
 
                       Sign in
                     </a>
@@ -563,7 +563,8 @@ export default function NavBarNew() {
 
                   {/* Search */}
                   <div className="flex lg:ml-6">
-                  <a  className="group -m-2 p-2 flex items-center"                         onClick={handleCartClick}
+                  <a  className="group -m-2 p-2 flex items-center"    
+                      onClick={handleCartClick}
 >
                       <ShoppingBagIcon
                         className="flex-shrink-0 h-6 w-6 text-gray-400 group-hover:text-gray-500"
