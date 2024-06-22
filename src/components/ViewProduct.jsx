@@ -132,7 +132,7 @@ const handleViewCart = (customerId) => {
       Green: { name: 'Green', bgColor: 'bg-green-700', selectedColor: 'ring-green-500' },
       Blue: { name: 'Blue', bgColor: 'bg-blue-700', selectedColor: 'ring-blue-500' },
       Brown:   { name: 'Brown', bgColor: 'bg-brown-700', selectedColor: 'ring-brown-500' },
-      Black:    { name: 'Black', bgColor: 'bg-black-700', selectedColor: 'ring-black-500' },
+      Black:    { name: 'Black', bgColor: 'bg-black', selectedColor: 'ring-black' },
       Orange:    { name: 'Orange', bgColor: 'bg-orange-700', selectedColor: 'ring-orange-500' },
       Grey:    { name: 'Grey', bgColor: 'bg-gray-700', selectedColor: 'ring-gray-500' },
       White:    { name: 'White', bgColor: 'bg-white-700', selectedColor: 'ring-white-500' },
