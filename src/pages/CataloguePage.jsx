@@ -267,7 +267,7 @@ useEffect(() => {
     console.log(selectedFilters);
     // Send the data to the backend using fetch or any other method
     if (selectedFilters.length > 0) {
-      fetch('http://localhost:5000/products/filter-products', {
+      fetch('http://34.222.253.72:5000/products/filter-products', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json'
