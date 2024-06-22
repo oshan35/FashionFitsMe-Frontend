@@ -1,179 +1,159 @@
 import React, { useEffect, useRef, useState } from 'react';
-import { Drawer as AntDrawer, Select, Slider, Table, Button, Input,  Card, Col, Row, Statistic } from 'antd';
+import { Drawer as AntDrawer, Select, Slider, Button } from 'antd';
 import * as THREE from 'three';
 import { OBJLoader } from 'three/examples/jsm/loaders/OBJLoader';
+import { useNavigate } from 'react-router-dom';
 
 const { Option } = Select;
 
-const EditableCell = ({
-  title,
-  editable,
-  children,
-  dataIndex,
-  record,
-  handleSave,
-  ...restProps
-}) => {
-  const [editing, setEditing] = useState(false);
-  const inputRef = useRef(null);
-  const [value, setValue] = useState(record ? record[dataIndex] : '');
+const BodyModel = ({ url }) => {
+  const mountRef = useRef(null);
 
   useEffect(() => {
-    if (editing) {
-      inputRef.current.focus();
+    if (!url) return;
+
+    const scene = new THREE.Scene();
+    scene.background = new THREE.Color(0xffffff); // Set background to white
+
+    const camera = new THREE.PerspectiveCamera(75, 400 / 400, 0.1, 1000);
+    const renderer = new THREE.WebGLRenderer();
+    renderer.setSize(400, 400); // Set the size of the renderer
+    if (mountRef.current) {
+      mountRef.current.appendChild(renderer.domElement);
     }
-  }, [editing]);
 
-  const toggleEdit = () => {
-    setEditing(!editing);
-  };
-
-  const save = () => {
-    toggleEdit();
-    handleSave({ ...record, [dataIndex]: value });
-  };
-
-  const handleInputChange = (e) => {
-    setValue(e.target.value);
-  };
-
-  let childNode = children;
-
-  if (editable) {
-    childNode = editing ? (
-      <Input
-        ref={inputRef}
-        value={value}
-        onChange={handleInputChange}
-        onBlur={save}
-        onPressEnter={save}
-      />
-    ) : (
-      <div onClick={toggleEdit}>
-        {children}
-      </div>
-    );
-  }
-
-  return <td {...restProps}>{childNode}</td>;
-};
-
-const MeasurementsTable = ({ measurements, setMeasurements }) => {
-  const handleSave = (row) => {
-    const newData = [...measurements];
-    const index = newData.findIndex((item) => row.key === item.key);
-    if (index > -1) {
-      const item = newData[index];
-      newData.splice(index, 1, { ...item, ...row });
-      setMeasurements(newData);
-    }
-  };
-
-  const columns = [
-    { title: 'Measurement', dataIndex: 'name', key: 'name' },
-    {
-      title: 'Value',
-      dataIndex: 'value',
-      key: 'value',
-      editable: true,
-      render: (text) => `${text} cm`,
-    },
-  ];
-
-  const editableColumns = columns.map((col) => {
-    if (!col.editable) {
-      return col;
-    }
-    return {
-      ...col,
-      onCell: (record) => ({
-        record,
-        editable: col.editable,
-        dataIndex: col.dataIndex,
-        title: col.title,
-        handleSave,
-      }),
-    };
-  });
-
-  const dataSource = measurements.map((measurement, index) => ({
-    key: index,
-    name: measurement.name,
-    value: measurement.value,
-  }));
-
-  return (
-    <Table
-      components={{
-        body: {
-          cell: EditableCell,
-        },
-      }}
-      dataSource={dataSource}
-      columns={editableColumns}
-      pagination={false}
-    />
-  );
-};
-
-const BodyModel = ({ url }) => {
-    const mountRef = useRef(null);
-  
-    useEffect(() => {
-      const scene = new THREE.Scene();
-      scene.background = new THREE.Color(0xffffff); // Set background to white
-  
-      const camera = new THREE.PerspectiveCamera(75, 400 / 400, 0.1, 1000);
-      const renderer = new THREE.WebGLRenderer();
-      renderer.setSize(400, 400); // Set the size of the renderer
-      if (mountRef.current) {
-        mountRef.current.appendChild(renderer.domElement);
+    const loader = new OBJLoader();
+    loader.load(
+      url,
+      (object) => {
+        scene.add(object);
+        animate();
+      },
+      undefined,
+      (error) => {
+        console.error('An error happened', error);
       }
-  
-      const loader = new OBJLoader();
-      loader.load(
-        url,
-        (object) => {
-          scene.add(object);
-          animate();
-        },
-        undefined,
-        (error) => {
-          console.error('An error happened', error);
-        }
-      );
-  
-      camera.position.z = 5;
-  
-      const animate = () => {
-        requestAnimationFrame(animate);
-        renderer.render(scene, camera);
-      };
-  
-      return () => {
-        if (mountRef.current) {
-          mountRef.current.removeChild(renderer.domElement);
-        }
-      };
-    }, [url]);
-  
-    return <div ref={mountRef} />;
-  };
-  
+    );
+
+    camera.position.z = 5;
+
+    const animate = () => {
+      requestAnimationFrame(animate);
+      renderer.render(scene, camera);
+    };
+
+    return () => {
+      if (mountRef.current) {
+        mountRef.current.removeChild(renderer.domElement);
+      }
+    };
+  }, [url]);
+
+  return <div ref={mountRef} />;
+};
+
+const measurementLabels = {
+  ankle_circumference: 'Ankle Circumference',
+  arm_length: 'Arm Length',
+  bicep_circumference: 'Bicep Circumference',
+  calf_circumference: 'Calf Circumference',
+  chest_circumference: 'Chest Circumference',
+  forearm_circumference: 'Forearm Circumference',
+  head_circumference: 'Head Circumference',
+  hip_circumference: 'Hip Circumference',
+  inside_leg_length: 'Inside Leg Length',
+  neck_circumference: 'Neck Circumference',
+  shoulder_breadth: 'Shoulder Breadth',
+  shoulder_to_crotch: 'Shoulder to Crotch',
+  thigh_circumference: 'Thigh Circumference',
+  waist_circumference: 'Waist Circumference',
+  wrist_circumference: 'Wrist Circumference'
+};
 
 const CustomDrawer = ({ isOpen, onClose }) => {
   const [gender, setGender] = useState('male');
   const [height, setHeight] = useState(170);
   const [weight, setWeight] = useState(70);
-  const [measurements, setMeasurements] = useState([
-    { name: 'ankle_circumference', value: 32.34 },
-    { name: 'arm_length', value: 32.34 },
-    { name: 'bicep_circumference', value: 32.34 },
-    // Add more measurements as needed
-  ]);
+  const [customerId, setCustomerId] = useState(null);
+  const [modelUrl, setModelUrl] = useState(null);
 
-  const [matchingSize, setMatchingSize] = useState(null);
-  const [matchPercentage, setMatchPercentage] = useState(null);
+  const navigate = useNavigate();
+
+  const [measurements, setMeasurements] = useState(Object.keys(measurementLabels).map(key => ({ name: key, value: 0 })));
+
+  useEffect(() => {
+    async function fetchCustomerId() {
+      try {
+        const sessionId = localStorage.getItem('sessionData');
+        const response = await fetch("http://localhost:5000/customer/getCustomerId", {
+          method: 'GET',
+          headers: {
+            'Content-Type': 'application/json',
+            'Authorization': `Bearer ${sessionId}`,
+          },
+        });
+
+        if (response.ok) {
+          const cusId = await response.json();
+          setCustomerId(cusId);
+        } else {
+          console.error('Failed to get customer ID:', response.status);
+        }
+      } catch (error) {
+        console.error('An error occurred while fetching the customer ID:', error);
+      }
+    }
+
+    fetchCustomerId();
+  }, []);
+
+  const handleGetMeasurements = async () => {
+    try {
+      const response = await fetch('http://localhost:5000/api/getMeasurements', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({
+          customerId: customerId,
+          gender: gender,
+          height: height,
+          weight: weight
+        })
+      });
+
+      if (!response.ok) {
+        throw new Error('Network response was not ok');
+      }
+
+      const data = await response.json();
+      console.log(data);
+
+      setMeasurements(data.measurements);
+
+      // Fetch the body model from the backend API
+      const modelResponse = await fetch('http://localhost:5000/api/createModel', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({
+          gender: gender,
+          body_shapes: data.measurements.map(measurement => measurement.value)
+        })
+      });
+
+      if (!modelResponse.ok) {
+        throw new Error('Backend API request failed');
+      }
+
+      const modelData = await modelResponse.json();
+      setModelUrl(`http://localhost:5000/${modelData.obj_url}`); // Assuming the response contains an `obj_url` field
+
+    } catch (error) {
+      console.error('There was a problem with the fetch operation:', error);
+    }
+  };
 
   const handleSave = async () => {
     try {
@@ -195,28 +175,53 @@ const CustomDrawer = ({ isOpen, onClose }) => {
     }
   };
 
-  const fetchMatchingSize = async () => {
+  const updateBodyModel = async () => {
     try {
-      const response = await fetch('http://localhost:5000/api/getMatchingSize', {
+      // Recalculate shape parameters based on updated measurements
+      const shapeParams = measurements.map(measurement => measurement.value);
+
+      // Create a new body model using updated shape parameters
+      const modelResponse = await fetch('http://localhost:5000/api/createModel', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
         },
-        body: JSON.stringify({ measurements }),
+        body: JSON.stringify({
+          gender: gender,
+          body_shapes: shapeParams
+        })
       });
-  
-      if (!response.ok) {
-        throw new Error('Failed to fetch matching size');
+
+      if (!modelResponse.ok) {
+        throw new Error('Backend API request failed');
       }
-  
-      const data = await response.json();
-      setMatchingSize(data.size);
-      setMatchPercentage(data.percentage);
+
+      const modelData = await modelResponse.json();
+      setModelUrl(`http://localhost:5000/${modelData.obj_url}`); // Assuming the response contains an `obj_url` field
+
     } catch (error) {
-      console.error('Error fetching matching size:', error);
+      console.error('Error updating body model:', error);
     }
   };
-  
+
+  const renderSliders = () => {
+    return measurements.map((measurement, index) => (
+      <div key={index} style={{ marginBottom: 16 }}>
+        <label>{measurementLabels[measurement.name]}: {measurement.value} cm</label>
+        <Slider
+          min={0}
+          max={150} // Adjust max value as needed
+          value={measurement.value}
+          onChange={(value) => {
+            const newMeasurements = [...measurements];
+            newMeasurements[index].value = value;
+            setMeasurements(newMeasurements);
+            updateBodyModel(); // Update the body model whenever a measurement changes
+          }}
+        />
+      </div>
+    ));
+  };
 
   return (
     <AntDrawer
@@ -226,10 +231,8 @@ const CustomDrawer = ({ isOpen, onClose }) => {
       visible={isOpen}
       width={400}
     >
-      <div className="drawer-section" 
-        style={{marginBottom: 16 }}
-      >
-        <BodyModel url="path/to/your/model.obj" />
+      <div className="drawer-section" style={{ marginBottom: 16 }}>
+        <BodyModel url={modelUrl} />
       </div>
       <div className="drawer-section">
         <Select
@@ -239,13 +242,14 @@ const CustomDrawer = ({ isOpen, onClose }) => {
         >
           <Option value="male">Male</Option>
           <Option value="female">Female</Option>
-          <Option value="other">Other</Option>
+          <Option value="non-binary">Non-Binary</Option>
+          <Option value="prefer-not-to-say">Prefer not to say</Option>
         </Select>
         <div style={{ marginBottom: 16 }}>
           <label>Height: {height} cm</label>
           <Slider
-            min={100}
-            max={250}
+            min={120} // Adjusted minimum height
+            max={220} // Adjusted maximum height
             value={height}
             onChange={setHeight}
           />
@@ -253,31 +257,29 @@ const CustomDrawer = ({ isOpen, onClose }) => {
         <div style={{ marginBottom: 16 }}>
           <label>Weight: {weight} kg</label>
           <Slider
-            min={30}
-            max={150}
+            min={40} // Adjusted minimum weight
+            max={130} // Adjusted maximum weight
             value={weight}
             onChange={setWeight}
           />
         </div>
         <div style={{ marginBottom: 16 }}>
-            <button
-                type="button"
-                className="mt-6 flex w-full items-center justify-center rounded-md border border-transparent bg-secondary px-8 py-3 text-base font-medium text-white hover:bg-primary hover:text-secondary focus:outline-none focus:ring-2 focus:ring-secondary focus:ring-offset-2"
-            >
-                Get Measurements
-            </button>
-        </div>
-
-      </div>
-      <div className="drawer-section">
-        <MeasurementsTable measurements={measurements} setMeasurements={setMeasurements} />
-
-         <button
+          <button
             type="button"
-            className="mt-6 flex w-1/2 items-center justify-center rounded-md border border-transparent bg-secondary px-8 py-3 text-base font-medium text-white hover:bg-primary hover:text-secondary focus:outline-none focus:ring-2 focus:ring-secondary focus:ring-offset-2"
-            >
-            Save
-         </button>
+            className="mt-6 flex w-full items-center justify-center rounded-md border border-transparent bg-secondary px-8 py-3 text-base font-medium text-white hover:bg-primary hover:text-secondary focus:outline-none focus:ring-2 focus:ring-secondary focus:ring-offset-2"
+            onClick={handleGetMeasurements}
+          >
+            Get Measurements
+          </button>
+        </div>
+        {renderSliders()}
+        <button
+          type="button"
+          className="mt-6 flex w-1/2 items-center justify-center rounded-md border border-transparent bg-secondary px-8 py-3 text-base font-medium text-white hover:bg-primary hover:text-secondary focus:outline-none focus:ring-2 focus:ring-secondary focus:ring-offset-2"
+          onClick={handleSave}
+        >
+          Save
+        </button>
       </div>
     </AntDrawer>
   );
