@@ -9,7 +9,6 @@ import { useLocation } from 'react-router-dom';
 import { redirect, useNavigate } from 'react-router-dom';
 import ProductImageCarousel from "./ProductImageCarosel";
 import NavBarNew from "./NavNew";
-import Nav from "./Nav";
 
 
 export default function ViewProduct({productId}) {
@@ -225,7 +224,7 @@ useEffect(() => {
   return (
     
         <div className="bg-gray-50">
-        <Nav/>
+        <NavBarNew/>
 
         <main className="max-w-2xl mx-auto pt-8 pb-24 sm:pt-16 sm:px-6 lg:max-w-7xl lg:px-8">
         <div className="px-4 space-y-2 sm:px-0 sm:flex sm:items-baseline sm:justify-between sm:space-y-0">

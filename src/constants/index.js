@@ -251,22 +251,20 @@ export const navigation = {
       name:'Women',
       brands: [
         [
-        { name1:'Carhartt' , topic1: 'Brand' ,name2:'Women' , topic2: 'Gender'  }, 
-        { name1:'Vans' , topic1: 'Brand' ,name2:'Women' , topic2: 'Gender'  }, 
-        { name1:'Timberland' , topic1: 'Brand' ,name2:'Women' , topic2: 'Gender'  }, 
+        { name1:'Aldo' , topic1: 'Brand' ,name2:'Women' , topic2: 'Gender'  }, 
+        { name1:'Adidas' , topic1: 'Brand' ,name2:'Women' , topic2: 'Gender'  }, 
+        { name1:'Levis' , topic1: 'Brand' ,name2:'Women' , topic2: 'Gender'  }, 
+        { name1:'Odel' , topic1: 'Brand' ,name2:'Women' , topic2: 'Gender'  }, 
+        { name1:'Kelly-Felder' , topic1: 'Brand' ,name2:'Women' , topic2: 'Gender'  }, 
         { name1:'Nike' , topic1: 'Brand' ,name2:'Women' , topic2: 'Gender'  }, 
-        { name1:'Converse' , topic1: 'Brand' ,name2:'Women' , topic2: 'Gender'  }, 
-        { name1:'Polo Ralph Lauren' , topic1: 'Brand' ,name2:'Women' , topic2: 'Gender'  },
-        { name1:'Fendi' , topic1: 'Brand' ,name2:'Women' , topic2: 'Gender'  }, 
-        
+
         ],
         [
-          { name1:'Balmain' , topic1: 'Brand' ,name2:'Women' , topic2: 'Gender'  }, 
-          { name1:'Armani' , topic1: 'Brand' ,name2:'Women' , topic2: 'Gender'  }, 
-          { name1:'Tom Ford' , topic1: 'Brand' ,name2:'Women' , topic2: 'Gender'  }, 
+          { name1:'Abercrombie And Fitch' , topic1: 'Brand' ,name2:'Women' , topic2: 'Gender'  }, 
+          { name1:'Under Armour' , topic1: 'Brand' ,name2:'Women' , topic2: 'Gender'  }, 
           { name1:'Adidas' , topic1: 'Brand' ,name2:'Women' , topic2: 'Gender'  }, 
-          { name1:'Tommy Hilfiger' , topic1: 'Brand' ,name2:'Women' , topic2: 'Gender'  }, 
-          { name1:'Abercrombie and fitch' , topic1: 'Brand' ,name2:'Women' , topic2: 'Gender'  }, 
+          { name1:'Gucci' , topic1: 'Brand' ,name2:'Women' , topic2: 'Gender'  }, 
+          { name1:'Louis Vuiton' , topic1: 'Brand' ,name2:'Women' , topic2: 'Gender'  }, 
         ],
       ],
       categories: [
