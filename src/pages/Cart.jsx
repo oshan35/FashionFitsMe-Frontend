@@ -50,6 +50,7 @@ function Cart() {
 
     useEffect(() => {
         const fetchProductDetails = async () => {
+            console.log("customer id on cart",customerId);
             setIsLoading(true);
             try {
                 const response = await fetch(`http://34.222.253.72:5000/customer/cart/${customerId}`);

@@ -59,6 +59,8 @@ export default function NavBarNew() {
       };
       const handleCartClick = () => {
         console.log('clicked cart icon on navbar');
+        console.log('customer id',customerId);
+
         navigate("/cart", { state: { customerId } }); 
       };
 
