@@ -436,7 +436,7 @@ export const footerNavigation = {
             { name1:' Activewear' , topic1: 'Category' ,name2:'Women' , topic2: 'Gender'  }, 
             { name1:'Shorts' , topic1: 'Category' ,name2:'Women' , topic2: 'Gender'  }, 
             { name1:'T-Shirts' , topic1: 'Category' ,name2:'Women' , topic2: 'Gender'  }, 
-            { name1:'Browse All' , topic1: 'Category' ,name2:'Women' , topic2: 'Gender'  }, 
+            { name1:'Blouses' , topic1: 'Category' ,name2:'Women' , topic2: 'Gender'  }, 
             { name1:'Crop Tops' , topic1: 'Category' ,name2:'Women' , topic2: 'Gender'  }, 
             { name1:'Skirts' , topic1: 'Category' ,name2:'Women' , topic2: 'Gender'  }, 
 
