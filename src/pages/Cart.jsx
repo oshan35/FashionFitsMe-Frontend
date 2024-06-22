@@ -1,7 +1,8 @@
 import React, { useEffect, useState } from "react";
 import { CheckIcon, ClockIcon } from '@heroicons/react/solid';
-import { NavBarNew, Footer } from "../components";
+import { NavBarNew } from "../components";
 import { useNavigate, useLocation, Link } from 'react-router-dom';
+import { Footer } from '../sections'
 
 function Cart() {
     const navigate = useNavigate();
