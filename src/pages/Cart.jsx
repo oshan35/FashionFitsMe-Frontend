@@ -36,7 +36,8 @@ function Cart() {
         }
     };
 
-    const handleCheckout = async () => {
+    const handleCheckout = async (e) => {
+        e.preventDefault();
         if (cartProducts.length === 0) {
             setShowEmptyCartPrompt(true);
         } else {
@@ -50,7 +51,7 @@ function Cart() {
 
     useEffect(() => {
         const fetchProductDetails = async () => {
-            console.log("customer id on cart",customerId);
+            console.log("customer id on cart", customerId);
             setIsLoading(true);
             try {
                 const response = await fetch(`http://34.222.253.72:5000/customer/cart/${customerId}`);
@@ -94,7 +95,7 @@ function Cart() {
             <div className="bg-white">
                 <div className="max-w-2xl mx-auto py-16 px-4 sm:py-24 sm:px-6 lg:px-0">
                     <h1 className="text-3xl font-extrabold text-center tracking-tight text-gray-900 sm:text-4xs">Shopping Cart</h1>
-                    <form className="mt-12">
+                    <form className="mt-12" onSubmit={handleCheckout}>
                         <section aria-labelledby="cart-heading">
                             <h2 id="cart-heading" className="">Items in your shopping cart</h2>
                             <ul role="list" className="border-t border-b border-gray-200 divide-y divide-gray-200">
