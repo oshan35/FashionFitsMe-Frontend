@@ -69,13 +69,13 @@ export const filterValues = [
       { value: 'Aldo', label: 'Aldo', checked: false },
       { value: 'Adidas', label: 'Adidas', checked: false },
       { value: 'Levis', label: 'Levis', checked: false },
-      { value: 'odel', label: 'Odel', checked: false },
-      { value: 'aldo', label: 'Aldo', checked: false },
+      { value: 'Odel', label: 'Odel', checked: false },
+      { value: 'Kelly-Felder', label: 'Kelly-Felder', checked: false },
       { value: 'Nike', label: 'Nike', checked: false },
-      { value: 'under armour', label: 'Under Armour', checked: false },
-      { value: 'abercrombie and fitch', label: 'Abercrombie And Fitch', checked: false },
-      { value: 'gucci', label: 'Gucci', checked: false },
-      { value: 'louis vuiton', label: 'Louis Vuiton', checked: false }
+      { value: 'Under armour', label: 'Under Armour', checked: false },
+      { value: 'Abercrombie and fitch', label: 'Abercrombie And Fitch', checked: false },
+      { value: 'Gucci', label: 'Gucci', checked: false },
+      { value: 'Louis vuiton', label: 'Louis Vuiton', checked: false }
     ]
   },
   {
