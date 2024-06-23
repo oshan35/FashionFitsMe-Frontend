@@ -109,7 +109,7 @@ const CustomDrawer = ({ isOpen, onClose }) => {
 
   const handleGetMeasurements = async () => {
     try {
-      const response = await fetch('http://localhost:5000/api/getMeasurements', {
+      const response = await fetch('http://localhost:5000/customer/getMeasurements', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
@@ -132,7 +132,7 @@ const CustomDrawer = ({ isOpen, onClose }) => {
       setMeasurements(data.measurements);
 
       // Fetch the body model from the backend API
-      const modelResponse = await fetch('http://localhost:5000/api/createModel', {
+      const modelResponse = await fetch('http://localhost:5000/customer/createModel', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
@@ -157,7 +157,7 @@ const CustomDrawer = ({ isOpen, onClose }) => {
 
   const handleSave = async () => {
     try {
-      const response = await fetch('http://localhost:5000/api/saveMeasurements', {
+      const response = await fetch('http://localhost:5000/customer/saveMeasurements', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
@@ -181,7 +181,7 @@ const CustomDrawer = ({ isOpen, onClose }) => {
       const shapeParams = measurements.map(measurement => measurement.value);
 
       // Create a new body model using updated shape parameters
-      const modelResponse = await fetch('http://localhost:5000/api/createModel', {
+      const modelResponse = await fetch('http://localhost:5000/customer/createModel', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',

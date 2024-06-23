@@ -266,7 +266,7 @@ const handleViewCart = (customerId) => {
   const fetchMatchingSize = async () => {
 
     try {
-      const response = await fetch(`http://localhost:5000/api/getMatchingSize/${customerId}/${productId}`, {
+      const response = await fetch(`http://localhost:5000/customer/getMatchingSize/${customerId}/${productId}`, {
         method: 'GET',
         headers: {
           'Content-Type': 'application/json',
