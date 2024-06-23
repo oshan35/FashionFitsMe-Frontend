@@ -17,6 +17,8 @@ import carousel4 from "./carousel4.png";
 import thumbnailBackground from "./thumbnail-background.svg";
 
 import LevisLogo from "./Levis_logo.png"
+import Aldo from "./Aldo.jpeg"
+
 import LacosteLogo from "./Lacoste-logo.png"
 import adidasLogo from  "./3-poloski-adidas-logo.png"
 import burberryLogo from "./Burberry-Logo.png"
@@ -27,7 +29,10 @@ import GucciLogo from "./Gucci_logo.png"
 import NikeLogo from "./nike-logo-1995.png"
 import LouisLogo from "./Louis-Vuitton-logo.png"
 import Versace from  "./versace-primary-logo.png"
+import Odel from  "./Odel.jpeg"
+import Kelly from  "./Kelly.jpeg"
 import UnderArmourLogo from "./Under-Armour-logo.png"
+
 
 export {
   customer1,
@@ -55,5 +60,9 @@ export {
   NikeLogo,
   LouisLogo,
   Versace,
-  UnderArmourLogo
+  UnderArmourLogo,
+  Aldo,
+  Odel,
+  Kelly
+
 };

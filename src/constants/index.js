@@ -256,12 +256,11 @@ export const navigation = {
         { name1:'Levis' , topic1: 'Brand' ,name2:'Women' , topic2: 'Gender'  }, 
         { name1:'Odel' , topic1: 'Brand' ,name2:'Women' , topic2: 'Gender'  }, 
         { name1:'Kelly-Felder' , topic1: 'Brand' ,name2:'Women' , topic2: 'Gender'  }, 
-        { name1:'Nike' , topic1: 'Brand' ,name2:'Women' , topic2: 'Gender'  }, 
 
         ],
         [
-          { name1:'Abercrombie And Fitch' , topic1: 'Brand' ,name2:'Women' , topic2: 'Gender'  }, 
-          { name1:'Under Armour' , topic1: 'Brand' ,name2:'Women' , topic2: 'Gender'  }, 
+          { name1:'Lacoste' , topic1: 'Brand' ,name2:'Women' , topic2: 'Gender'  }, 
+          { name1:'Nike' , topic1: 'Brand' ,name2:'Women' , topic2: 'Gender'  }, 
           { name1:'Adidas' , topic1: 'Brand' ,name2:'Women' , topic2: 'Gender'  }, 
           { name1:'Gucci' , topic1: 'Brand' ,name2:'Women' , topic2: 'Gender'  }, 
           { name1:'Louis Vuiton' , topic1: 'Brand' ,name2:'Women' , topic2: 'Gender'  }, 
@@ -304,12 +303,11 @@ export const navigation = {
         { name1:'Levis' , topic1: 'Brand' ,name2:'Women' , topic2: 'Gender'  }, 
         { name1:'Odel' , topic1: 'Brand' ,name2:'Women' , topic2: 'Gender'  }, 
         { name1:'Kelly-Felder' , topic1: 'Brand' ,name2:'Women' , topic2: 'Gender'  }, 
-        { name1:'Nike' , topic1: 'Brand' ,name2:'Women' , topic2: 'Gender'  }, 
 
         ],
         [
-          { name1:'Abercrombie And Fitch' , topic1: 'Brand' ,name2:'Women' , topic2: 'Gender'  }, 
-          { name1:'Under Armour' , topic1: 'Brand' ,name2:'Women' , topic2: 'Gender'  }, 
+          { name1:'Lacoste' , topic1: 'Brand' ,name2:'Women' , topic2: 'Gender'  }, 
+          { name1:'Nike' , topic1: 'Brand' ,name2:'Women' , topic2: 'Gender'  }, 
           { name1:'Adidas' , topic1: 'Brand' ,name2:'Women' , topic2: 'Gender'  }, 
           { name1:'Gucci' , topic1: 'Brand' ,name2:'Women' , topic2: 'Gender'  }, 
           { name1:'Louis Vuiton' , topic1: 'Brand' ,name2:'Women' , topic2: 'Gender'  }, 
