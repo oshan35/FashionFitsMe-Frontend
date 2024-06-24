@@ -67,30 +67,31 @@ const [error, setError] = useState(null);
         fetchCustomerId();
       }, []);
     
-    useEffect(() => {
-        console.log("customer Id sent to backend",customerId)
+      useEffect(() => {
+        console.log("customer Id sent to backend", customerId);
+    
         const fetchOrderDetails = async () => {
             try {
-                const response = await fetch('http://34.222.253.72:5000/orders/getOrderSummary', {
-                    method: 'POST',
+                const response = await fetch(`http://34.222.253.72:5000/orders/customer/${1}`, {
+                    method: 'GET',
                     headers: {
                         'Content-Type': 'application/json'
-                    },
-                    body: JSON.stringify({ customerId: customerId })
-                  });
+                    }
+                });
                 if (!response.ok) {
                     throw new Error('Could not fetch order details.');
                 }
                 const data = await response.json();
-                console.log('Received order summary',data);
-                setOrders(data); 
+                console.log('Received order summary', data);
+                setOrders(data);
             } catch (err) {
                 setError(err.message);
-            } 
+            }
         };
-      
+    
         fetchOrderDetails();
     }, [customerId]);
+    
   return (
     <div className="bg-white">
       <div className="max-w-4xl mx-auto py-16 sm:px-6 sm:py-24">
@@ -105,7 +106,7 @@ const [error, setError] = useState(null);
           <h2 className="sr-only">Recent orders</h2>
 
           <div className="space-y-16 sm:space-y-24">
-            {orders.map((order) => (
+            {orders && orders.map((order) => (
               <div key={order.orderId}>
                 <h3 className="sr-only">
                   Order placed on 
