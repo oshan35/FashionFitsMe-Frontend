@@ -17,6 +17,7 @@ import ProductImageCarousel from "./ProductImageCarosel";
 import PriceCardNew from "./PriceCardNew";
 import NavBarNew from "./NavNew";
 import Nav from "./Nav";
+import OrderHistory from "./OrderHistory";
 import { DrawerWithForm } from "./DrawerWithForm";
 export {
   Button,
@@ -38,5 +39,6 @@ export {
   ProductImageCarousel,
   PriceCardNew,
   NavBarNew,
-  DrawerWithForm
+  DrawerWithForm,
+  OrderHistory
 };

@@ -2,7 +2,7 @@ import { createBrowserRouter, RouterProvider } from "react-router-dom";
 import { Home, Product, Catogeries,Cart,CheckoutPage,CheckoutTest, OrderSummary} from "./pages";
 import { CataloguePage ,OrderSummaryPage} from "./pages";
 import { SelectedFiltersProvider } from "./Contexts/SelectedFilterContext";
-import { PriceCardNew } from "./components";
+import { PriceCardNew ,OrderHistory} from "./components";
 import {LoginPage,SignupPage} from "./pages"
 const router = createBrowserRouter([
   {
@@ -40,7 +40,14 @@ const router = createBrowserRouter([
   {
     path: "/signup",
     element: <SignupPage/>,
+  },
+
+  {
+    path: "/orderHistory",
+    element: <OrderHistory/>,
   }
+
+
 ]);
 
 const App = () => {

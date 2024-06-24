@@ -117,9 +117,7 @@ console.log(formattedDate);
               { formattedDate}
             </time>
           </p>
-          <a href="#" className="text-sm font-medium text-indigo-600 hover:text-indigo-500 sm:hidden">
-            View invoice<span aria-hidden="true"> &rarr;</span>
-          </a>
+         
         </div>
 
         {/* Products */}

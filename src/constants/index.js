@@ -1,5 +1,6 @@
 import { useState } from 'react';
-
+	
+	
 import {
   facebook,
   instagram,
@@ -522,15 +523,7 @@ export const reviews = [
 ];
 
 export const footerLinks = [
-  // {
-  //   title: "Products",
-  //   links: [
-  //     { name: "Tops", link: "/" },
-  //     { name: "Dresses", link: "/" },
-  //     { name: "New Arrivals", link: "/" },
-  //     { name: "Seasonal Offers", link: "/" },
-  //   ],
-  // },
+  
   {
     title: "Connect",
     links: [
