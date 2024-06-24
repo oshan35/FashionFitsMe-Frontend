@@ -3,54 +3,10 @@ import { Drawer as AntDrawer, Select, Slider, Button } from 'antd';
 import * as THREE from 'three';
 import { OBJLoader } from 'three/examples/jsm/loaders/OBJLoader';
 import { useNavigate } from 'react-router-dom';
+import BodyModel from './bodymodel';
 
 const { Option } = Select;
 
-const BodyModel = ({ url }) => {
-  const mountRef = useRef(null);
-
-  useEffect(() => {
-    if (!url) return;
-
-    const scene = new THREE.Scene();
-    scene.background = new THREE.Color(0xffffff); // Set background to white
-
-    const camera = new THREE.PerspectiveCamera(75, 400 / 400, 0.1, 1000);
-    const renderer = new THREE.WebGLRenderer();
-    renderer.setSize(400, 400); // Set the size of the renderer
-    if (mountRef.current) {
-      mountRef.current.appendChild(renderer.domElement);
-    }
-
-    const loader = new OBJLoader();
-    loader.load(
-      url,
-      (object) => {
-        scene.add(object);
-        animate();
-      },
-      undefined,
-      (error) => {
-        console.error('An error happened', error);
-      }
-    );
-
-    camera.position.z = 5;
-
-    const animate = () => {
-      requestAnimationFrame(animate);
-      renderer.render(scene, camera);
-    };
-
-    return () => {
-      if (mountRef.current) {
-        mountRef.current.removeChild(renderer.domElement);
-      }
-    };
-  }, [url]);
-
-  return <div ref={mountRef} />;
-};
 
 const measurementLabels = {
   ankle_circumference: 'Ankle Circumference',
@@ -109,7 +65,7 @@ const CustomDrawer = ({ isOpen, onClose }) => {
 
   const handleGetMeasurements = async () => {
     try {
-      const response = await fetch('http://localhost:5000/customer/getMeasurements', {
+      const response = await fetch('http://localhost:5000/customer/getmeasurements', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
@@ -130,26 +86,7 @@ const CustomDrawer = ({ isOpen, onClose }) => {
       console.log(data);
 
       setMeasurements(data.measurements);
-
-      // Fetch the body model from the backend API
-      const modelResponse = await fetch('http://localhost:5000/customer/createModel', {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify({
-          gender: gender,
-          body_shapes: data.measurements.map(measurement => measurement.value)
-        })
-      });
-
-      if (!modelResponse.ok) {
-        throw new Error('Backend API request failed');
-      }
-
-      const modelData = await modelResponse.json();
-      setModelUrl(`http://localhost:5000/${modelData.obj_url}`); // Assuming the response contains an `obj_url` field
-
+      setModelUrl(data.modelUrl); 
     } catch (error) {
       console.error('There was a problem with the fetch operation:', error);
     }
@@ -169,38 +106,12 @@ const CustomDrawer = ({ isOpen, onClose }) => {
         throw new Error('Failed to save measurements');
       }
 
+      const data = await response.json();
+      setModelUrl(data.modelUrl); 
+
       console.log('Measurements saved successfully');
     } catch (error) {
       console.error('Error saving measurements:', error);
-    }
-  };
-
-  const updateBodyModel = async () => {
-    try {
-      // Recalculate shape parameters based on updated measurements
-      const shapeParams = measurements.map(measurement => measurement.value);
-
-      // Create a new body model using updated shape parameters
-      const modelResponse = await fetch('http://localhost:5000/customer/createModel', {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify({
-          gender: gender,
-          body_shapes: shapeParams
-        })
-      });
-
-      if (!modelResponse.ok) {
-        throw new Error('Backend API request failed');
-      }
-
-      const modelData = await modelResponse.json();
-      setModelUrl(`http://localhost:5000/${modelData.obj_url}`); // Assuming the response contains an `obj_url` field
-
-    } catch (error) {
-      console.error('Error updating body model:', error);
     }
   };
 
@@ -210,13 +121,12 @@ const CustomDrawer = ({ isOpen, onClose }) => {
         <label>{measurementLabels[measurement.name]}: {measurement.value} cm</label>
         <Slider
           min={0}
-          max={150} // Adjust max value as needed
+          max={150} 
           value={measurement.value}
           onChange={(value) => {
             const newMeasurements = [...measurements];
             newMeasurements[index].value = value;
             setMeasurements(newMeasurements);
-            updateBodyModel(); // Update the body model whenever a measurement changes
           }}
         />
       </div>
@@ -257,8 +167,8 @@ const CustomDrawer = ({ isOpen, onClose }) => {
         <div style={{ marginBottom: 16 }}>
           <label>Weight: {weight} kg</label>
           <Slider
-            min={40} // Adjusted minimum weight
-            max={130} // Adjusted maximum weight
+            min={40} 
+            max={130} 
             value={weight}
             onChange={setWeight}
           />

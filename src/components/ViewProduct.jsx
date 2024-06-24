@@ -14,66 +14,66 @@ import Nav from "./Nav";
 import { Modal, Button, Card } from 'antd';
 
 
-const dummy_prod = {
-  "price": 120.00,
-  "sizes": [
-      [
-          "M",
-          50
-      ]
-  ],
-  "colors": [
-      "Black"
-  ],
-  "reviews": [
-      {
-          "reviewId": "RV001",
-          "customer": {
-              "customerId": 1,
-              "firstName": "John",
-              "lastName": "Doe",
-              "country": "USA",
-              "username": "johndoe",
-              "password": "password123",
-              "cart": {
-                  "cartId": 1,
-                  "totalAmount": 200.00,
-                  "purchaseStatus": true,
-                  "discountAmount": 10.00
-              }
-          },
-          "product": {
-              "productId": "PR001",
-              "brand": {
-                  "brandId": "BR001",
-                  "brandName": "Nike"
-              },
-              "productName": "Running Shoes",
-              "price": 120.00,
-              "productCategory": "Footwear",
-              "gender": "Unisex",
-              "description": null
-          },
-          "rating": 4.5,
-          "description": "Great product, would recommend!"
-      }
-  ],
-  "image": "",
-  "category": "Footwear",
-  "image_colors": {
-      "Black": ""
-  },
-  "description": null,
-  "productId": "PR001",
-  "productName": "Running Shoes"
-}
+// const dummy_prod = {
+//   "price": 120.00,
+//   "sizes": [
+//       [
+//           "M",
+//           50
+//       ]
+//   ],
+//   "colors": [
+//       "Black"
+//   ],
+//   "reviews": [
+//       {
+//           "reviewId": "RV001",
+//           "customer": {
+//               "customerId": 1,
+//               "firstName": "John",
+//               "lastName": "Doe",
+//               "country": "USA",
+//               "username": "johndoe",
+//               "password": "password123",
+//               "cart": {
+//                   "cartId": 1,
+//                   "totalAmount": 200.00,
+//                   "purchaseStatus": true,
+//                   "discountAmount": 10.00
+//               }
+//           },
+//           "product": {
+//               "productId": "PR001",
+//               "brand": {
+//                   "brandId": "BR001",
+//                   "brandName": "Nike"
+//               },
+//               "productName": "Running Shoes",
+//               "price": 120.00,
+//               "productCategory": "Footwear",
+//               "gender": "Unisex",
+//               "description": null
+//           },
+//           "rating": 4.5,
+//           "description": "Great product, would recommend!"
+//       }
+//   ],
+//   "image": "",
+//   "category": "Footwear",
+//   "image_colors": {
+//       "Black": ""
+//   },
+//   "description": null,
+//   "productId": "PR001",
+//   "productName": "Running Shoes"
+// }
 
 
 export default function ViewProduct({productId}) {
 
   const initialSizes = ['XXS','XS', 'S', 'M', 'L', 'XL', 'XXL','XXXL'];
   const [sizeAvailability, setSizeAvailability] = useState({}); 
-  const [customerId, setCustomerId] = useState("001"); // TODO chnage to null
+  const [customerId, setCustomerId] = useState(null); 
   const [selectedColor, setSelectedColor] = useState(null);
   const [selectedSize, setSelectedSize] = useState(null);
   const [showPrompt, setShowPrompt] = useState(false);
@@ -242,25 +242,25 @@ const handleViewCart = (customerId) => {
   // TODO - Uncomment after development
   useEffect(() => {
     setIsLoading(true); 
-    setItemData(dummy_prod);
+    // setItemData(dummy_prod);
   
-    // fetch(`http://localhost:5000/products/getProductInformation?productId=${productId}`)
-    //     .then(response => response.json())
-    //     .then(data => {
-    //       console.log("sizes",sizes);
-    //         setItemData({
-    //             ...data,
-    //             image: `data:image/jpeg;base64,${data.image}`
-    //         });
-    //         console.log('loaded data at view product',data);
-    //         setIsLoading(false); 
+    fetch(`http://localhost:5000/products/getProductInformation?productId=${productId}`)
+        .then(response => response.json())
+        .then(data => {
+          console.log("sizes",sizes);
+            setItemData({
+                ...data,
+                image: `data:image/jpeg;base64,${data.image}`
+            });
+            console.log('loaded data at view product',data);
+            setIsLoading(false); 
             
   
-    //     })
-    //     .catch(error => {
-    //         console.error('Error fetching product information:', error);
-    //         setIsLoading(false); 
-    //     });
+        })
+        .catch(error => {
+            console.error('Error fetching product information:', error);
+            setIsLoading(false); 
+        });
   }, [productId]); 
 
   const fetchMatchingSize = async () => {
