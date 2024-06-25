@@ -105,7 +105,7 @@ const handleAddToCart = async () => {
   }else {
 
   try {
-      const apiEndpoint = 'http://localhost:5000/product_shopping_cart/addProducts';
+      const apiEndpoint = 'http://34.222.253.72:5000/product_shopping_cart/addProducts';
 
       const payload = {
           productId,
@@ -244,7 +244,7 @@ const handleViewCart = (customerId) => {
     setIsLoading(true); 
     // setItemData(dummy_prod);
   
-    fetch(`http://localhost:5000/products/getProductInformation?productId=${productId}`)
+    fetch(`http://34.222.253.72:5000/products/getProductInformation?productId=${productId}`)
         .then(response => response.json())
         .then(data => {
           console.log("sizes",sizes);
@@ -266,7 +266,7 @@ const handleViewCart = (customerId) => {
   const fetchMatchingSize = async () => {
 
     try {
-      const response = await fetch(`http://localhost:5000/customer/getMatchingSize/${customerId}/${productId}`, {
+      const response = await fetch(`http://34.222.253.72:5000/customer/getMatchingSize/${customerId}/${productId}`, {
         method: 'GET',
         headers: {
           'Content-Type': 'application/json',
