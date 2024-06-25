@@ -14,7 +14,7 @@ const LoginPage = () => {
   const onFinish = async () => {
     try {
       
-    const response = await fetch("http://34.222.253.72:5000/customer/login", {
+    const response = await fetch("http://54.191.229.94:5000/customer/login", {
         method: "POST",
         headers: {
           "Content-Type": "application/json"

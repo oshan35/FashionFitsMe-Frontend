@@ -13,7 +13,7 @@ export default function OrderHistory() {
     async function fetchCustomerId() {
       try {
         const sessionId = localStorage.getItem('sessionData');
-        const response = await fetch("http://34.222.253.72:5000/customer/getCustomerId", {
+        const response = await fetch("http://54.191.229.94:5000/customer/getCustomerId", {
           method: 'GET',
           headers: {
             'Content-Type': 'application/json',
@@ -42,7 +42,7 @@ export default function OrderHistory() {
 
     const fetchOrderDetails = async () => {
       try {
-        const response = await fetch(`http://34.222.253.72:5000/orders/customer/${customerId}`, {
+        const response = await fetch(`http://54.191.229.94:5000/orders/customer/${customerId}`, {
           method: 'GET',
           headers: {
             'Content-Type': 'application/json'

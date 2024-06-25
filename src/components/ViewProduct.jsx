@@ -14,59 +14,7 @@ import Nav from "./Nav";
 import { Modal, Button, Card } from 'antd';
 
 
-// const dummy_prod = {
-//   "price": 120.00,
-//   "sizes": [
-//       [
-//           "M",
-//           50
-//       ]
-//   ],
-//   "colors": [
-//       "Black"
-//   ],
-//   "reviews": [
-//       {
-//           "reviewId": "RV001",
-//           "customer": {
-//               "customerId": 1,
-//               "firstName": "John",
-//               "lastName": "Doe",
-//               "country": "USA",
-//               "username": "johndoe",
-//               "password": "password123",
-//               "cart": {
-//                   "cartId": 1,
-//                   "totalAmount": 200.00,
-//                   "purchaseStatus": true,
-//                   "discountAmount": 10.00
-//               }
-//           },
-//           "product": {
-//               "productId": "PR001",
-//               "brand": {
-//                   "brandId": "BR001",
-//                   "brandName": "Nike"
-//               },
-//               "productName": "Running Shoes",
-//               "price": 120.00,
-//               "productCategory": "Footwear",
-//               "gender": "Unisex",
-//               "description": null
-//           },
-//           "rating": 4.5,
-//           "description": "Great product, would recommend!"
-//       }
-//   ],
-//   "image": "",
-//   "category": "Footwear",
-//   "image_colors": {
-//       "Black": ""
-//   },
-//   "description": null,
-//   "productId": "PR001",
-//   "productName": "Running Shoes"
-// }
+
 
 
 export default function ViewProduct({productId}) {
@@ -105,7 +53,7 @@ const handleAddToCart = async () => {
   }else {
 
   try {
-      const apiEndpoint = 'http://34.222.253.72:5000/product_shopping_cart/addProducts';
+      const apiEndpoint = 'http://54.191.229.94:5000/product_shopping_cart/addProducts';
 
       const payload = {
           productId,
@@ -244,7 +192,7 @@ const handleViewCart = (customerId) => {
     setIsLoading(true); 
     // setItemData(dummy_prod);
   
-    fetch(`http://34.222.253.72:5000/products/getProductInformation?productId=${productId}`)
+    fetch(`http://54.191.229.94:5000/products/getProductInformation?productId=${productId}`)
         .then(response => response.json())
         .then(data => {
           console.log("sizes",sizes);
@@ -266,7 +214,7 @@ const handleViewCart = (customerId) => {
   const fetchMatchingSize = async () => {
 
     try {
-      const response = await fetch(`http://34.222.253.72:5000/customer/getMatchingSize/${customerId}/${productId}`, {
+      const response = await fetch(`http://54.191.229.94:5000/customer/getMatchingSize/${customerId}/${productId}`, {
         method: 'GET',
         headers: {
           'Content-Type': 'application/json',
@@ -299,7 +247,7 @@ useEffect(() => {
   async function fetchCustomerId() {
     try {
       const sessionId = localStorage.getItem('sessionData');
-      const response = await fetch("http://34.222.253.72:5000/customer/getCustomerId", {
+      const response = await fetch("http://54.191.229.94:5000/customer/getCustomerId", {
         method: 'GET',
         headers: {
           'Content-Type': 'application/json',

@@ -24,7 +24,7 @@ export default function NavBarNew() {
       async function fetchCustomerId() {
         try {
           const sessionId = localStorage.getItem('sessionData');
-          const response = await fetch("http://34.222.253.72:5000/customer/getCustomerId", {
+          const response = await fetch("http://54.191.229.94:5000/customer/getCustomerId", {
             method: 'GET',
             headers: {
               'Content-Type': 'application/json',
