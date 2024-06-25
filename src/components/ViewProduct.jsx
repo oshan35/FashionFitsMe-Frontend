@@ -21,7 +21,7 @@ export default function ViewProduct({productId}) {
 
   const initialSizes = ['XXS','XS', 'S', 'M', 'L', 'XL', 'XXL','XXXL'];
   const [sizeAvailability, setSizeAvailability] = useState({}); 
-  const [customerId, setCustomerId] = useState(1); // TODO - CHANGE TO NULL ON PROD
+  const [customerId, setCustomerId] = useState(null); // TODO - CHANGE TO NULL ON PROD
   const [selectedColor, setSelectedColor] = useState(null);
   const [selectedSize, setSelectedSize] = useState(null);
   const [showPrompt, setShowPrompt] = useState(false);
