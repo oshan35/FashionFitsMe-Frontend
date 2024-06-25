@@ -14,59 +14,7 @@ import Nav from "./Nav";
 import { Modal, Button, Card } from 'antd';
 
 
-const dummy_prod = {
-  "price": 120.00,
-  "sizes": [
-      [
-          "M",
-          50
-      ]
-  ],
-  "colors": [
-      "Black"
-  ],
-  "reviews": [
-      {
-          "reviewId": "RV001",
-          "customer": {
-              "customerId": 1,
-              "firstName": "John",
-              "lastName": "Doe",
-              "country": "USA",
-              "username": "johndoe",
-              "password": "password123",
-              "cart": {
-                  "cartId": 1,
-                  "totalAmount": 200.00,
-                  "purchaseStatus": true,
-                  "discountAmount": 10.00
-              }
-          },
-          "product": {
-              "productId": "PR001",
-              "brand": {
-                  "brandId": "BR001",
-                  "brandName": "Nike"
-              },
-              "productName": "Running Shoes",
-              "price": 120.00,
-              "productCategory": "Footwear",
-              "gender": "Unisex",
-              "description": null
-          },
-          "rating": 4.5,
-          "description": "Great product, would recommend!"
-      }
-  ],
-  "image": "",
-  "category": "Footwear",
-  "image_colors": {
-      "Black": ""
-  },
-  "description": null,
-  "productId": "PR001",
-  "productName": "Running Shoes"
-}
+
 
 
 export default function ViewProduct({productId}) {
