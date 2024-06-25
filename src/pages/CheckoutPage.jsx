@@ -109,6 +109,8 @@ const calculateTotal = () => {
   const total = subTotal + taxes + shipping;
   setTotal(total);
 };
+
+
 useEffect(() => {
   calculateTotal();
 }, [subTotal, taxes, shipping]);
@@ -129,64 +131,64 @@ useEffect(() => {
   };
 
  
-  
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
     if (!termsChecked) {
-      alert("Please agree to the terms and conditions.");
-      return;
+        alert("Please agree to the terms and conditions.");
+        return;
     }
+
     const paymentData = {
-      email,
-      phone,
+        email,
+        phone,
     };
 
     const formData = {
-      ...paymentData,
-      shippingDetails,
-      selectedDeliveryMethod: selectedDeliveryMethod.title,
-      customerId:customerId,
-      subTotal:subTotal,
-      taxes:taxes,
-      shipping:shipping,
-      total:total,
-
+        ...paymentData,
+        shippingDetails,
+        selectedDeliveryMethod: selectedDeliveryMethod.title,
+        customerId: customerId,
+        subTotal: subTotal,
+        taxes: taxes,
+        shipping: shipping,
+        total: total,
     };
 
-    console.log("form data",formData);
+    try {
+        const paymentResponse = await fetch(`${process.env.REACT_APP_API_BASE_URL}/payment`, {
+            method: "POST",
+            headers: {
+                "Content-Type": "application/json",
+            },
+            body: JSON.stringify(formData),
+        });
 
-    fetch(`${process.env.REACT_APP_API_BASE_URL}/payment`, {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify(formData),
-    })
-      .then((response) => {
-        if (response.ok) {
-          console.log("Payment details sent successfully");
-          return response.json(); 
-        } else {
-          console.error(
-            "Failed to send payment details:",
-            response.status
-          );
-          throw new Error("Failed to send payment details");
+        if (!paymentResponse.ok) {
+            throw new Error("Failed to send payment details");
         }
-      })
-      .then((data) => {
-        const orderId = data;
-        console.log("order id at navigation",orderId)
-        navigate("/orderSummary", { state: { orderId } }); 
 
-      })
-      .catch((error) => {
-        console.error(
-          "An error occurred while sending payment details:",
-          error
-        );
-      });
-  };
+        const paymentData = await paymentResponse.json();
+        const orderId = paymentData.orderId;
+        console.log("Order ID at navigation", orderId);
+
+        const clearCartResponse = await fetch(`${process.env.REACT_APP_API_BASE_URL}/customer/cart/clear/${customerId}`, {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+            },
+        });
+
+        if (!clearCartResponse.ok) {
+            throw new Error('Failed to clear the cart.');
+        }
+
+        setCartProducts([]);
+
+        navigate("/orderSummary", { state: { orderId } });
+    } catch (error) {
+        console.error("An error occurred while processing payment and clearing cart:", error);
+    }
+};
 
 
   return (
