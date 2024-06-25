@@ -14,7 +14,7 @@ const LoginPage = () => {
   const onFinish = async () => {
     try {
       
-    const response = await fetch("http://34.222.253.72:5000/customer/login", {
+    const response = await fetch(`${process.env.REACT_APP_API_BASE_URL}/customer/login`, {
         method: "POST",
         headers: {
           "Content-Type": "application/json"

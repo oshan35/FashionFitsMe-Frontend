@@ -58,7 +58,7 @@ export default function OrderSummaryPage() {
     console.log("order Id sent",orderId)
     const fetchOrderDetails = async () => {
         try {
-            const response = await fetch('http://34.222.253.72:5000/orders/getOrder', {
+            const response = await fetch(`${process.env.REACT_APP_API_BASE_URL}/orders/getOrder`, {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json'

@@ -46,7 +46,7 @@ const [error, setError] = useState(null);
         async function fetchCustomerId() {
           try {
             const sessionId = localStorage.getItem('sessionData');
-            const response = await fetch("http://34.222.253.72:5000/customer/getCustomerId", {
+            const response = await fetch(`${process.env.REACT_APP_API_BASE_URL}/customer/getCustomerId`, {
               method: 'GET',
               headers: {
                 'Content-Type': 'application/json',
@@ -72,7 +72,7 @@ const [error, setError] = useState(null);
     
         const fetchOrderDetails = async () => {
             try {
-                const response = await fetch(`http://34.222.253.72:5000/orders/customer/${1}`, {
+                const response = await fetch(`${process.env.REACT_APP_API_BASE_URL}/orders/customer/${1}`, {
                     method: 'GET',
                     headers: {
                         'Content-Type': 'application/json'

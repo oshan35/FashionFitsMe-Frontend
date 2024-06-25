@@ -16,7 +16,7 @@ function Cart() {
 
     const handleRemoveProduct = async (productId) => {
         try {
-            const response = await fetch(`http://34.222.253.72:5000/product_shopping_cart/removeProduct`, {
+            const response = await fetch(`${process.env.REACT_APP_API_BASE_URL}/product_shopping_cart/removeProduct`, {
                 method: 'DELETE',
                 headers: {
                     'Content-Type': 'application/json',
@@ -54,7 +54,7 @@ function Cart() {
             console.log("customer id on cart", customerId);
             setIsLoading(true);
             try {
-                const response = await fetch(`http://34.222.253.72:5000/customer/cart/${customerId}`);
+                const response = await fetch(`${process.env.REACT_APP_API_BASE_URL}/customer/cart/${customerId}`);
                 if (!response.ok) {
                     throw new Error('Could not fetch product details.');
                 }

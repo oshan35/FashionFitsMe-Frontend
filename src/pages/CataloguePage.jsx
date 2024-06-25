@@ -93,7 +93,9 @@ const CataloguePage = () => {
 
   useEffect(() => {
     if (selectedFilters.length > 0) {
-      fetch('http://34.222.253.72:5000/products/filter-products', {
+      console.log('API Base URL:', process.env.REACT_APP_API_BASE_URL);
+
+      fetch(`${process.env.REACT_APP_API_BASE_URL}/products/filter-products`, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',

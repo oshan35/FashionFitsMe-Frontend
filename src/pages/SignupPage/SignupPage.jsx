@@ -18,7 +18,7 @@ const SignUpPage = () => {
     const onFinish = async () => {
       console.log("Uform data",formData);
       try {
-        const response = await fetch('http://localhost:5000/customer/signup', {
+        const response = await fetch(`${process.env.REACT_APP_API_BASE_URL}/customer/signup`, {
           method: 'POST',
           headers: {
             'Content-Type': 'application/json'

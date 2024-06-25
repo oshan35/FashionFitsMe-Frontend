@@ -23,7 +23,7 @@ export default function NavBarNew() {
       async function fetchCustomerId() {
         try {
           const sessionId = localStorage.getItem('sessionData');
-          const response = await fetch("http://34.222.253.72:5000/customer/getCustomerId", {
+          const response = await fetch(`${process.env.REACT_APP_API_BASE_URL}/customer/getCustomerId`, {
             method: 'GET',
             headers: {
               'Content-Type': 'application/json',

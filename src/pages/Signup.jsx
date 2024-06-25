@@ -17,7 +17,7 @@ const SignupPage = () => {
   const onFinish = async () => {
     try {
       
-        const response = await fetch('http://34.222.253.72:5000/customer/signup', {
+        const response = await fetch(`${process.env.REACT_APP_API_BASE_URL}/customer/signup`, {
             method: "POST",
         headers: {
           "Content-Type": "application/json"

@@ -35,7 +35,7 @@ const ProductContainer = ({title, heading, id, isPage }) => {
       category: heading
     };
     console.log('sent to backend',filter)
-    fetch(`http://localhost:5000/products/getHomeProducts`, {
+    fetch(`${process.env.REACT_APP_API_BASE_URL}/products/getHomeProducts`, {
       
       method: 'POST',
       headers: {

@@ -46,7 +46,7 @@ const ShoppingBag = () => {
     useEffect(() => {
         const fetchProducts = async () => {
           try {
-            const response = await fetch (`http://localhost:5000/products`);
+            const response = await fetch (`${process.env.REACT_APP_API_BASE_URL}/products`);
            
             if (!response.ok) {
               throw new Error('Failed to fetch products');
@@ -80,7 +80,7 @@ const ShoppingBag = () => {
         
         const fetchProductImages = async (productId) => {
           try {
-            const response = await fetch(`http://localhost:5000/product-images/getImage/${productId}`);
+            const response = await fetch(`${process.env.REACT_APP_API_BASE_URL}/product-images/getImage/${productId}`);
             if (!response.ok) {
               throw new Error(`Failed to fetch image data for product ${productId}`);
             }
@@ -98,7 +98,7 @@ const ShoppingBag = () => {
           try {
             console.log('cartId:',cartId);
              
-              const response = await fetch(`http://localhost:5000/product_shopping_cart/${cartId}/product-color-sizes`);
+              const response = await fetch(`${process.env.REACT_APP_API_BASE_URL}/product_shopping_cart/${cartId}/product-color-sizes`);
               
               const data = await response.json();
               console.log('data:',data);
@@ -112,7 +112,7 @@ const ShoppingBag = () => {
       };
 
         function fetchTotals(cartId) {
-          fetch(`http://localhost:5000/product_shopping_cart/totals/${cartId}`)
+          fetch(`${process.env.REACT_APP_API_BASE_URL}/product_shopping_cart/totals/${cartId}`)
               .then(response => {
                   if (!response.ok) {
                       throw new Error('Unable to fetch totals');

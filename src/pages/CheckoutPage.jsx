@@ -46,7 +46,7 @@ export default function Checkout() {
     const fetchProductDetails = async () => {
         setIsLoading(true);
         try {
-            const response = await fetch(`http://34.222.253.72:5000/customer/cart/${customerId}`);
+            const response = await fetch(`${process.env.REACT_APP_API_BASE_URL}/customer/cart/${customerId}`);
             if (!response.ok) {
                 throw new Error('Could not fetch product details.');
             }
@@ -155,7 +155,7 @@ useEffect(() => {
 
     console.log("form data",formData);
 
-    fetch("http://34.222.253.72:5000/payment", {
+    fetch(`${process.env.REACT_APP_API_BASE_URL}/payment`, {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
