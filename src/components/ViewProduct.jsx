@@ -46,7 +46,7 @@ const handleAddToCart = async () => {
   }else {
 
   try {
-      const apiEndpoint = 'http://localhost:5000/product_shopping_cart/addProducts';
+      const apiEndpoint = 'http://34.222.253.72:5000/product_shopping_cart/addProducts';
 
       const payload = {
           productId,
@@ -166,7 +166,7 @@ const handleViewCart = (customerId) => {
   useEffect(() => {
     setIsLoading(true);
   
-    fetch(`http://localhost:5000/products/getProductInformation?productId=${productId}`)
+    fetch(`http://34.222.253.72:5000/products/getProductInformation?productId=${productId}`)
         .then(response => response.json())
         .then(data => {
           console.log("sizes",sizes);

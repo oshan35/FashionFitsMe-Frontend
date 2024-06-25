@@ -15,6 +15,7 @@ function classNames(...classes) {
 const currencies = ['CAD', 'USD', 'AUD', 'EUR', 'GBP']
 
 export default function NavBarNew() {
+  
     const navigate = useNavigate();
     const [customerId, setCustomerId] = useState(null);
     const [openDrawer, setOpenDrawer] = useState(false);
@@ -63,7 +64,10 @@ export default function NavBarNew() {
 
         navigate("/cart", { state: { customerId } }); 
       };
-
+      const handleOrderHistoryClick = () => {
+        console.log('clicked order history');
+        navigate("/orderHistory",{ state: { customerId }});
+      };
   return (
     <div className="bg-white">
 
@@ -161,6 +165,8 @@ export default function NavBarNew() {
                   <span className="sr-only">, change currency</span>
                 </a>
               </div>
+
+              
             </div>
           </Transition.Child>
         </Dialog>
@@ -545,7 +551,7 @@ export default function NavBarNew() {
 
                 {/* Mobile menu and search (lg-) */}
                 <div className="ml-auto flex items-center">
-                  <div className="hidden lg:flex lg:flex-1 lg:items-center lg:justify-end lg:space-x-6">
+                  <div className="hidden lg:flex lg:flex-2 lg:items-center lg:justify-end lg:space-x-6">
                     <a 
                     className="text-sm font-medium text-gray-700 hover:text-gray-800"
                       onClick={handleLoginButtonClick}>
@@ -568,6 +574,20 @@ export default function NavBarNew() {
                       <span className="sr-only">, change currency</span>
                     </a>
                   </div>
+                   {/* Order History */}
+
+                  <div className="flex-1 flex items-center justify-end">
+                  <div className="flex items-center lg:ml-8">
+                    <div className="hidden lg:flex">
+                      <a
+                      onClick={handleOrderHistoryClick}
+                      className="text-gray-700 hover:text-gray-800"
+                      >
+                        Order History
+                      </a>
+                    </div>
+                  </div>
+                 </div>
 
                   {/* Search */}
                   <div className="flex lg:ml-6">
