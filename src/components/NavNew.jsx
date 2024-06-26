@@ -3,6 +3,8 @@ import { Popover, Transition } from '@headlessui/react'
 import {  ShoppingBagIcon } from '@heroicons/react/outline'
 import { useNavigate } from "react-router-dom";
 import { navigation,navigationSecond } from '../constants';
+import { LogoutIcon } from '@heroicons/react/outline'; 
+
 import "/node_modules/flag-icons/css/flag-icons.min.css";
 
 import { Dialog, Tab } from '@headlessui/react'
@@ -19,6 +21,9 @@ export default function NavBarNew() {
     const navigate = useNavigate();
     const [customerId, setCustomerId] = useState(null);
     const [openDrawer, setOpenDrawer] = useState(false);
+    const [popupMessage, setPopupMessage] = useState(""); // State for popup message
+    const [isLoggedIn, setIsLoggedIn] = useState(false);
+    const [open, setOpen] = useState(false)
 
     useEffect(() => {
       async function fetchCustomerId() {
@@ -31,20 +36,24 @@ export default function NavBarNew() {
               'Authorization': `Bearer ${sessionId}`,
             },
           });
-    
+  
           if (response.ok) {
             const cusId = await response.json();
-            setCustomerId(cusId)      } else {
+            setCustomerId(cusId);
+            setIsLoggedIn(true); 
+          } else {
             console.error('Failed to get customer ID:', response.status);
+            setIsLoggedIn(false);
           }
         } catch (error) {
           console.error('An error occurred while fetching the customer ID:', error);
+          setIsLoggedIn(false);
         }
       }
-    
+  
       fetchCustomerId();
     }, []);
-    const [open, setOpen] = useState(false)
+  
 
     const handleNavbarrButtonClick = (label1,label2, topic1,topic2) => {
         console.log('clicked button on navbar');
@@ -59,17 +68,79 @@ export default function NavBarNew() {
         navigate("/signup"); 
       };
       const handleCartClick = () => {
-        console.log('clicked cart icon on navbar');
-        console.log('customer id',customerId);
+        if (isLoggedIn) {
+          console.log('Navigate to cart');
+          navigate('/cart', { state: { customerId } });
+        } else {
+          console.log('Navigate to sign in');
+          setPopupMessage('Please sign in to view your order history.');
+          setTimeout(() => setPopupMessage(""), 3000);         }
+        navigate("/login"); 
 
-        navigate("/cart", { state: { customerId } }); 
       };
+    
       const handleOrderHistoryClick = () => {
-        console.log('clicked order history');
-        navigate("/orderHistory",{ state: { customerId }});
+        if (isLoggedIn) {
+          console.log('Navigate to order history');
+          navigate('/orderHistory', { state: { customerId } });
+        } else {
+          console.log('Navigate to sign in');
+          setPopupMessage('Please sign in to view your order history.');
+          setTimeout(() => setPopupMessage(""), 3000); 
+          navigate("/login"); 
+        }
+
       };
+
+      const handleLogoutClick = () => {
+        localStorage.removeItem('sessionData');
+        setCustomerId(null);
+        setIsLoggedIn(false);
+        setPopupMessage('Logged out successfully.');
+        setTimeout(() => setPopupMessage(""), 3000); 
+
+        navigate('/');
+      };
+
   return (
     <div className="bg-white">
+
+{/* Message Display */}
+{popupMessage && (
+        <div className="fixed inset-0 flex items-center justify-center px-4 py-6 pointer-events-none sm:p-6 sm:items-start sm:justify-end z-50">
+          <div className="max-w-sm w-full bg-white shadow-lg rounded-lg pointer-events-auto">
+            <div className="rounded-lg shadow-xs overflow-hidden">
+              <div className="p-4">
+                <div className="flex items-start">
+                  <div className="flex-shrink-0">
+                    {/* Icon or indicator */}
+                    <svg className="h-6 w-6 text-yellow-400" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
+                    </svg>
+                  </div>
+                  <div className="ml-3 w-0 flex-1 pt-0.5">
+                    <p className="text-sm font-medium text-gray-900">{popupMessage}</p>
+                  </div>
+                  <div className="ml-4 flex-shrink-0 flex">
+                    <button
+                      className="inline-flex text-gray-400 focus:outline-none focus:text-gray-500"
+                      onClick={() => setPopupMessage("")}
+                    >
+                      {/* Close button icon */}
+                      <svg className="h-5 w-5" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor">
+                        <path fillRule="evenodd" d="M2.293 3.293a1 1 0 0 1 1.414 0L10 8.586l6.293-6.293a1 1 0 1 1 1.414 1.414L11.414 10l6.293 6.293a1 1 0 1 1-1.414 1.414L10 11.414l-6.293 6.293a1 1 0 0 1-1.414-1.414L8.586 10 2.293 3.707a1 1 0 0 1 0-1.414z" clipRule="evenodd" />
+                      </svg>
+                    </button>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      )}
+
+
+
 
     <Transition.Root show={open} as={Fragment}>
         <Dialog as="div" className="fixed inset-0 flex z-40 lg:hidden" onClose={setOpen}>
@@ -129,7 +200,7 @@ export default function NavBarNew() {
               </Tab.Group>
           <Tab.Group >
 
-      </Tab.Group>
+          </Tab.Group>
               <div className="border-t border-gray-200 py-6 px-4 space-y-6">
                 {navigation.pages.map((page) => (
                   <div key={page.name} className="flow-root">
@@ -172,8 +243,7 @@ export default function NavBarNew() {
         </Dialog>
       </Transition.Root>
 
-     
-
+    
       <header className="relative">
         <nav aria-label="Top">
           {/* Top navigation */}
@@ -588,7 +658,15 @@ export default function NavBarNew() {
                     </div>
                   </div>
                  </div>
-
+                 <div className="ml-4 flow-root lg:ml-6">
+                <a
+                  className="group -m-2 p-2 flex items-center"
+                  onClick={handleLogoutClick}
+                >
+                  <LogoutIcon className="flex-shrink-0 h-6 w-6 text-gray-400 group-hover:text-gray-500" aria-hidden="true" />
+                  <span className="ml-2 text-sm font-medium text-gray-700 group-hover:text-gray-800">Logout</span>
+                </a>
+              </div>
                   {/* Search */}
                   <div className="flex lg:ml-6">
                   <a  className="group -m-2 p-2 flex items-center"    

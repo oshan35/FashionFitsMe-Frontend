@@ -87,7 +87,7 @@ export default function OrderHistory() {
       <main className="flex items-center justify-center h-screen">
         <div className="text-center">
           <div className="spinner-border animate-spin inline-block w-8 h-8 border-4 rounded-full" role="status">
-            <span className="visually-hidden">Loading...</span>
+            <span className="visually-hidden"></span>
           </div>
           <p className="mt-2 text-gray-500">Loading orders...</p>
         </div>
