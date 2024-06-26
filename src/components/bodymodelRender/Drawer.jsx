@@ -138,17 +138,18 @@ const CustomDrawer = ({ isOpen, onClose }) => {
           }, {})
         }),
       });
-  
+      const data = await response.json();
+      console.log("response after updateing",response.body)
       if (!response.ok) {
         throw new Error('Failed to save measurements');
       }
   
-      const data = await response.json();
-      setModelUrl(data.modelUrl); 
+     
+      //setModelUrl(data.modelUrl); 
   
       console.log('Measurements saved successfully');
     } catch (error) {
-      console.error('Error saving measurements:', error);
+      console.error('Error saving measurements in', error);
     }
   };
   

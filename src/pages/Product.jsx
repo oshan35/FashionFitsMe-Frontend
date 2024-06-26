@@ -20,20 +20,26 @@ const Product = () => {
   };
 
   return (
+
+   
+
     <div className="bg-white">
  
+      <section className="">
+        <NavBarNew />
+      </section>
 
-
-    <main className="relative">
-      {/* <NavBarNew /> */}
+      <main className="">
       <section className="">
       <ViewProduct productId={productId} />
       </section>
+
       <section className=" bg-black padding-x padding-t pb-8">
         <Footer />
       </section>
-    </main>
+      </main>
     </div>
+   
 
   );
 };

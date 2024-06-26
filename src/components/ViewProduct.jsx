@@ -240,7 +240,8 @@ const handleViewCart = (customerId) => {
         // Round the matchPercentage to two decimal places
         const roundedPercentage = parseFloat(data.matching_percentage).toFixed(2);
         setMatchPercentage(roundedPercentage);
-        console.log(`Matching percentage: ${roundedPercentage.matching_percentage}`);
+        console.log(`Matching percentage before: ${data.matching_percentage}`);
+        console.log(`Matching percentage after: ${roundedPercentage}`);
       } catch (error) {
         console.error('Error fetching matching size:', error);
       }
@@ -291,10 +292,9 @@ useEffect(() => {
   }, [customerId]);
   return (
     
-        <div className="bg-gray-50">
-        <NavBarNew/>
+      <div className="">
 
-        <main className="max-w-2xl mx-auto pt-8 pb-24 sm:pt-16 sm:px-6 lg:max-w-7xl lg:px-8">
+        <div className="max-w-2xl mx-auto pt-8 pb-24 sm:pt-16 sm:px-6 lg:max-w-7xl lg:px-8">
         <div className="px-4 space-y-2 sm:px-0 sm:flex sm:items-baseline sm:justify-between sm:space-y-0">
           <div className="flex sm:items-baseline sm:space-x-4">
             <div className="lg:grid lg:auto-rows-min lg:grid-cols-12 lg:gap-x-8">
@@ -412,14 +412,15 @@ useEffect(() => {
                   </RadioGroup>
                 </div>
                 {customerId && (
-                  <Card className="mt-6">
-                      {recommendedSize && matchRate ? (
-                          <p>We think size <strong>{recommendedSize}</strong> is the best match for you in this product. Matching Rate <strong>{matchRate}%</strong></p>
-                      ) : (
-                          <p>Click below & Try our size recommendation algorithm to find the best match</p>
-                      )}
-                  </Card>
-              )}
+  <Card className="mt-6">
+    {matchingSize && matchPercentage ? (
+      <p>We think size <strong>{matchingSize}</strong> is the best match for you in this product. Matching Rate <strong>{matchPercentage}%</strong></p>
+    ) : (
+      <p>Click below & Try our size recommendation algorithm to find the best match</p>
+    )}
+  </Card>
+)}
+
           <div>
           <button  type="button"
             onClick={handleOpenDrawer}
@@ -543,10 +544,9 @@ useEffect(() => {
   </div>
 </div>
  
-        </main>
+        </div>
 
 </div>
-
 
   );
 }
