@@ -77,20 +77,27 @@ const CustomDrawer = ({ isOpen, onClose }) => {
           weight: weight
         })
       });
-
+  
       if (!response.ok) {
         throw new Error('Network response was not ok');
       }
-
+  
       const data = await response.json();
       console.log(data);
-
-      setMeasurements(data.measurements);
+  
+      // Transform the measurements object to an array
+      const measurementsArray = Object.keys(data.measurements).map(key => ({
+        name: key,
+        value: data.measurements[key]
+      }));
+  
+      setMeasurements(measurementsArray);
       setModelUrl(data.modelUrl); 
     } catch (error) {
       console.error('There was a problem with the fetch operation:', error);
     }
   };
+  
 
   const handleSave = async () => {
     try {

@@ -37,6 +37,13 @@ export default function ViewProduct({productId}) {
     return classes.filter(Boolean).join(" ");
   }
 
+  useEffect(() => {
+    if (recommendedSize && matchRate) {
+        console.log(`New recommended size: ${recommendedSize} with a match rate of ${matchRate}%`);
+        // You can also perform other side effects here, such as analytics logging or updating other parts of your UI
+    }
+}, [recommendedSize, matchRate]);
+
   const handleBuyNow = async (customerId) => {
     if (!selectedColor || !selectedSize) {
       setShowColorSizePromptBuy(true);
@@ -211,11 +218,10 @@ const handleViewCart = (customerId) => {
         });
   }, [productId]); 
 
-  useEffect( () => {
-    const fetchMatchingSize = async () => {
-
+  useEffect(() => {
+    const fetchData = async () => {
       try {
-        const response = await fetch(`${process.env.REACT_APP_API_BASE_URL}/customer/getMatchingSize/${customerId}/${productId}`, {
+        const response = await fetch(`${process.env.REACT_APP_API_BASE_URL}/customer/getMatchingSize?customerId=${customerId}&productId=${productId}`, {
           method: 'GET',
           headers: {
             'Content-Type': 'application/json',
@@ -227,16 +233,21 @@ const handleViewCart = (customerId) => {
         }
   
         const data = await response.json();
-        setMatchingSize(data.size);
-        setMatchPercentage(data.percentage);
+        
+        setMatchingSize(data.matching_size);
+        console.log(`Matching sizes: ${data.matching_size}`);
+  
+        // Round the matchPercentage to two decimal places
+        const roundedPercentage = parseFloat(data.matching_percentage).toFixed(2);
+        setMatchPercentage(roundedPercentage);
+        console.log(`Matching percentage: ${roundedPercentage.matching_percentage}`);
       } catch (error) {
         console.error('Error fetching matching size:', error);
       }
     };
-  }
-);
-
-
+  
+    fetchData();
+  }, []); 
 
 
 
@@ -402,13 +413,13 @@ useEffect(() => {
                 </div>
                 {customerId && (
                   <Card className="mt-6">
-                    {recommendedSize && matchRate ? (
-                      <p>We think size <strong>{recommendedSize}</strong> is the best match for you in this product. Matching Rate <strong>{matchRate}%</strong></p>
-                    ) : (
-                      <p>Click below & Try our size recommendation algorithm to find the best match</p>
-                    )}
+                      {recommendedSize && matchRate ? (
+                          <p>We think size <strong>{recommendedSize}</strong> is the best match for you in this product. Matching Rate <strong>{matchRate}%</strong></p>
+                      ) : (
+                          <p>Click below & Try our size recommendation algorithm to find the best match</p>
+                      )}
                   </Card>
-                )}
+              )}
           <div>
           <button  type="button"
             onClick={handleOpenDrawer}
