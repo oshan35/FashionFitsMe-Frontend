@@ -247,7 +247,7 @@ const handleViewCart = (customerId) => {
     };
   
     fetchData();
-  }, []); 
+  }, [isDrawerOpen]); 
 
 
 
