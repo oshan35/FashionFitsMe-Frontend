@@ -171,18 +171,18 @@ useEffect(() => {
         const orderId = paymentData.orderId;
         console.log("Order ID at navigation", orderId);
 
-        const clearCartResponse = await fetch(`${process.env.REACT_APP_API_BASE_URL}/customer/cart/clear/${customerId}`, {
-            method: 'POST',
-            headers: {
-                'Content-Type': 'application/json',
-            },
-        });
+        // const clearCartResponse = await fetch(`${process.env.REACT_APP_API_BASE_URL}/customer/cart/clear/${customerId}`, {
+        //     method: 'POST',
+        //     headers: {
+        //         'Content-Type': 'application/json',
+        //     },
+        // });
 
-        if (!clearCartResponse.ok) {
-            throw new Error('Failed to clear the cart.');
-        }
+        // if (!clearCartResponse.ok) {
+        //     throw new Error('Failed to clear the cart.');
+        // }
 
-        setCartProducts([]);
+        // setCartProducts([]);
 
         navigate("/orderSummary", { state: { orderId } });
     } catch (error) {
