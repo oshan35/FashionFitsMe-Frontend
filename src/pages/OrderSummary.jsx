@@ -7,55 +7,6 @@ import { OrderSummary } from "../components";
 
 
 
-// const [products, setProducts] = useState([]);
-// const [orderInformation,setOrderInformation]=useState([]);
-
-
-
-// useEffect(() => {
-    
-    
-   
-//     const fetchClothCardData = async (cartId) => {
-//       try {
-//         console.log('cartId:',cartId);
-         
-//           const response = await fetch(`http://localhost:5000/product_shopping_cart/${cartId}`);
-          
-//           const data = await response.json();
-//           console.log('data:',data);
-//           setProducts(data);
-          
-          
-          
-//       } catch (error) {
-//           console.error('Error fetching cloth card data:', error);
-//       }
-//   };
-
-//     function fetchTotals(cartId) {
-//       fetch(`http://localhost:5000/product_shopping_cart/totals/${cartId}`)
-//           .then(response => {
-//               if (!response.ok) {
-//                   throw new Error('Unable to fetch totals');
-//               }
-//               return response.json();
-//           })
-//           .then(data => {
-//               console.log('orserSummary data',data);
-//               setOrderInformation(data);
-//           })
-//           .catch(error => {
-//               console.error('Error fetching totals:', error);
-//           });
-//   }
-    
-    
-//     fetchProducts();
-//     fetchTotals(cartId);
-//     fetchClothCardData(cartId);
-    
-//   }, []); 
 
 
 

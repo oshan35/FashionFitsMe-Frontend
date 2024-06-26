@@ -1,64 +1,69 @@
 import React, { useState } from "react";
-import { Button, Form, Input } from "antd";
+import { Button, Form, Input, message } from "antd";
 import { LockOutlined, UserOutlined } from "@ant-design/icons";
 import { NavBarNew } from "../components";
 import { Footer } from "../sections";
 import { useNavigate } from "react-router-dom"; 
+
 const LoginPage = () => {
   const navigate = useNavigate();
   const [formData, setFormData] = useState({
     username: "",
     password: ""
   });
+  const [loginMessage, setLoginMessage] = useState(null);
 
   const onFinish = async () => {
     try {
-      
-    const response = await fetch("http://54.191.229.94:5000/customer/login", {
+      const response = await fetch("http://54.191.229.94:5000/customer/login", {
         method: "POST",
         headers: {
           "Content-Type": "application/json"
         },
         body: JSON.stringify(formData)
       });
-      navigate("/"); 
       if (response.ok) {
         const sessionData = await response.json();
         localStorage.setItem('sessionData', sessionData.sessionId); // Use the key "sessionId" from the JSON object
-        console.log('User registered and session data stored:', sessionData);
-    } else {
+        console.log('User logged in and session data stored:', sessionData);
+        setLoginMessage("User logged in successfully!"); // Set the success message
+        setTimeout(() => navigate("/"), 2000); // Navigate after 2 seconds
+      } else {
         const errorText = await response.text();
-        console.error(`Failed to register user: HTTP status ${response.status}, response text: ${errorText}`);
+        console.error(`Failed to login user: HTTP status ${response.status}, response text: ${errorText}`);
+        message.error(`Failed to login user: ${errorText}`);
+      }
+    } catch (error) {
+      console.error('An error occurred:', error);
+      message.error('An error occurred during login');
     }
-} catch (error) {
-    console.error('An error occurred:', error);
-}
   };
+
   const handleChange = (e) => {
     const { name, value } = e.target;
     setFormData({ ...formData, [name]: value });
   };
 
   return (
-
     <main className="">
-       <section className="ml-10 ">
-          <NavBarNew />    
-        </section>
+      <section className="ml-10 ">
+        <NavBarNew />    
+      </section>
       <section className="mb-10 ">
         <div className="min-h-full flex flex-col justify-center py-8 sm:px-6 lg:px-8">
           <div className="sm:mx-auto sm:w-full sm:max-w-md">
-           
-          <h2 className="mt-6 text-center text-3xl font-bold text-gray-500 letter-spaced-5px" >
-            CUSTOMER  LOGIN
-          </h2>
-
-          <hr />
-
+            <h2 className="mt-6 text-center text-3xl font-bold text-gray-500 letter-spaced-5px" >
+              CUSTOMER LOGIN
+            </h2>
+            <hr />
           </div>
-
           <div className="mt-8 sm:mx-auto sm:w-full sm:max-w-md">
-            <div className="bg-white py-4 px-4  sm:rounded-lg sm:px-10">
+            <div className="bg-white py-4 px-4 sm:rounded-lg sm:px-10">
+              {loginMessage && (
+                <div className="mb-4 text-green-600 text-center">
+                  {loginMessage}
+                </div>
+              )}
               <Form
                 name="normal_login"
                 className="space-y-6"
@@ -81,7 +86,6 @@ const LoginPage = () => {
                     />
                   </div>
                 </div>
-
                 <div>
                   <label htmlFor="password" className="block text-sm font-medium text-gray-700">
                     Password
@@ -98,11 +102,10 @@ const LoginPage = () => {
                     />
                   </div>
                 </div>
-
                 <div>
                   <button
                     type="submit"
-                    className="w-full flex justify-center py-2 px-4 border border-transparent rounded-md shadow-sm text-sm font-medium text-white bg-gray-600 hover:bg-black focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-iborder-gray-500"
+                    className="w-full flex justify-center py-2 px-4 border border-transparent rounded-md shadow-sm text-sm font-medium text-white bg-gray-600 hover:bg-black focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500"
                   >
                     Sign in
                   </button>
@@ -112,11 +115,10 @@ const LoginPage = () => {
           </div>
         </div>
       </section>
-      <section className=" bg-black padding-x padding-t pb-8">
+      <section className="bg-black padding-x padding-t pb-8">
         <Footer />
       </section>
-      </main>
-
+    </main>
   );
 };
 
