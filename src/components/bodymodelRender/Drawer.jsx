@@ -99,6 +99,30 @@ const CustomDrawer = ({ isOpen, onClose }) => {
   };
   
 
+  // const handleSave = async () => {
+  //   try {
+  //     const response = await fetch(`${process.env.REACT_APP_API_BASE_URL}/customer/saveMeasurements`, {
+  //       method: 'POST',
+  //       headers: {
+  //         'Content-Type': 'application/json',
+  //       },
+  //       body: JSON.stringify({ measurements }),
+  //     });
+
+  //     if (!response.ok) {
+  //       throw new Error('Failed to save measurements');
+  //     }
+
+  //     const data = await response.json();
+  //     setModelUrl(data.modelUrl); 
+
+  //     console.log('Measurements saved successfully');
+  //   } catch (error) {
+  //     console.error('Error saving measurements:', error);
+  //   }
+  // };
+
+
   const handleSave = async () => {
     try {
       const response = await fetch(`${process.env.REACT_APP_API_BASE_URL}/customer/saveMeasurements`, {
@@ -106,22 +130,28 @@ const CustomDrawer = ({ isOpen, onClose }) => {
         headers: {
           'Content-Type': 'application/json',
         },
-        body: JSON.stringify({ measurements }),
+        body: JSON.stringify({ 
+          customerId: customerId,
+          ...measurements.reduce((acc, measurement) => {
+            acc[measurement.name] = measurement.value;
+            return acc;
+          }, {})
+        }),
       });
-
+  
       if (!response.ok) {
         throw new Error('Failed to save measurements');
       }
-
+  
       const data = await response.json();
       setModelUrl(data.modelUrl); 
-
+  
       console.log('Measurements saved successfully');
     } catch (error) {
       console.error('Error saving measurements:', error);
     }
   };
-
+  
   const renderSliders = () => {
     return measurements.map((measurement, index) => (
       <div key={index} style={{ marginBottom: 16 }}>
