@@ -555,7 +555,7 @@ export const fetchProductsFromBackend = async (setProducts, setIsLoading,filters
   setIsLoading(true);
 
   try {
-    const response = await fetch(`http://localhost:5000/products/filter-products`, {
+    const response = await fetch(`${process.env.REACT_APP_API_BASE_URL}/products/filter-products`, {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
@@ -591,7 +591,7 @@ export const useProductsFromBackend = (title,categoryId, selectedFilters,updateS
   // };
 
   try {
-    const response =  fetch(`http://localhost:5000/products/filter-products`, {
+    const response =  fetch(`${process.env.REACT_APP_API_BASE_URL}/products/filter-products`, {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',

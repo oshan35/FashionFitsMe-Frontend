@@ -83,7 +83,7 @@ export default function QuickProductView({ open, setOpen, productId }) {
   useEffect(() => {
     setIsLoading(true);
   
-    fetch(`http://54.191.229.94:5000/products/getProductInformation?productId=${productId}`)
+    fetch(`${process.env.REACT_APP_API_BASE_URL}/products/getProductInformation?productId=${productId}`)
         .then(response => response.json())
         .then(data => {
             // Update the itemData state with the fetched data

@@ -17,13 +17,13 @@ const SignupPage = () => {
 
   const onFinish = async () => {
     try {
-      console.log('Form data:', formData); 
-      const response = await fetch('http://54.191.229.94:5000/customer/signup', {
-          method: "POST",
-          headers: {
-              "Content-Type": "application/json"
-          },
-          body: JSON.stringify(formData)
+      
+        const response = await fetch(`${process.env.REACT_APP_API_BASE_URL}/customer/signup`, {
+            method: "POST",
+        headers: {
+          "Content-Type": "application/json"
+        },
+        body: JSON.stringify(formData)
       });
       if (response.ok) {
           const sessionData = await response.json();

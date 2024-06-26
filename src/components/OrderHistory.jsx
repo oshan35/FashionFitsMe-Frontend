@@ -16,7 +16,7 @@ export default function OrderHistory() {
     async function fetchCustomerId() {
       try {
         const sessionId = localStorage.getItem('sessionData');
-        const response = await fetch("http://54.191.229.94:5000/customer/getCustomerId", {
+        const response = await fetch(`${process.env.REACT_APP_API_BASE_URL}/customer/getCustomerId`, {
           method: 'GET',
           headers: {
             'Content-Type': 'application/json',

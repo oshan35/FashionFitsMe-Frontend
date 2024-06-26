@@ -21,7 +21,7 @@ export default function ViewProduct({productId}) {
 
   const initialSizes = ['XXS','XS', 'S', 'M', 'L', 'XL', 'XXL','XXXL'];
   const [sizeAvailability, setSizeAvailability] = useState({}); 
-  const [customerId, setCustomerId] = useState(null); 
+  const [customerId, setCustomerId] = useState(null); // TODO - CHANGE TO NULL ON PROD
   const [selectedColor, setSelectedColor] = useState(null);
   const [selectedSize, setSelectedSize] = useState(null);
   const [showPrompt, setShowPrompt] = useState(false);
@@ -29,13 +29,20 @@ export default function ViewProduct({productId}) {
   const [showColorSizePromptBuy, setShowColorSizePromptBuy] = useState(false);
   const [showTimeoutPrompt, setShowTimeoutPrompt] = useState(false);
   const [showSignupPrompt, setShowSignupPrompt] = useState(false);
-  const [recommendedSize, setRecommendedSize] = useState("Medium");
-  const [matchRate, setMatchRate] = useState(80.2);
+  const [recommendedSize, setRecommendedSize] = useState(null);
+  const [matchRate, setMatchRate] = useState(null);
   const navigate = useNavigate();
  
   function classNames(...classes) {
     return classes.filter(Boolean).join(" ");
   }
+
+  useEffect(() => {
+    if (recommendedSize && matchRate) {
+        console.log(`New recommended size: ${recommendedSize} with a match rate of ${matchRate}%`);
+        // You can also perform other side effects here, such as analytics logging or updating other parts of your UI
+    }
+}, [recommendedSize, matchRate]);
 
   const handleBuyNow = async (customerId) => {
     if (!selectedColor || !selectedSize) {
@@ -53,7 +60,7 @@ const handleAddToCart = async () => {
   }else {
 
   try {
-      const apiEndpoint = 'http://54.191.229.94:5000/product_shopping_cart/addProducts';
+      const apiEndpoint = `${process.env.REACT_APP_API_BASE_URL}/product_shopping_cart/addProducts`;
 
       const payload = {
           productId,
@@ -99,7 +106,7 @@ const handleAddToCart = async () => {
 };
 
 const handleOk = () => {
-  navigate("/logout"); 
+  navigate("/login"); 
 };
 
 
@@ -192,7 +199,7 @@ const handleViewCart = (customerId) => {
     setIsLoading(true); 
     // setItemData(dummy_prod);
   
-    fetch(`http://54.191.229.94:5000/products/getProductInformation?productId=${productId}`)
+    fetch(`${process.env.REACT_APP_API_BASE_URL}/products/getProductInformation?productId=${productId}`)
         .then(response => response.json())
         .then(data => {
           console.log("sizes",sizes);
@@ -211,32 +218,41 @@ const handleViewCart = (customerId) => {
         });
   }, [productId]); 
 
-  const fetchMatchingSize = async () => {
-
-    try {
-      const response = await fetch(`http://54.191.229.94:5000/customer/getMatchingSize/${customerId}/${productId}`, {
-        method: 'GET',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-      });
-
-      if (!response.ok) {
-        throw new Error('Failed to fetch matching size');
+  useEffect(() => {
+    const fetchData = async () => {
+      try {
+        const response = await fetch(`${process.env.REACT_APP_API_BASE_URL}/customer/getMatchingSize?customerId=${customerId}&productId=${productId}`, {
+          method: 'GET',
+          headers: {
+            'Content-Type': 'application/json',
+          },
+        });
+  
+        if (!response.ok) {
+          throw new Error('Failed to fetch matching size');
+        }
+  
+        const data = await response.json();
+        
+        setMatchingSize(data.matching_size);
+        console.log(`Matching sizes: ${data.matching_size}`);
+  
+        // Round the matchPercentage to two decimal places
+        const roundedPercentage = parseFloat(data.matching_percentage).toFixed(2);
+        setMatchPercentage(roundedPercentage);
+        console.log(`Matching percentage: ${roundedPercentage.matching_percentage}`);
+      } catch (error) {
+        console.error('Error fetching matching size:', error);
       }
-
-      const data = await response.json();
-      setMatchingSize(data.size);
-      setMatchPercentage(data.percentage);
-    } catch (error) {
-      console.error('Error fetching matching size:', error);
-    }
-  };
+    };
+  
+    fetchData();
+  }, []); 
 
 
 
   const handleColorClick = (color) => {
-    console.log("selected colourrrrr",color)
+    console.log("selected colour",color)
     const newImage = `data:image/jpeg;base64,${image_colors[color]}`;
     setItemData({ ...itemData, image: newImage });
     setSelectedColor(color)
@@ -247,7 +263,7 @@ useEffect(() => {
   async function fetchCustomerId() {
     try {
       const sessionId = localStorage.getItem('sessionData');
-      const response = await fetch("http://54.191.229.94:5000/customer/getCustomerId", {
+      const response = await fetch(`${process.env.REACT_APP_API_BASE_URL}/customer/getCustomerId`, {
         method: 'GET',
         headers: {
           'Content-Type': 'application/json',
@@ -395,17 +411,21 @@ useEffect(() => {
                     </div>
                   </RadioGroup>
                 </div>
-          {customerId && recommendedSize && matchRate && (
-                <Card className="mt-6">
-                  <p>We think size <strong>{recommendedSize}</strong> is the best match for you in this product. Matching Rate <strong>{matchRate}%</strong></p>
-                </Card>
+                {customerId && (
+                  <Card className="mt-6">
+                      {recommendedSize && matchRate ? (
+                          <p>We think size <strong>{recommendedSize}</strong> is the best match for you in this product. Matching Rate <strong>{matchRate}%</strong></p>
+                      ) : (
+                          <p>Click below & Try our size recommendation algorithm to find the best match</p>
+                      )}
+                  </Card>
               )}
           <div>
           <button  type="button"
             onClick={handleOpenDrawer}
             className="mt-6 flex w-full items-center justify-center rounded-md border border-transparent bg-secondary px-8 py-3 text-base font-medium text-white hover:bg-primary hover:text-secondary focus:outline-none focus:ring-2 focus:ring-secondary focus:ring-offset-2"
           >
-            FitOn
+            Add Your Measurements
           </button>  
 
           <CustomDrawer isOpen={isDrawerOpen} onClose={() => setIsDrawerOpen(false)}>
@@ -479,23 +499,26 @@ useEffect(() => {
             )}
 
           {showSignupPrompt && (
-            <div className="fixed inset-0 flex items-center justify-center bg-gray-500 bg-opacity-35">
-              <div className="bg-white p-6 rounded-lg flex flex-col items-center">
-                <p className="font-medium text-xl">Please Sign up before using size recommendation!</p>
-                <button
-                  onClick={() => handleOk()}
-                  className=" mt-10 px-14 py-2 bg-secondary text-white rounded-md hover:bg-primary-dark focus:outline-none"
-                >
-                  OK
-                </button>
-                <button
-                  onClick={() => setShowSignupPrompt(false)}
-                  className=" mt-10 px-14 py-2 bg-secondary text-white rounded-md hover:bg-primary-dark focus:outline-none"
-                >
-                  Cancel
-                </button>
+            <div className="fixed inset-0 flex items-center justify-center bg-gray-500 bg-opacity-50">
+              <div className="bg-white p-6 rounded-lg shadow-lg flex flex-col items-center space-y-5">
+                <p className="font-bold text-xl text-black-600">Please Sign up before using size recommendation</p>
+                <div className="flex space-x-4">
+                  <button
+                    onClick={() => handleOk()}
+                    className="px-10 py-2 bg-blue-500 text-white rounded hover:bg-blue-700 focus:outline-none"
+                  >
+                    OK
+                  </button>
+                  <button
+                    onClick={() => setShowSignupPrompt(false)}
+                    className="px-10 py-2 bg-gray-300 text-black rounded hover:bg-gray-400 focus:outline-none"
+                  >
+                    Cancel
+                  </button>
+                </div>
               </div>
             </div>
+
           )}
 
 

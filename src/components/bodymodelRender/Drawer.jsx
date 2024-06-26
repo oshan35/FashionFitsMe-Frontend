@@ -41,7 +41,7 @@ const CustomDrawer = ({ isOpen, onClose }) => {
     async function fetchCustomerId() {
       try {
         const sessionId = localStorage.getItem('sessionData');
-        const response = await fetch("http://54.191.229.94:5000/customer/getCustomerId", {
+        const response = await fetch(`${process.env.REACT_APP_API_BASE_URL}/customer/getCustomerId`, {
           method: 'GET',
           headers: {
             'Content-Type': 'application/json',
@@ -65,7 +65,7 @@ const CustomDrawer = ({ isOpen, onClose }) => {
 
   const handleGetMeasurements = async () => {
     try {
-      const response = await fetch('http://54.191.229.94:5000/customer/getmeasurements', {
+      const response = await fetch(`${process.env.REACT_APP_API_BASE_URL}/customer/getmeasurements`, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
@@ -77,24 +77,31 @@ const CustomDrawer = ({ isOpen, onClose }) => {
           weight: weight
         })
       });
-
+  
       if (!response.ok) {
         throw new Error('Network response was not ok');
       }
-
+  
       const data = await response.json();
       console.log(data);
-
-      setMeasurements(data.measurements);
+  
+      // Transform the measurements object to an array
+      const measurementsArray = Object.keys(data.measurements).map(key => ({
+        name: key,
+        value: data.measurements[key]
+      }));
+  
+      setMeasurements(measurementsArray);
       setModelUrl(data.modelUrl); 
     } catch (error) {
       console.error('There was a problem with the fetch operation:', error);
     }
   };
+  
 
   const handleSave = async () => {
     try {
-      const response = await fetch('http://54.191.229.94:5000/customer/saveMeasurements', {
+      const response = await fetch(`${process.env.REACT_APP_API_BASE_URL}/customer/saveMeasurements`, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
