@@ -12,12 +12,12 @@ import NavBarNew from "./NavNew";
 import CustomDrawer from "./bodymodelRender/Drawer";
 import Nav from "./Nav";
 import { Modal, Button, Card } from 'antd';
-
-
-
+import { Mens,Womens } from "../assets/images";
+import { message } from 'antd';
 
 
 export default function ViewProduct({productId}) {
+  const [matchingSizeError, setMatchingSizeError] = useState(null);
 
   const initialSizes = ['XXS','XS', 'S', 'M', 'L', 'XL', 'XXL','XXXL'];
   const [sizeAvailability, setSizeAvailability] = useState({}); 
@@ -32,6 +32,18 @@ export default function ViewProduct({productId}) {
   const [recommendedSize, setRecommendedSize] = useState(null);
   const [matchRate, setMatchRate] = useState(null);
   const navigate = useNavigate();
+  const [showSizeGuide, setShowSizeGuide] = useState(false);
+
+  const [fetchError,setFetchError]=useState(false);
+
+  const handleOpenSizeGuide = () => {
+    setShowSizeGuide(true);
+  };
+
+  const handleCloseSizeGuide = () => {
+    setShowSizeGuide(false);
+  };
+
  
   function classNames(...classes) {
     return classes.filter(Boolean).join(" ");
@@ -129,7 +141,8 @@ const handleViewCart = (customerId) => {
     sizes: [],
     colors: [],
     image_colors: {},
-    category:''
+    category:'',
+    gender:''
   });
   useEffect(() => {
     if (itemData.sizes.length > 0) {
@@ -185,14 +198,10 @@ const handleViewCart = (customerId) => {
   const [isDrawerOpen, setIsDrawerOpen] = useState(false);
   const [matchingSize, setMatchingSize] = useState(null);
   const [matchPercentage, setMatchPercentage] = useState(null);
+  const [fetchedMatched, setfetchedMatched] = useState("not_fetched");
 
-  const handleOpenDrawer = () => {
-    if (customerId == null) {
-      setShowSignupPrompt(true);
-    } else {
-      setIsDrawerOpen(true);
-    }
-  };
+  
+
 
   // TODO - Uncomment after development
   useEffect(() => {
@@ -218,37 +227,54 @@ const handleViewCart = (customerId) => {
         });
   }, [productId]); 
 
-  useEffect(() => {
-    const fetchData = async () => {
-      try {
-        const response = await fetch(`${process.env.REACT_APP_API_BASE_URL}/customer/getMatchingSize?customerId=${customerId}&productId=${productId}`, {
-          method: 'GET',
-          headers: {
-            'Content-Type': 'application/json',
-          },
-        });
-  
-        if (!response.ok) {
-          throw new Error('Failed to fetch matching size');
-        }
-  
-        const data = await response.json();
-        
-        setMatchingSize(data.matching_size);
-        console.log(`Matching sizes: ${data.matching_size}`);
-  
-        // Round the matchPercentage to two decimal places
-        const roundedPercentage = parseFloat(data.matching_percentage).toFixed(2);
-        setMatchPercentage(roundedPercentage);
-        console.log(`Matching percentage before: ${data.matching_percentage}`);
-        console.log(`Matching percentage after: ${roundedPercentage}`);
-      } catch (error) {
-        console.error('Error fetching matching size:', error);
+  const fetchData = async () => {
+    try {
+      const response = await fetch(`${process.env.REACT_APP_API_BASE_URL}/customer/getMatchingSize?customerId=${customerId}&productId=${productId}`, {
+        method: 'GET',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+      });
+
+      if (!response.ok) {
+        const errorText = await response.text();
+        throw new Error(`Failed to fetch matching size: ${errorText}`);
       }
-    };
-  
-    fetchData();
-  }, [isDrawerOpen]); 
+
+      const data = await response.json();
+
+      setMatchingSize(data.matching_size);
+      console.log(`Matching sizes: ${data.matching_size}`);
+
+      // Round the matchPercentage to two decimal places
+      const roundedPercentage = parseFloat(data.matching_percentage).toFixed(2);
+      setMatchPercentage(roundedPercentage);
+      console.log(`Matching percentage before: ${data.matching_percentage}`);
+      console.log(`Matching percentage after: ${roundedPercentage}`);
+      setFetchError(false); // Reset error state if successful
+    } catch (error) {
+      console.error('Error fetching matching size:', error);
+      setMatchingSize(null); // Set matching size to null if there's an error
+      setMatchPercentage(null); // Set match percentage to null if there's an error
+      setFetchError(true); // Set error state if there's an error
+    }
+  };
+
+  const handleOpenDrawer = () => {
+    if (customerId == null) {
+      setShowSignupPrompt(true);
+    } else {
+      setIsDrawerOpen(true);
+      setFetchError(false); // Reset error state when opening the drawer
+      fetchData(); // Fetch data when opening the drawer
+    }
+  };
+  const handleCloseDrawer = () => {
+    setIsDrawerOpen(false);
+    if (fetchError) {
+      message.error('Sorry, we have not entered measurements for this product yet.');
+    }
+  };
 
 
 
@@ -291,8 +317,10 @@ useEffect(() => {
     console.log("customer id",customerId)
   }, [customerId]);
   return (
-    
-      <div className="">
+      <div className="bg-white">
+      <section className="">
+        <NavBarNew />
+      </section>
 
         <div className="max-w-2xl mx-auto pt-8 pb-24 sm:pt-16 sm:px-6 lg:max-w-7xl lg:px-8">
         <div className="px-4 space-y-2 sm:px-0 sm:flex sm:items-baseline sm:justify-between sm:space-y-0">
@@ -370,12 +398,13 @@ useEffect(() => {
                 <div className="mt-8">
                   <div className="flex items-center justify-between">
                     <h2 className="text-sm font-medium text-gray-900">Size</h2>
-                    <a
-                      href="#"
-                      className="text-sm font-medium text-indigo-600 hover:text-indigo-500"
-                    >
-                      See sizing chart
-                    </a>
+                    <button
+                    type="button"
+                    onClick={handleOpenSizeGuide}
+                    className="text-sm font-medium text-indigo-600 hover:text-indigo-500"
+                  >
+                    Size guide
+                  </button>
                   </div>
 
                   <RadioGroup
@@ -412,13 +441,18 @@ useEffect(() => {
                   </RadioGroup>
                 </div>
                 {customerId && (
-  <Card className="mt-6">
-    {matchingSize && matchPercentage ? (
-      <p>We think size <strong>{matchingSize}</strong> is the best match for you in this product. Matching Rate <strong>{matchPercentage}%</strong></p>
-    ) : (
-      <p>Click below & Try our size recommendation algorithm to find the best match</p>
-    )}
-  </Card>
+ <Card className="mt-6 p-4 bg-blue-10 border border-blue-200 rounded-lg shadow-sm">
+ {matchingSize && matchPercentage ? (
+   <p className="text-lg font-medium text-gray-900">
+     We think size <strong className="text-blue-700">{matchingSize}</strong> is the best match for you in this product. 
+     Matching Rate <strong className="text-blue-700">{matchPercentage}%</strong>
+   </p>
+ ) : (
+   <p className="text-lg font-medium text-gray-900">
+     Click below & Try our <span className="text-blue-700">size recommendation algorithm</span> to find the best match.
+   </p>
+ )}
+</Card>
 )}
 
           <div>
@@ -426,10 +460,10 @@ useEffect(() => {
             onClick={handleOpenDrawer}
             className="mt-6 flex w-full items-center justify-center rounded-md border border-transparent bg-secondary px-8 py-3 text-base font-medium text-white hover:bg-primary hover:text-secondary focus:outline-none focus:ring-2 focus:ring-secondary focus:ring-offset-2"
           >
-            Add Your Measurements
+            Find My Fit
           </button>  
 
-          <CustomDrawer isOpen={isDrawerOpen} onClose={() => setIsDrawerOpen(false)}>
+          <CustomDrawer isOpen={isDrawerOpen} onClose={handleCloseDrawer}>
             {/* Add content for the drawer here */}
             <p>Drawer Content</p>
           </CustomDrawer>
@@ -521,6 +555,32 @@ useEffect(() => {
             </div>
 
           )}
+
+{/* Size Guide Modal */}
+
+<Modal
+  title="Size Guide"
+  visible={showSizeGuide}
+  onCancel={handleCloseSizeGuide}
+  footer={[
+    <Button key="close" onClick={handleCloseSizeGuide}>
+      Close
+    </Button>
+  ]}
+>
+{itemData && itemData.gender && itemData.gender.toLowerCase() === 'men' ? (
+  <Card>
+    <img src={Mens} alt="Men's Size Guide" style={{ width: '100%', height: '100%', objectFit: 'cover' }} />
+  </Card>
+) : (
+  <Card>
+    <img src={Womens} alt="Women's Size Guide" style={{ width: '100%', height: '100%', objectFit: 'cover' }} />
+  </Card>
+)}
+
+
+</Modal>
+
 
 
 

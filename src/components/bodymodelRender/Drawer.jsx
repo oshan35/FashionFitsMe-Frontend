@@ -1,4 +1,6 @@
-import React, { useEffect, useRef, useState } from 'react';
+
+
+import React, { useEffect, useState } from 'react';
 import { Drawer as AntDrawer, Select, Slider, Button } from 'antd';
 import * as THREE from 'three';
 import { OBJLoader } from 'three/examples/jsm/loaders/OBJLoader';
@@ -6,7 +8,6 @@ import { useNavigate } from 'react-router-dom';
 import BodyModel from './bodymodel';
 
 const { Option } = Select;
-
 
 const measurementLabels = {
   ankle_circumference: 'Ankle Circumference',
@@ -32,10 +33,11 @@ const CustomDrawer = ({ isOpen, onClose }) => {
   const [weight, setWeight] = useState(70);
   const [customerId, setCustomerId] = useState(null);
   const [modelUrl, setModelUrl] = useState(null);
+  const [measurements, setMeasurements] = useState(Object.keys(measurementLabels).map(key => ({ name: key, value: 0 })));
+  const [fetchingMeasurements, setFetchingMeasurements] = useState(false);
+  const [errorMessage, setErrorMessage] = useState(null); // State for error message
 
   const navigate = useNavigate();
-
-  const [measurements, setMeasurements] = useState(Object.keys(measurementLabels).map(key => ({ name: key, value: 0 })));
 
   useEffect(() => {
     async function fetchCustomerId() {
@@ -65,6 +67,7 @@ const CustomDrawer = ({ isOpen, onClose }) => {
 
   const handleGetMeasurements = async () => {
     try {
+      setFetchingMeasurements(true);
       const response = await fetch(`${process.env.REACT_APP_API_BASE_URL}/customer/getmeasurements`, {
         method: 'POST',
         headers: {
@@ -85,45 +88,24 @@ const CustomDrawer = ({ isOpen, onClose }) => {
       const data = await response.json();
       console.log(data);
   
-      // Transform the measurements object to an array
       const measurementsArray = Object.keys(data.measurements).map(key => ({
         name: key,
         value: data.measurements[key]
       }));
   
       setMeasurements(measurementsArray);
-      setModelUrl(data.modelUrl); 
+      setModelUrl(data.modelUrl);
+      setFetchingMeasurements(false);
+      
     } catch (error) {
       console.error('There was a problem with the fetch operation:', error);
+      setFetchingMeasurements(false);
+      setErrorMessage('Failed to fetch measurements. Please try again.'); // Set error message
+
     }
   };
-  
 
-  // const handleSave = async () => {
-  //   try {
-  //     const response = await fetch(`${process.env.REACT_APP_API_BASE_URL}/customer/saveMeasurements`, {
-  //       method: 'POST',
-  //       headers: {
-  //         'Content-Type': 'application/json',
-  //       },
-  //       body: JSON.stringify({ measurements }),
-  //     });
-
-  //     if (!response.ok) {
-  //       throw new Error('Failed to save measurements');
-  //     }
-
-  //     const data = await response.json();
-  //     setModelUrl(data.modelUrl); 
-
-  //     console.log('Measurements saved successfully');
-  //   } catch (error) {
-  //     console.error('Error saving measurements:', error);
-  //   }
-  // };
-
-
-  const handleSave = async () => {
+  const handleSaveMeasurements = async () => {
     try {
       const response = await fetch(`${process.env.REACT_APP_API_BASE_URL}/customer/saveMeasurements`, {
         method: 'POST',
@@ -138,28 +120,26 @@ const CustomDrawer = ({ isOpen, onClose }) => {
           }, {})
         }),
       });
-      const data = await response.json();
-      console.log("response after updateing",response.body)
+
       if (!response.ok) {
         throw new Error('Failed to save measurements');
       }
-  
-     
-      //setModelUrl(data.modelUrl); 
-  
+
+      const data = await response.json();
       console.log('Measurements saved successfully');
+      // Optionally update UI or handle success
     } catch (error) {
-      console.error('Error saving measurements in', error);
+      console.error('Error saving measurements:', error);
     }
   };
-  
+
   const renderSliders = () => {
     return measurements.map((measurement, index) => (
       <div key={index} style={{ marginBottom: 16 }}>
         <label>{measurementLabels[measurement.name]}: {measurement.value} cm</label>
         <Slider
           min={0}
-          max={150} 
+          max={150}
           value={measurement.value}
           onChange={(value) => {
             const newMeasurements = [...measurements];
@@ -179,9 +159,10 @@ const CustomDrawer = ({ isOpen, onClose }) => {
       visible={isOpen}
       width={400}
     >
-      <div className="drawer-section" style={{ marginBottom: 16 }}>
+
+       {/* <div className="drawer-section" style={{ marginBottom: 16 }}>
         <BodyModel url={modelUrl} />
-      </div>
+      </div> */}
       <div className="drawer-section">
         <Select
           value={gender}
@@ -196,8 +177,8 @@ const CustomDrawer = ({ isOpen, onClose }) => {
         <div style={{ marginBottom: 16 }}>
           <label>Height: {height} cm</label>
           <Slider
-            min={120} // Adjusted minimum height
-            max={220} // Adjusted maximum height
+            min={120}
+            max={220}
             value={height}
             onChange={setHeight}
           />
@@ -205,30 +186,54 @@ const CustomDrawer = ({ isOpen, onClose }) => {
         <div style={{ marginBottom: 16 }}>
           <label>Weight: {weight} kg</label>
           <Slider
-            min={40} 
-            max={130} 
+            min={40}
+            max={130}
             value={weight}
             onChange={setWeight}
           />
         </div>
-        <div style={{ marginBottom: 16 }}>
-          <button
-            type="button"
-            className="mt-6 flex w-full items-center justify-center rounded-md border border-transparent bg-secondary px-8 py-3 text-base font-medium text-white hover:bg-primary hover:text-secondary focus:outline-none focus:ring-2 focus:ring-secondary focus:ring-offset-2"
-            onClick={handleGetMeasurements}
-          >
-            Get Measurements
-          </button>
+        <div className="flex justify-center mb-5">
+        {/* <button
+  type="primary"
+  onClick={fetchingMeasurements ? null : handleGetMeasurements}
+  loading={fetchingMeasurements}
+  className="mt-5 flex w-13 items-center justify-center rounded-md border border-transparent bg-secondary px-8 py-3 text-base font-medium text-white hover:bg-primary hover:text-secondary focus:outline-none focus:ring-2 focus:ring-secondary focus:ring-offset-2"
+>
+  {measurements.some(m => m.value !== 0) ? 'Update Measurements' : 'Get Measurements'}
+</button> */}
+<Button
+  type="primary"
+  onClick={fetchingMeasurements ? null : handleGetMeasurements}
+  loading={fetchingMeasurements}
+  style={{
+    backgroundColor: errorMessage ? '#ffcccc' : '#1890ff',
+    borderColor: errorMessage ? '#ffcccc' : '#1890ff',
+    marginBottom: 16,
+  }}
+>
+  {measurements.some(m => m.value !== 0) ? 'Update Measurements' : 'Get Measurements'}
+</Button>
+
+
         </div>
         {renderSliders()}
+        <div className="flex justify-center mb-5">
+
         <button
-          type="button"
-          className="mt-6 flex w-1/2 items-center justify-center rounded-md border border-transparent bg-secondary px-8 py-3 text-base font-medium text-white hover:bg-primary hover:text-secondary focus:outline-none focus:ring-2 focus:ring-secondary focus:ring-offset-2"
-          onClick={handleSave}
-        >
+          type="primary"
+          onClick={handleSaveMeasurements}
+          className="mt-3 flex w-13 items-center justify-center rounded-md border border-transparent bg-secondary px-8 py-3 text-base font-medium text-white hover:bg-primary hover:text-secondary focus:outline-none focus:ring-2 focus:ring-secondary focus:ring-offset-2"
+          >
           Save
         </button>
+        {errorMessage && (
+  <div style={{ marginTop: 10, padding: '8px 12px', backgroundColor: '#ffcccc', borderRadius: 4 }}>
+    {errorMessage}
+  </div>
+)}
       </div>
+      </div>
+
     </AntDrawer>
   );
 };

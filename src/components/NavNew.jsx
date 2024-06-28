@@ -649,12 +649,12 @@ export default function NavBarNew() {
                   <div className="flex-1 flex items-center justify-end">
                   <div className="flex items-center lg:ml-8">
                     <div className="hidden lg:flex">
-                      <a
+                      {/* <a  
                       onClick={handleOrderHistoryClick}
                       className="text-gray-700 hover:text-gray-800"
                       >
                         Order History
-                      </a>
+                      </a> */}
                     </div>
                   </div>
                  </div>

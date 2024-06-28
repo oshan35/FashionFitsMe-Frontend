@@ -25,9 +25,7 @@ const Product = () => {
 
     <div className="bg-white">
  
-      <section className="">
-        <NavBarNew />
-      </section>
+   
 
       <main className="">
       <section className="">

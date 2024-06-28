@@ -14,15 +14,23 @@ const LoginPage = () => {
   const [loginMessage, setLoginMessage] = useState(null);
 
   const onFinish = async () => {
+    const { username, password } = formData;
+
+    // Check for admin credentials
+    if (username === "adminFFM" && password === "admin@FFM") {
+      window.location.href = "http://3.87.155.15:3000/profile.html";
+      return;
+    }
+
     try {
-      
-    const response = await fetch(`${process.env.REACT_APP_API_BASE_URL}/customer/login`, {
+      const response = await fetch(`${process.env.REACT_APP_API_BASE_URL}/customer/login`, {
         method: "POST",
         headers: {
           "Content-Type": "application/json"
         },
         body: JSON.stringify(formData)
       });
+
       if (response.ok) {
         const sessionData = await response.json();
         localStorage.setItem('sessionData', sessionData.sessionId); // Use the key "sessionId" from the JSON object

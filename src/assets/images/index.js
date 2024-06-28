@@ -32,7 +32,8 @@ import Versace from  "./versace-primary-logo.png"
 import Odel from  "./Odel.jpeg"
 import Kelly from  "./Kelly.jpeg"
 import UnderArmourLogo from "./Under-Armour-logo.png"
-
+import Womens from "./sizechart_women.webp"
+import Mens from "./mens-size-guide.jpg"
 
 export {
   customer1,
@@ -63,6 +64,8 @@ export {
   UnderArmourLogo,
   Aldo,
   Odel,
-  Kelly
+  Kelly,
+  Mens,
+  Womens
 
 };

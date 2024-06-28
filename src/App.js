@@ -54,7 +54,7 @@ const App = () => {
   return (
     <>
     <SelectedFiltersProvider>
-     <RouterProvider router={router} />;
+     <RouterProvider router={router} />
   </SelectedFiltersProvider></>
 
   )
