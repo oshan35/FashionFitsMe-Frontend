@@ -90,6 +90,39 @@
 				}
 			},
 			"response": []
+		},
+		{
+			"name": "http://54.191.229.94:5000/customer/getMatchingSize?customerId=${customerId}&productId=${productId}",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://54.191.229.94:5000/customer/getMatchingSize?customerId=${customerId}&productId=${productId}",
+					"protocol": "http",
+					"host": [
+						"54",
+						"191",
+						"229",
+						"94"
+					],
+					"port": "5000",
+					"path": [
+						"customer",
+						"getMatchingSize"
+					],
+					"query": [
+						{
+							"key": "customerId",
+							"value": "${customerId}"
+						},
+						{
+							"key": "productId",
+							"value": "${productId}"
+						}
+					]
+				}
+			},
+			"response": []
 		}
 	]
 }
