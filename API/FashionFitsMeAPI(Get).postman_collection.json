@@ -1,0 +1,95 @@
+{
+	"info": {
+		"_postman_id": "c47048b6-3d69-45c1-8603-4e986e438210",
+		"name": "FashionFitsMeAPI(Get)",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "30541229"
+	},
+	"item": [
+		{
+			"name": "New Request",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://54.191.229.94:5000/customer/getCustomerId",
+					"protocol": "http",
+					"host": [
+						"54",
+						"191",
+						"229",
+						"94"
+					],
+					"port": "5000",
+					"path": [
+						"customer",
+						"getCustomerId"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "http://54.191.229.94:5000/products/getProductInformation?productId=${productId}",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://54.191.229.94:5000/products/getProductInformation?productId=${productId}",
+					"protocol": "http",
+					"host": [
+						"54",
+						"191",
+						"229",
+						"94"
+					],
+					"port": "5000",
+					"path": [
+						"products",
+						"getProductInformation"
+					],
+					"query": [
+						{
+							"key": "productId",
+							"value": "${productId}"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "http://54.191.229.94:5000/customer/getMatchingSize?customerId=${customerId}&productId=${productId}",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://54.191.229.94:5000/customer/getMatchingSize?customerId=${customerId}&productId=${productId}",
+					"protocol": "http",
+					"host": [
+						"54",
+						"191",
+						"229",
+						"94"
+					],
+					"port": "5000",
+					"path": [
+						"customer",
+						"getMatchingSize"
+					],
+					"query": [
+						{
+							"key": "customerId",
+							"value": "${customerId}"
+						},
+						{
+							"key": "productId",
+							"value": "${productId}"
+						}
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}

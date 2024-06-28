@@ -1,0 +1,193 @@
+{
+	"info": {
+		"_postman_id": "b736314c-113c-4722-87c2-f5d7dd22fe85",
+		"name": "FashionFitsMeAPI(Post)",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "30541229"
+	},
+	"item": [
+		{
+			"name": "New Request",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"url": {
+					"raw": "http://54.191.229.94:5000/customer/getmeasurements",
+					"protocol": "http",
+					"host": [
+						"54",
+						"191",
+						"229",
+						"94"
+					],
+					"port": "5000",
+					"path": [
+						"customer",
+						"getmeasurements"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "http://54.191.229.94:5000/customer/saveMeasurements",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"url": {
+					"raw": "http://54.191.229.94:5000/customer/saveMeasurements",
+					"protocol": "http",
+					"host": [
+						"54",
+						"191",
+						"229",
+						"94"
+					],
+					"port": "5000",
+					"path": [
+						"customer",
+						"saveMeasurements"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "http://54.191.229.94:5000/products/filter-products",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"url": {
+					"raw": "http://54.191.229.94:5000/products/filter-products",
+					"protocol": "http",
+					"host": [
+						"54",
+						"191",
+						"229",
+						"94"
+					],
+					"port": "5000",
+					"path": [
+						"products",
+						"filter-products"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "http://54.191.229.94:5000/payment",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"url": {
+					"raw": "http://54.191.229.94:5000/payment",
+					"protocol": "http",
+					"host": [
+						"54",
+						"191",
+						"229",
+						"94"
+					],
+					"port": "5000",
+					"path": [
+						"payment"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "http://54.191.229.94:5000/customer/login",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"url": {
+					"raw": "http://54.191.229.94:5000/customer/login",
+					"protocol": "http",
+					"host": [
+						"54",
+						"191",
+						"229",
+						"94"
+					],
+					"port": "5000",
+					"path": [
+						"customer",
+						"login"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "http://54.191.229.94:5000/orders/getOrder",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"url": {
+					"raw": "http://54.191.229.94:5000/orders/getOrder",
+					"protocol": "http",
+					"host": [
+						"54",
+						"191",
+						"229",
+						"94"
+					],
+					"port": "5000",
+					"path": [
+						"orders",
+						"getOrder"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "http://54.191.229.94:5000/customer/signup",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"url": {
+					"raw": "http://54.191.229.94:5000/customer/signup",
+					"protocol": "http",
+					"host": [
+						"54",
+						"191",
+						"229",
+						"94"
+					],
+					"port": "5000",
+					"path": [
+						"customer",
+						"signup"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "http://54.191.229.94:5000/products/getHomeProducts",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"url": {
+					"raw": "http://54.191.229.94:5000/products/getHomeProducts",
+					"protocol": "http",
+					"host": [
+						"54",
+						"191",
+						"229",
+						"94"
+					],
+					"port": "5000",
+					"path": [
+						"products",
+						"getHomeProducts"
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}
